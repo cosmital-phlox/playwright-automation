@@ -1,0 +1,118 @@
+name: Scheduled UI Tests
+
+# Runs the full Playwright suite (customer frontend + admin panel) daily at
+# 5:00 PM IST (11:30 UTC), publishes the HTML report to GitHub Pages, and posts
+# the result to Slack. Can also be triggered manually from the Actions tab.
+on:
+  schedule:
+    - cron: '30 11 * * *' # 5:00 PM IST
+  workflow_dispatch:
+
+# Allow the workflow to push the report to the gh-pages branch.
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Run Playwright tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CI: 'true'
+      # Admin login defaults to the sandbox account baked into admin.setup.js;
+      # override via repo secrets if these are set.
+      ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      # Defined at job level so the steps' `if:` conditions can read them.
+      FRONTEND_STORAGE_STATE: ${{ secrets.FRONTEND_STORAGE_STATE }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Restore frontend session (skips the OTP login)
+        if: ${{ env.FRONTEND_STORAGE_STATE != '' }}
+        env:
+          FRONTEND_STORAGE_STATE: ${{ secrets.FRONTEND_STORAGE_STATE }}
+        run: |
+          mkdir -p playwright/.auth
+          echo "$FRONTEND_STORAGE_STATE" | base64 --decode > playwright/.auth/user.json
+          echo "Restored frontend session from secret."
+
+      - name: Run tests (frontend + admin)
+        id: tests
+        continue-on-error: true
+        run: npx playwright test --project=chromium --project=admin
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Publish report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          destination_dir: reports/${{ github.run_id }}
+          keep_files: true
+
+      - name: Notify Slack
+        if: always() && env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ "${{ steps.tests.outcome }}" = "success" ]; then
+            STATUS="✅ Passed"
+            MENTION=""
+          else
+            STATUS="❌ Failed"
+            MENTION="<!channel> "
+          fi
+
+          # Pull pass/fail counts out of results.json (emitted by the JSON reporter in CI).
+          STATS=""
+          if [ -f results.json ]; then
+            STATS=$(node -e "
+              try {
+                const r = require('./results.json');
+                let pass = 0, fail = 0, skip = 0, flaky = 0;
+                const walk = (suites) => (suites || []).forEach(s => {
+                  (s.specs || []).forEach(sp => (sp.tests || []).forEach(t => {
+                    const st = t.status;
+                    if (st === 'expected') pass++;
+                    else if (st === 'unexpected') fail++;
+                    else if (st === 'flaky') flaky++;
+                    else if (st === 'skipped') skip++;
+                  }));
+                  walk(s.suites);
+                });
+                walk(r.suites);
+                console.log(\`\${pass} passed, \${fail} failed, \${flaky} flaky, \${skip} skipped\`);
+              } catch (e) { console.log(''); }
+            ")
+          fi
+
+          REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/${{ github.run_id }}/"
+
+          TEXT="${MENTION}*Playwright UI Tests* — ${STATUS}\n${STATS}\n<${REPORT_URL}|View report>"
+
+          curl -sf -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"${TEXT}\"}" \
+            "$SLACK_WEBHOOK_URL"
