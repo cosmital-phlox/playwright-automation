@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Playwright output (regenerated every run — not source)
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+results.json
+
+# Saved login sessions — secrets. CI restores these from the
+# FRONTEND_STORAGE_STATE secret; never commit them.
+playwright/.auth/
+
+# OS junk
+.DS_Store
