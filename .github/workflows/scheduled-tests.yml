@@ -1,11 +1,13 @@
 name: Scheduled UI Tests
 
-# Runs the full Playwright suite (customer frontend + admin panel) daily at
-# 5:00 PM IST (11:30 UTC), publishes the HTML report to GitHub Pages, and posts
-# the result to Slack. Can also be triggered manually from the Actions tab.
+# Runs the full Playwright suite (customer frontend + admin panel) twice daily
+# at 11:30 AM IST (06:00 UTC) and 7:00 PM IST (13:30 UTC), publishes the HTML
+# report to GitHub Pages, and posts the result to Slack. Can also be triggered
+# manually from the Actions tab.
 on:
   schedule:
-    - cron: '30 11 * * *' # 5:00 PM IST
+    - cron: '0 6 * * *' # 11:30 AM IST
+    - cron: '30 13 * * *' # 7:00 PM IST
   workflow_dispatch:
 
 # Allow the workflow to push the report to the gh-pages branch.
