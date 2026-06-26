@@ -1,0 +1,452 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/school-districts.spec.js >> Delete a school district (with confirmation)
+- Location: tests/admin/school-districts.spec.js:153:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('tr.ant-table-row').filter({ hasText: 'QASD kshymb' }).first()
+Expected: visible
+Timeout: 15000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 15000ms
+  - waiting for locator('tr.ant-table-row').filter({ hasText: 'QASD kshymb' }).first()
+
+```
+
+```yaml
+- complementary:
+  - img "left"
+  - img "Vype Logo"
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events?sortDirection=ascend&sortColumn=startTime
+        - img
+        - paragraph: Events
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - img
+        - paragraph: Spotlight Bundles
+    - listitem:
+      - link "Orders":
+        - /url: /orders
+        - img
+        - paragraph: Orders
+    - listitem:
+      - link "Users":
+        - /url: /users
+        - img
+        - paragraph: Users
+    - listitem:
+      - link "Organizations":
+        - /url: /organizations
+        - img
+        - paragraph: Organizations
+    - listitem:
+      - link "Products":
+        - /url: /products
+        - img
+        - paragraph: Products
+    - listitem:
+      - link "Coupons":
+        - /url: /coupons
+        - img
+        - paragraph: Coupons
+    - listitem:
+      - link "Gift Cards":
+        - /url: /giftcards
+        - img
+        - paragraph: Gift Cards
+    - listitem:
+      - link "Categories":
+        - /url: /categories
+        - img
+        - paragraph: Categories
+    - listitem:
+      - link "Levels":
+        - /url: /levels
+        - img
+        - paragraph: Levels
+    - listitem:
+      - link "School Districts":
+        - /url: /school-districts
+        - img
+        - paragraph: School Districts
+    - listitem:
+      - link "Zenfolio":
+        - /url: /browse-and-buy
+        - img
+        - paragraph: Zenfolio
+    - listitem:
+      - link "Payouts":
+        - /url: /payout?sortDirection=ascend&sortColumn=payee
+        - img
+        - paragraph: Payouts
+    - listitem:
+      - link "Reports":
+        - /url: /reports
+        - img
+        - paragraph: Reports
+- paragraph: "Staging: Sandbox, you can play around :)"
+- heading "Dhaval Kukadia" [level=6]
+- paragraph: Admin, Photographer
+- img "user"
+- paragraph: Logout
+- img
+- main:
+  - text: Home/School Districts School Districts
+  - button "Import"
+  - button "Add"
+  - textbox "🔍 Search"
+  - combobox
+  - text: State
+  - heading "Showing 61 School Districts" [level=6]
+  - img "reload"
+  - table:
+    - rowgroup:
+      - row "School District caret-up caret-down District Code caret-up caret-down Schools caret-up caret-down Status caret-up caret-down State caret-up caret-down Actions":
+        - columnheader "School District caret-up caret-down":
+          - text: School District
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "District Code caret-up caret-down":
+          - text: District Code
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Schools caret-up caret-down":
+          - text: Schools
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Status caret-up caret-down":
+          - text: Status
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "State caret-up caret-down":
+          - text: State
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Actions"
+  - table:
+    - rowgroup:
+      - row "QASDEdited fvfymb - 1 Active California":
+        - cell "QASDEdited fvfymb"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASD mqnxmb - 1 Active California":
+        - cell "QASD mqnxmb"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASDEdited fenghb - 1 Active California":
+        - cell "QASDEdited fenghb"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASD sfwfhb - 1 Active California":
+        - cell "QASD sfwfhb"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASD krsbdb - 1 Active California":
+        - cell "QASD krsbdb"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASDEdited kacbdb - 1 Active California":
+        - cell "QASDEdited kacbdb"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASD vvkadb - 1 Active California":
+        - cell "QASD vvkadb"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASDEdited cgpwxv - 1 Active California":
+        - cell "QASDEdited cgpwxv"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "QASD bcxvxv - 1 Active California":
+        - cell "QASD bcxvxv"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "California"
+        - cell:
+          - img
+          - img
+      - row "testqqq - 1 Active Arizona":
+        - cell "testqqq"
+        - cell "-"
+        - cell "1"
+        - cell "Active"
+        - cell "Arizona"
+        - cell:
+          - img
+          - img
+  - list:
+    - listitem: 1-10 of 61
+    - listitem "Previous Page":
+      - button "left" [disabled]:
+        - img "left"
+    - listitem "Next Page":
+      - button "right":
+        - img "right"
+    - listitem:
+      - combobox
+      - text: 10 / page
+```
+
+# Test source
+
+```ts
+  61  |   await gotoSchoolDistricts(page);
+  62  | 
+  63  |   const options = await openSelectFilter(page, 'State');
+  64  |   await options.filter({ hasText: 'California' }).first().click();
+  65  |   await expect(page.locator('.ant-select-selection-item', { hasText: 'California' })).toBeVisible();
+  66  | });
+  67  | 
+  68  | // ---------------------------------------------------------------------------
+  69  | // Add / create
+  70  | // ---------------------------------------------------------------------------
+  71  | 
+  72  | test('Add button opens the Add School District form', async ({ page }) => {
+  73  |   await gotoSchoolDistricts(page);
+  74  |   await page.waitForTimeout(2000);
+  75  | 
+  76  |   const addBtn = page.getByRole('button', { name: 'Add' });
+  77  |   await expect(async () => {
+  78  |     await addBtn.click();
+  79  |     await expect(page).toHaveURL(/\/school-districts\/add/, { timeout: 5000 });
+  80  |   }).toPass({ timeout: 25000 });
+  81  | 
+  82  |   await expect(page.getByRole('button', { name: 'Save changes' })).toBeVisible();
+  83  |   await expect(page.locator('#name')).toBeVisible();
+  84  | });
+  85  | 
+  86  | test('Adding a district with an empty form shows required-field validation', async ({ page }) => {
+  87  |   await gotoAddSchoolDistrict(page);
+  88  | 
+  89  |   await page.getByRole('button', { name: 'Save changes' }).click();
+  90  | 
+  91  |   await expect(page.getByText('Please enter a title')).toBeVisible();
+  92  |   await expect(page.getByText('Please select a state')).toBeVisible();
+  93  |   await expect(page.getByText('Please select at least one school')).toBeVisible();
+  94  |   await expect(page).toHaveURL(/\/school-districts\/add/);
+  95  | });
+  96  | 
+  97  | test('Create a school district', async ({ page }) => {
+  98  |   const name = await createSchoolDistrict(page);
+  99  | 
+  100 |   await gotoSchoolDistricts(page);
+  101 |   const search = page.getByPlaceholder('Search');
+  102 |   await search.fill(name);
+  103 |   await search.press('Enter');
+  104 |   await expect(page.locator('tr.ant-table-row').filter({ hasText: name }).first()).toBeVisible({
+  105 |     timeout: 15000,
+  106 |   });
+  107 | });
+  108 | 
+  109 | // ---------------------------------------------------------------------------
+  110 | // Edit / delete
+  111 | // ---------------------------------------------------------------------------
+  112 | 
+  113 | test('Edit opens the school district edit form', async ({ page }) => {
+  114 |   await gotoSchoolDistricts(page);
+  115 | 
+  116 |   const row = page.locator('tr.ant-table-row').first();
+  117 |   await expect(row).toBeVisible({ timeout: 20000 });
+  118 |   await row.locator('td').last().locator('svg').first().click();
+  119 | 
+  120 |   await expect(page).toHaveURL(/\/school-districts\/edit\/\d+/, { timeout: 25000 });
+  121 |   await expect(page.locator('#name')).toHaveValue(/\S/, { timeout: 25000 });
+  122 | });
+  123 | 
+  124 | test('Editing a school district saves the change (persists)', async ({ page }) => {
+  125 |   const name = await createSchoolDistrict(page);
+  126 | 
+  127 |   await gotoSchoolDistricts(page);
+  128 |   const search = page.getByPlaceholder('Search');
+  129 |   await search.fill(name);
+  130 |   await search.press('Enter');
+  131 |   await openDistrictEditByName(page, name);
+  132 |   await expect(page.locator('#name')).toHaveValue(/\S/, { timeout: 25000 });
+  133 | 
+  134 |   const newName = 'QASDEdited ' + name.split(' ')[1];
+  135 |   await page.locator('#name').fill(newName);
+  136 |   await Promise.all([
+  137 |     page.waitForResponse(
+  138 |       (r) => r.url().includes('/api/school-districts') && r.request().method() === 'POST',
+  139 |       { timeout: 30000 }
+  140 |     ),
+  141 |     page.getByRole('button', { name: 'Save changes' }).click(),
+  142 |   ]);
+  143 |   await expect(page).toHaveURL(/\/school-districts\/?$/, { timeout: 25000 });
+  144 | 
+  145 |   await gotoSchoolDistricts(page);
+  146 |   await search.fill(newName);
+  147 |   await search.press('Enter');
+  148 |   await expect(page.locator('tr.ant-table-row').filter({ hasText: newName }).first()).toBeVisible({
+  149 |     timeout: 15000,
+  150 |   });
+  151 | });
+  152 | 
+  153 | test('Delete a school district (with confirmation)', async ({ page }) => {
+  154 |   const name = await createSchoolDistrict(page); // unlinked -> deletable
+  155 | 
+  156 |   await gotoSchoolDistricts(page);
+  157 |   const search = page.getByPlaceholder('Search');
+  158 |   await search.fill(name);
+  159 |   await search.press('Enter');
+  160 |   const row = page.locator('tr.ant-table-row').filter({ hasText: name }).first();
+> 161 |   await expect(row).toBeVisible({ timeout: 15000 });
+      |                     ^ Error: expect(locator).toBeVisible() failed
+  162 |   await row.locator('td').last().locator('svg').nth(1).click();
+  163 | 
+  164 |   const modal = page.locator('.ant-modal-content');
+  165 |   await expect(modal).toBeVisible();
+  166 |   await expect(modal.getByText('Delete School District')).toBeVisible();
+  167 | 
+  168 |   // Confirming deletes the district (the DELETE …→200 is the real proof; the
+  169 |   // modal's body text can render a beat late, so we don't gate on it).
+  170 |   const [resp] = await Promise.all([
+  171 |     page.waitForResponse(
+  172 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  173 |       { timeout: 45000 } // the delete can be slow under full-suite backend load
+  174 |     ),
+  175 |     modal.getByRole('button', { name: 'Delete' }).click(),
+  176 |   ]);
+  177 |   expect(resp.ok()).toBeTruthy();
+  178 | });
+  179 | 
+  180 | // A district linked to events cannot be deleted — the seed "Murx International
+  181 | // School" is linked, so the delete dialog blocks with an explanatory message.
+  182 | test('A district linked to events cannot be deleted', async ({ page }) => {
+  183 |   await gotoSchoolDistricts(page);
+  184 |   await page.waitForTimeout(1500);
+  185 | 
+  186 |   const search = page.getByPlaceholder('Search');
+  187 |   await search.fill('Murx International School');
+  188 |   await search.press('Enter');
+  189 |   const row = page.locator('tr.ant-table-row').filter({ hasText: 'Murx' }).first();
+  190 |   await expect(row).toBeVisible({ timeout: 15000 });
+  191 |   await row.locator('td').last().locator('svg').nth(1).click();
+  192 | 
+  193 |   const modal = page.locator('.ant-modal-content');
+  194 |   await expect(modal).toBeVisible();
+  195 |   await expect(modal.getByText(/Unable to delete school district/i)).toBeVisible();
+  196 |   await expect(modal.getByText(/linked to one or more events/i)).toBeVisible();
+  197 | });
+  198 | 
+  199 | // ---------------------------------------------------------------------------
+  200 | // Import / pagination / sorting
+  201 | // ---------------------------------------------------------------------------
+  202 | 
+  203 | test('Import opens the upload dialog', async ({ page }) => {
+  204 |   await gotoSchoolDistricts(page);
+  205 |   await page.waitForTimeout(2000);
+  206 | 
+  207 |   const modal = page.locator('.ant-modal-content');
+  208 |   await expect(async () => {
+  209 |     if (!(await modal.isVisible().catch(() => false))) {
+  210 |       await page.getByRole('button', { name: 'Import' }).click();
+  211 |     }
+  212 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  213 |   }).toPass({ timeout: 20000 });
+  214 | 
+  215 |   await expect(modal.getByRole('heading', { name: 'Import school districts' })).toBeVisible();
+  216 |   await expect(modal.getByText(/Click or drag file/i).first()).toBeVisible();
+  217 |   await expect(modal.getByRole('button', { name: 'Cancel' })).toBeVisible();
+  218 | });
+  219 | 
+  220 | test('Pagination navigates to the next page', async ({ page }) => {
+  221 |   await gotoSchoolDistricts(page);
+  222 |   await page.waitForTimeout(2000);
+  223 | 
+  224 |   const firstBefore = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  225 |   await page.locator('li.ant-pagination-next').click();
+  226 | 
+  227 |   await expect(page.locator('li.ant-pagination-item-active')).toHaveText('2', { timeout: 15000 });
+  228 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  229 |   // The page-2 data fetch can lag the pagination indicator — wait for the top
+  230 |   // row to actually change before asserting.
+  231 |   await expect
+  232 |     .poll(
+  233 |       async () => (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim(),
+  234 |       { timeout: 15000 }
+  235 |     )
+  236 |     .not.toBe(firstBefore);
+  237 | });
+  238 | 
+  239 | test('Sorting by School District reorders the list', async ({ page }) => {
+  240 |   await gotoSchoolDistricts(page);
+  241 |   await page.waitForTimeout(2000);
+  242 | 
+  243 |   const header = page.getByRole('columnheader', { name: 'School District', exact: false }).first();
+  244 |   await header.click();
+  245 |   await expect(header).toHaveClass(/ant-table-column-sort/, { timeout: 10000 });
+  246 |   await page.waitForTimeout(1500);
+  247 |   const firstAsc = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  248 | 
+  249 |   await header.click();
+  250 |   await page.waitForTimeout(1500);
+  251 |   const firstDesc = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  252 | 
+  253 |   expect(firstAsc).not.toBe(firstDesc);
+  254 | });
+  255 | 
+  256 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  257 | test.afterEach(async ({ page }) => {
+  258 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  259 |   if (ms) await page.waitForTimeout(ms);
+  260 | });
+  261 | 
+```

@@ -1,0 +1,77 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/account.spec.js >> My Orders lists placed orders
+- Location: tests/frontend/account.spec.js:24:1
+
+# Error details
+
+```
+TimeoutError: page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://uat-phlox-frontend.netlify.app/orders", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | 
+  3  | // The account dropdown (top-right, class .user-details) opens on click and
+  4  | // contains My Spotlights, My Orders, and Logout.
+  5  | test('Logout from the account menu', async ({ page }) => {
+  6  |   // Already logged in via saved session (see auth.setup.js).
+  7  |   await page.goto('https://uat-phlox-frontend.netlify.app/events-bundles');
+  8  |   const account = page.locator('.navbar-item.has-dropdown.user-details');
+  9  |   await expect(account).toBeVisible({ timeout: 20000 });
+  10 |   await page.waitForLoadState('networkidle').catch(() => {});
+  11 | 
+  12 |   // Open the account dropdown and click Logout.
+  13 |   await account.locator('a.navbar-link').click();
+  14 |   await account.getByText('Logout', { exact: true }).click();
+  15 | 
+  16 |   // After logout the account dropdown is gone and Login is offered again
+  17 |   // (target the visible Login — there's a hidden mobile-menu duplicate).
+  18 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toHaveCount(0);
+  19 |   await expect(page.getByText('Login').filter({ visible: true }).first()).toBeVisible({
+  20 |     timeout: 10000,
+  21 |   });
+  22 | });
+  23 | 
+  24 | test('My Orders lists placed orders', async ({ page }) => {
+> 25 |   await page.goto('https://uat-phlox-frontend.netlify.app/orders');
+     |              ^ TimeoutError: page.goto: Timeout 60000ms exceeded.
+  26 |   await expect(page.getByRole('heading', { name: 'My Orders' })).toBeVisible({ timeout: 20000 });
+  27 |   // At least one order row (order number + a Receipts action) is shown.
+  28 |   await expect(page.getByText(/#\d+/).first()).toBeVisible();
+  29 |   await expect(page.getByText(/Receipts/i).first()).toBeVisible();
+  30 | });
+  31 | 
+  32 | // Simulated session expiry: clearing the auth cookies logs the user out.
+  33 | test('Clearing the session logs the user out', async ({ page }) => {
+  34 |   await page.goto('https://uat-phlox-frontend.netlify.app/events-bundles');
+  35 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toBeVisible({ timeout: 20000 });
+  36 | 
+  37 |   await page.context().clearCookies();
+  38 |   await page.reload();
+  39 | 
+  40 |   // The account dropdown is gone and Login is shown again.
+  41 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toHaveCount(0);
+  42 |   await expect(page.getByText('Login').filter({ visible: true }).first()).toBeVisible({
+  43 |     timeout: 15000,
+  44 |   });
+  45 | });
+  46 | 
+  47 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  48 | test.afterEach(async ({ page }) => {
+  49 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  50 |   if (ms) await page.waitForTimeout(ms);
+  51 | });
+  52 | 
+```

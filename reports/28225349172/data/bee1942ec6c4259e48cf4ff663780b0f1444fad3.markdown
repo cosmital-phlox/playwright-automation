@@ -1,0 +1,253 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/coupons.spec.js >> Adding a coupon with an empty form shows required-field validation
+- Location: tests/admin/coupons.spec.js:95:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('Please enter coupon code')
+Expected: visible
+Timeout: 15000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 15000ms
+  - waiting for getByText('Please enter coupon code')
+    - waiting for" https://uat-phlox-admin.netlify.app/coupons/add-coupon?" navigation to finish...
+    - navigated to "https://uat-phlox-admin.netlify.app/coupons/add-coupon"
+    - waiting for" https://uat-phlox-admin.netlify.app/coupons/add-coupon?" navigation to finish...
+    - navigated to "https://uat-phlox-admin.netlify.app/coupons/add-coupon?"
+
+```
+
+```yaml
+- img "Vype Logo"
+- heading "Log in" [level=1]
+- text: Email
+- textbox "Email":
+  - /placeholder: Enter Your Email
+- text: Password
+- textbox "Password":
+  - /placeholder: Enter Your Password
+- img "eye-invisible"
+- checkbox "Remember me" [checked]
+- text: Remember me
+- button "Forgot your password?"
+- button "Login"
+```
+
+# Test source
+
+```ts
+  9   | } = require('./helpers');
+  10  | 
+  11  | // Search for a coupon by code and open its edit form, retrying the edit-pencil
+  12  | // click until the edit URL sticks (it can misfire while the list is settling).
+  13  | async function openCouponEditByCode(page, code) {
+  14  |   const search = page.getByPlaceholder('Search');
+  15  |   await search.fill(code);
+  16  |   await search.press('Enter');
+  17  |   const row = page.locator('tr.ant-table-row').filter({ hasText: code }).first();
+  18  |   await expect(row).toBeVisible({ timeout: 15000 });
+  19  |   await expect(async () => {
+  20  |     if (!/\/coupons\/edit-coupon\/\d+/.test(page.url())) {
+  21  |       await row.locator('td').last().locator('svg').first().click();
+  22  |     }
+  23  |     await expect(page).toHaveURL(/\/coupons\/edit-coupon\/\d+/, { timeout: 5000 });
+  24  |   }).toPass({ timeout: 25000 });
+  25  | }
+  26  | 
+  27  | // ---------------------------------------------------------------------------
+  28  | // List
+  29  | // ---------------------------------------------------------------------------
+  30  | 
+  31  | test('Coupons list page loads with its core UI', async ({ page }) => {
+  32  |   await gotoCoupons(page);
+  33  | 
+  34  |   await expect(page.getByRole('button', { name: 'Add' })).toBeVisible();
+  35  |   await expect(page.getByText('Clear All')).toBeVisible();
+  36  |   await expect(page.getByPlaceholder('Search')).toBeVisible();
+  37  |   await expect(page.locator('.ant-select-selection-placeholder', { hasText: 'Discount Type' }).first()).toBeVisible();
+  38  |   await expect(page.getByPlaceholder('Start date')).toBeVisible();
+  39  |   await expect(page.getByPlaceholder('End date')).toBeVisible();
+  40  | 
+  41  |   await expect(page.getByRole('heading', { name: /Showing \d+ Coupons/ })).toBeVisible();
+  42  |   for (const col of ['Coupon Code', 'Discount Type', 'Discount Rate', 'Start Date', 'Expiry Date', 'Actions']) {
+  43  |     await expect(page.getByRole('columnheader', { name: col, exact: false }).first()).toBeVisible();
+  44  |   }
+  45  |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  46  | });
+  47  | 
+  48  | test('Search filters the coupon list', async ({ page }) => {
+  49  |   await gotoCoupons(page);
+  50  |   await page.waitForTimeout(1500);
+  51  | 
+  52  |   const code = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  53  |   const search = page.getByPlaceholder('Search');
+  54  |   await search.fill(code);
+  55  |   await search.press('Enter');
+  56  |   await expect(page.locator('tr.ant-table-row').filter({ hasText: code }).first()).toBeVisible({
+  57  |     timeout: 15000,
+  58  |   });
+  59  | 
+  60  |   await search.fill('zzzznotarealcoupon');
+  61  |   await search.press('Enter');
+  62  |   await expect(page.getByRole('heading', { name: /Showing 0 Coupons/ })).toBeVisible({ timeout: 15000 });
+  63  | });
+  64  | 
+  65  | test('Discount Type filter narrows the list', async ({ page }) => {
+  66  |   await gotoCoupons(page);
+  67  | 
+  68  |   const options = await openSelectFilter(page, 'Discount Type');
+  69  |   await expect(options.filter({ hasText: 'Flat' }).first()).toBeVisible();
+  70  |   await expect(options.filter({ hasText: 'Percentage' }).first()).toBeVisible();
+  71  | 
+  72  |   await options.filter({ hasText: 'Flat' }).first().click();
+  73  |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Flat' })).toBeVisible();
+  74  |   await expect(page.locator('tr.ant-table-row').first().locator('td').nth(3)).toContainText(/Flat/);
+  75  | });
+  76  | 
+  77  | // ---------------------------------------------------------------------------
+  78  | // Add / create
+  79  | // ---------------------------------------------------------------------------
+  80  | 
+  81  | test('Add button opens the Add Coupon form', async ({ page }) => {
+  82  |   await gotoCoupons(page);
+  83  |   await page.waitForTimeout(2000);
+  84  | 
+  85  |   const addBtn = page.getByRole('button', { name: 'Add' });
+  86  |   await expect(async () => {
+  87  |     await addBtn.click();
+  88  |     await expect(page).toHaveURL(/\/coupons\/add-coupon/, { timeout: 5000 });
+  89  |   }).toPass({ timeout: 25000 });
+  90  | 
+  91  |   await expect(page.getByRole('button', { name: 'Save' })).toBeVisible();
+  92  |   await expect(page.locator('#couponCode')).toBeVisible();
+  93  | });
+  94  | 
+  95  | test('Adding a coupon with an empty form shows required-field validation', async ({ page }) => {
+  96  |   await gotoAddCoupon(page);
+  97  | 
+  98  |   await page.getByRole('button', { name: 'Save' }).click();
+  99  | 
+  100 |   for (const msg of [
+  101 |     'Please enter coupon code',
+  102 |     'Please enter coupon description',
+  103 |     'Please select a discount type',
+  104 |     'Please enter a price',
+  105 |     'Please select a coupon usage type',
+  106 |     'Please pick a start date',
+  107 |     'Please pick a end date',
+  108 |   ]) {
+> 109 |     await expect(page.getByText(msg)).toBeVisible();
+      |                                       ^ Error: expect(locator).toBeVisible() failed
+  110 |   }
+  111 |   await expect(page).toHaveURL(/\/coupons\/add-coupon/);
+  112 | });
+  113 | 
+  114 | test('Create a valid coupon', async ({ page }) => {
+  115 |   const code = await createCoupon(page);
+  116 | 
+  117 |   await expect(page).toHaveURL(/\/coupons(\?|$)/, { timeout: 25000 });
+  118 |   await gotoCoupons(page);
+  119 |   const search = page.getByPlaceholder('Search');
+  120 |   await search.fill(code);
+  121 |   await search.press('Enter');
+  122 |   await expect(page.locator('tr.ant-table-row').filter({ hasText: code }).first()).toBeVisible({
+  123 |     timeout: 15000,
+  124 |   });
+  125 | });
+  126 | 
+  127 | // ---------------------------------------------------------------------------
+  128 | // Edit / delete
+  129 | // ---------------------------------------------------------------------------
+  130 | 
+  131 | test('Edit opens the coupon edit form', async ({ page }) => {
+  132 |   await gotoCoupons(page);
+  133 | 
+  134 |   const row = page.locator('tr.ant-table-row').first();
+  135 |   await expect(row).toBeVisible({ timeout: 20000 });
+  136 |   await row.locator('td').last().locator('svg').first().click();
+  137 | 
+  138 |   await expect(page).toHaveURL(/\/coupons\/edit-coupon\/\d+/, { timeout: 25000 });
+  139 |   await expect(page.locator('#couponCode')).toHaveValue(/\S/, { timeout: 25000 });
+  140 | });
+  141 | 
+  142 | test('Editing a coupon saves the change (persists)', async ({ page }) => {
+  143 |   const code = await createCoupon(page);
+  144 | 
+  145 |   await gotoCoupons(page);
+  146 |   await openCouponEditByCode(page, code);
+  147 |   await expect(page.locator('#couponCode')).toHaveValue(/\S/, { timeout: 25000 });
+  148 | 
+  149 |   const newDesc = 'Edited ' + uniqueAlpha(6);
+  150 |   await page.locator('#description').fill(newDesc);
+  151 |   await Promise.all([
+  152 |     page.waitForResponse(
+  153 |       (r) => r.url().includes('/api/coupon') && r.request().method() === 'POST',
+  154 |       { timeout: 30000 }
+  155 |     ),
+  156 |     page.getByRole('button', { name: 'Save' }).click(),
+  157 |   ]);
+  158 |   await expect(page).toHaveURL(/\/coupons(\?|$)/, { timeout: 25000 });
+  159 | 
+  160 |   // Reopen and confirm the description persisted.
+  161 |   await gotoCoupons(page);
+  162 |   await openCouponEditByCode(page, code);
+  163 |   await expect(page.locator('#couponCode')).toHaveValue(/\S/, { timeout: 25000 });
+  164 |   await expect(page.locator('#description')).toHaveValue(newDesc, { timeout: 25000 });
+  165 | });
+  166 | 
+  167 | test('Delete a coupon (with confirmation)', async ({ page }) => {
+  168 |   const code = await createCoupon(page);
+  169 | 
+  170 |   await gotoCoupons(page);
+  171 |   const search = page.getByPlaceholder('Search');
+  172 |   await search.fill(code);
+  173 |   await search.press('Enter');
+  174 | 
+  175 |   const row = page.locator('tr.ant-table-row').filter({ hasText: code }).first();
+  176 |   await expect(row).toBeVisible({ timeout: 15000 });
+  177 |   await row.locator('td').last().locator('svg').nth(1).click();
+  178 | 
+  179 |   const modal = page.locator('.ant-modal-content');
+  180 |   await expect(modal).toBeVisible();
+  181 |   await expect(modal.getByText('Delete Coupon')).toBeVisible();
+  182 |   await expect(modal.getByText(/Are you sure/i)).toBeVisible();
+  183 | 
+  184 |   const [resp] = await Promise.all([
+  185 |     page.waitForResponse(
+  186 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  187 |       { timeout: 25000 }
+  188 |     ),
+  189 |     modal.getByRole('button', { name: 'Delete' }).click(),
+  190 |   ]);
+  191 |   expect(resp.ok()).toBeTruthy();
+  192 | });
+  193 | 
+  194 | // ---------------------------------------------------------------------------
+  195 | // Filters reset / pagination / sorting
+  196 | // ---------------------------------------------------------------------------
+  197 | 
+  198 | test('Clear All resets the Discount Type filter', async ({ page }) => {
+  199 |   await gotoCoupons(page);
+  200 | 
+  201 |   const options = await openSelectFilter(page, 'Discount Type');
+  202 |   await options.filter({ hasText: 'Flat' }).first().click();
+  203 |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Flat' })).toBeVisible();
+  204 | 
+  205 |   await page.getByText('Clear All').click();
+  206 |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Flat' })).toHaveCount(0);
+  207 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  208 | });
+  209 | 
+```

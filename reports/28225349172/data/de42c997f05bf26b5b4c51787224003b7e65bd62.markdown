@@ -1,0 +1,547 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/coupons.spec.js >> Add button opens the Add Coupon form
+- Location: tests/admin/coupons.spec.js:81:1
+
+# Error details
+
+```
+Error: expect(page).toHaveURL(expected) failed
+
+Expected pattern: /\/coupons\/add-coupon/
+Received string:  "https://uat-phlox-admin.netlify.app/coupons"
+Timeout: 5000ms
+
+Call log:
+  - Expect "toHaveURL" with timeout 5000ms
+    14 × unexpected value "https://uat-phlox-admin.netlify.app/coupons"
+
+
+Call Log:
+- Timeout 25000ms exceeded while waiting on the predicate
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - img "left" [ref=e9]:
+        - img [ref=e10]
+      - img "Vype Logo" [ref=e13]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Events" [ref=e18] [cursor=pointer]:
+            - /url: /events?sortDirection=ascend&sortColumn=startTime
+            - img [ref=e20]
+            - paragraph [ref=e23]: Events
+        - listitem [ref=e24]:
+          - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+            - /url: /bundles
+            - img [ref=e27]
+            - paragraph [ref=e31]: Spotlight Bundles
+        - listitem [ref=e32]:
+          - link "Orders" [ref=e33] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e35]
+            - paragraph [ref=e38]: Orders
+        - listitem [ref=e39]:
+          - link "Users" [ref=e40] [cursor=pointer]:
+            - /url: /users
+            - img [ref=e42]
+            - paragraph [ref=e45]: Users
+        - listitem [ref=e46]:
+          - link "Organizations" [ref=e47] [cursor=pointer]:
+            - /url: /organizations
+            - img [ref=e49]
+            - paragraph [ref=e52]: Organizations
+        - listitem [ref=e53]:
+          - link "Products" [ref=e54] [cursor=pointer]:
+            - /url: /products
+            - img [ref=e56]
+            - paragraph [ref=e59]: Products
+        - listitem [ref=e60]:
+          - link "Coupons" [ref=e61] [cursor=pointer]:
+            - /url: /coupons
+            - img [ref=e63]
+            - paragraph [ref=e66]: Coupons
+        - listitem [ref=e67]:
+          - link "Gift Cards" [ref=e68] [cursor=pointer]:
+            - /url: /giftcards
+            - img [ref=e70]
+            - paragraph [ref=e73]: Gift Cards
+        - listitem [ref=e74]:
+          - link "Categories" [ref=e75] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e77]
+            - paragraph [ref=e80]: Categories
+        - listitem [ref=e81]:
+          - link "Levels" [ref=e82] [cursor=pointer]:
+            - /url: /levels
+            - img [ref=e84]
+            - paragraph [ref=e87]: Levels
+        - listitem [ref=e88]:
+          - link "School Districts" [ref=e89] [cursor=pointer]:
+            - /url: /school-districts
+            - img [ref=e91]
+            - paragraph [ref=e94]: School Districts
+        - listitem [ref=e95]:
+          - link "Zenfolio" [ref=e96] [cursor=pointer]:
+            - /url: /browse-and-buy
+            - img [ref=e98]
+            - paragraph [ref=e101]: Zenfolio
+        - listitem [ref=e102]:
+          - link "Payouts" [ref=e103] [cursor=pointer]:
+            - /url: /payout?sortDirection=ascend&sortColumn=payee
+            - img [ref=e105]
+            - paragraph [ref=e108]: Payouts
+        - listitem [ref=e109]:
+          - link "Reports" [ref=e110] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e112]
+            - paragraph [ref=e133]: Reports
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - paragraph [ref=e138]: "Staging: Sandbox, you can play around :)"
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - heading "Dhaval Kukadia" [level=6] [ref=e141]
+          - paragraph [ref=e142]: Admin, Photographer
+        - img "user" [ref=e145]:
+          - img [ref=e146]
+        - generic [ref=e148] [cursor=pointer]:
+          - paragraph [ref=e149]: Logout
+          - img [ref=e151]
+    - main [ref=e154]:
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]:
+              - link "Home" [ref=e161] [cursor=pointer]:
+                - /url: "#/"
+              - text: /
+            - generic [ref=e163]: Coupons
+          - generic [ref=e164]:
+            - generic "Coupons" [ref=e166]
+            - button "loading Add" [active] [ref=e168]:
+              - img "loading" [ref=e170]:
+                - img [ref=e171]
+              - generic [ref=e173]: Add
+        - generic [ref=e176]:
+          - generic [ref=e177]:
+            - generic [ref=e178]:
+              - textbox "🔍 Search" [ref=e180]
+              - generic [ref=e182] [cursor=pointer]:
+                - generic [ref=e183]:
+                  - combobox [ref=e185]
+                  - generic: Discount Type
+                - generic:
+                  - img:
+                    - img
+            - generic [ref=e186]:
+              - textbox "Start date" [ref=e188]
+              - generic [ref=e189]: ⇀
+              - textbox "End date" [ref=e191]
+              - generic:
+                - img "calendar":
+                  - img
+          - generic [ref=e192]:
+            - heading "Showing 84 Coupons" [level=6] [ref=e193]
+            - button "Clear All" [ref=e194] [cursor=pointer]:
+              - generic [ref=e195]: Clear All
+          - generic [ref=e199]:
+            - generic [ref=e201]:
+              - table [ref=e203]:
+                - rowgroup [ref=e213]:
+                  - row "Coupon Code caret-up caret-down Coupon Usage Limit Coupon Applied Discount Type caret-up caret-down Discount Rate caret-up caret-down Start Date caret-up caret-down Expiry Date caret-up caret-down Actions" [ref=e214]:
+                    - columnheader "Coupon Code caret-up caret-down" [ref=e215] [cursor=pointer]:
+                      - generic [ref=e216]:
+                        - generic [ref=e217]: Coupon Code
+                        - generic [ref=e219]:
+                          - img "caret-up" [ref=e220]:
+                            - img [ref=e221]
+                          - img "caret-down" [ref=e223]:
+                            - img [ref=e224]
+                    - columnheader "Coupon Usage Limit" [ref=e226]
+                    - columnheader "Coupon Applied" [ref=e227]
+                    - columnheader "Discount Type caret-up caret-down" [ref=e228] [cursor=pointer]:
+                      - generic [ref=e229]:
+                        - generic [ref=e230]: Discount Type
+                        - generic [ref=e232]:
+                          - img "caret-up" [ref=e233]:
+                            - img [ref=e234]
+                          - img "caret-down" [ref=e236]:
+                            - img [ref=e237]
+                    - columnheader "Discount Rate caret-up caret-down" [ref=e239] [cursor=pointer]:
+                      - generic [ref=e240]:
+                        - generic [ref=e241]: Discount Rate
+                        - generic [ref=e243]:
+                          - img "caret-up" [ref=e244]:
+                            - img [ref=e245]
+                          - img "caret-down" [ref=e247]:
+                            - img [ref=e248]
+                    - columnheader "Start Date caret-up caret-down" [ref=e250] [cursor=pointer]:
+                      - generic [ref=e251]:
+                        - generic [ref=e252]: Start Date
+                        - generic [ref=e254]:
+                          - img "caret-up" [ref=e255]:
+                            - img [ref=e256]
+                          - img "caret-down" [ref=e258]:
+                            - img [ref=e259]
+                    - columnheader "Expiry Date caret-up caret-down" [ref=e261] [cursor=pointer]:
+                      - generic [ref=e262]:
+                        - generic [ref=e263]: Expiry Date
+                        - generic [ref=e265]:
+                          - img "caret-up" [ref=e266]:
+                            - img [ref=e267]
+                          - img "caret-down" [ref=e269]:
+                            - img [ref=e270]
+                    - columnheader "Actions" [ref=e272]
+              - table [ref=e274]:
+                - rowgroup [ref=e284]:
+                  - row "QAhvmdfb - 0 Percentage 10% 05/31/2026 07/11/2026" [ref=e285]:
+                    - cell "QAhvmdfb" [ref=e286]
+                    - cell "-" [ref=e287]
+                    - cell "0" [ref=e288]
+                    - cell "Percentage" [ref=e289]
+                    - cell "10%" [ref=e290]
+                    - cell "05/31/2026" [ref=e291]
+                    - cell "07/11/2026" [ref=e292]
+                    - cell [ref=e293]:
+                      - generic [ref=e294]:
+                        - img [ref=e295] [cursor=pointer]
+                        - img [ref=e298] [cursor=pointer]
+                  - row "QAphrcfb - 0 Flat $10 05/31/2026 07/11/2026" [ref=e301]:
+                    - cell "QAphrcfb" [ref=e302]
+                    - cell "-" [ref=e303]
+                    - cell "0" [ref=e304]
+                    - cell "Flat" [ref=e305]
+                    - cell "$10" [ref=e306]
+                    - cell "05/31/2026" [ref=e307]
+                    - cell "07/11/2026" [ref=e308]
+                    - cell [ref=e309]:
+                      - generic [ref=e310]:
+                        - img [ref=e311] [cursor=pointer]
+                        - img [ref=e314] [cursor=pointer]
+                  - row "QAodkafb - 0 Flat $10 05/31/2026 07/11/2026" [ref=e317]:
+                    - cell "QAodkafb" [ref=e318]
+                    - cell "-" [ref=e319]
+                    - cell "0" [ref=e320]
+                    - cell "Flat" [ref=e321]
+                    - cell "$10" [ref=e322]
+                    - cell "05/31/2026" [ref=e323]
+                    - cell "07/11/2026" [ref=e324]
+                    - cell [ref=e325]:
+                      - generic [ref=e326]:
+                        - img [ref=e327] [cursor=pointer]
+                        - img [ref=e330] [cursor=pointer]
+                  - row "QAlcuzeb - 0 Flat $10 05/31/2026 07/11/2026" [ref=e333]:
+                    - cell "QAlcuzeb" [ref=e334]
+                    - cell "-" [ref=e335]
+                    - cell "0" [ref=e336]
+                    - cell "Flat" [ref=e337]
+                    - cell "$10" [ref=e338]
+                    - cell "05/31/2026" [ref=e339]
+                    - cell "07/11/2026" [ref=e340]
+                    - cell [ref=e341]:
+                      - generic [ref=e342]:
+                        - img [ref=e343] [cursor=pointer]
+                        - img [ref=e346] [cursor=pointer]
+                  - row "QAhobiab - 0 Percentage 10% 05/31/2026 07/11/2026" [ref=e349]:
+                    - cell "QAhobiab" [ref=e350]
+                    - cell "-" [ref=e351]
+                    - cell "0" [ref=e352]
+                    - cell "Percentage" [ref=e353]
+                    - cell "10%" [ref=e354]
+                    - cell "05/31/2026" [ref=e355]
+                    - cell "07/11/2026" [ref=e356]
+                    - cell [ref=e357]:
+                      - generic [ref=e358]:
+                        - img [ref=e359] [cursor=pointer]
+                        - img [ref=e362] [cursor=pointer]
+                  - row "QAltfhab - 0 Flat $10 05/31/2026 07/11/2026" [ref=e365]:
+                    - cell "QAltfhab" [ref=e366]
+                    - cell "-" [ref=e367]
+                    - cell "0" [ref=e368]
+                    - cell "Flat" [ref=e369]
+                    - cell "$10" [ref=e370]
+                    - cell "05/31/2026" [ref=e371]
+                    - cell "07/11/2026" [ref=e372]
+                    - cell [ref=e373]:
+                      - generic [ref=e374]:
+                        - img [ref=e375] [cursor=pointer]
+                        - img [ref=e378] [cursor=pointer]
+                  - row "QAawweab - 0 Flat $10 05/31/2026 07/11/2026" [ref=e381]:
+                    - cell "QAawweab" [ref=e382]
+                    - cell "-" [ref=e383]
+                    - cell "0" [ref=e384]
+                    - cell "Flat" [ref=e385]
+                    - cell "$10" [ref=e386]
+                    - cell "05/31/2026" [ref=e387]
+                    - cell "07/11/2026" [ref=e388]
+                    - cell [ref=e389]:
+                      - generic [ref=e390]:
+                        - img [ref=e391] [cursor=pointer]
+                        - img [ref=e394] [cursor=pointer]
+                  - row "QAxufeab - 0 Flat $10 05/31/2026 07/11/2026" [ref=e397]:
+                    - cell "QAxufeab" [ref=e398]
+                    - cell "-" [ref=e399]
+                    - cell "0" [ref=e400]
+                    - cell "Flat" [ref=e401]
+                    - cell "$10" [ref=e402]
+                    - cell "05/31/2026" [ref=e403]
+                    - cell "07/11/2026" [ref=e404]
+                    - cell [ref=e405]:
+                      - generic [ref=e406]:
+                        - img [ref=e407] [cursor=pointer]
+                        - img [ref=e410] [cursor=pointer]
+                  - row "QAbrsuwv - 0 Percentage 10% 05/31/2026 07/11/2026" [ref=e413]:
+                    - cell "QAbrsuwv" [ref=e414]
+                    - cell "-" [ref=e415]
+                    - cell "0" [ref=e416]
+                    - cell "Percentage" [ref=e417]
+                    - cell "10%" [ref=e418]
+                    - cell "05/31/2026" [ref=e419]
+                    - cell "07/11/2026" [ref=e420]
+                    - cell [ref=e421]:
+                      - generic [ref=e422]:
+                        - img [ref=e423] [cursor=pointer]
+                        - img [ref=e426] [cursor=pointer]
+                  - row "QAghxtwv - 0 Flat $10 05/31/2026 07/11/2026" [ref=e429]:
+                    - cell "QAghxtwv" [ref=e430]
+                    - cell "-" [ref=e431]
+                    - cell "0" [ref=e432]
+                    - cell "Flat" [ref=e433]
+                    - cell "$10" [ref=e434]
+                    - cell "05/31/2026" [ref=e435]
+                    - cell "07/11/2026" [ref=e436]
+                    - cell [ref=e437]:
+                      - generic [ref=e438]:
+                        - img [ref=e439] [cursor=pointer]
+                        - img [ref=e442] [cursor=pointer]
+            - list [ref=e445]:
+              - listitem [ref=e446]: 1-10 of 84
+              - listitem "Previous Page" [ref=e447]:
+                - button "left" [disabled] [ref=e448]:
+                  - img "left" [ref=e449]:
+                    - img [ref=e450]
+              - listitem "Next 5 Pages" [ref=e452] [cursor=pointer]:
+                - generic [ref=e454]:
+                  - img "double-right" [ref=e455]:
+                    - img [ref=e456]
+                  - generic [ref=e458]: •••
+              - listitem "Next Page" [ref=e459] [cursor=pointer]:
+                - button "right" [ref=e460]:
+                  - img "right" [ref=e461]:
+                    - img [ref=e462]
+              - listitem [ref=e464]:
+                - generic [ref=e465] [cursor=pointer]:
+                  - generic [ref=e466]:
+                    - combobox [ref=e468]
+                    - generic [ref=e469]: 10 / page
+                  - generic:
+                    - img:
+                      - img
+```
+
+# Test source
+
+```ts
+  1   | const { test, expect } = require('@playwright/test');
+  2   | const {
+  3   |   gotoCoupons,
+  4   |   gotoAddCoupon,
+  5   |   createCoupon,
+  6   |   fillCouponForm,
+  7   |   uniqueAlpha,
+  8   |   openSelectFilter,
+  9   | } = require('./helpers');
+  10  | 
+  11  | // Search for a coupon by code and open its edit form, retrying the edit-pencil
+  12  | // click until the edit URL sticks (it can misfire while the list is settling).
+  13  | async function openCouponEditByCode(page, code) {
+  14  |   const search = page.getByPlaceholder('Search');
+  15  |   await search.fill(code);
+  16  |   await search.press('Enter');
+  17  |   const row = page.locator('tr.ant-table-row').filter({ hasText: code }).first();
+  18  |   await expect(row).toBeVisible({ timeout: 15000 });
+  19  |   await expect(async () => {
+  20  |     if (!/\/coupons\/edit-coupon\/\d+/.test(page.url())) {
+  21  |       await row.locator('td').last().locator('svg').first().click();
+  22  |     }
+  23  |     await expect(page).toHaveURL(/\/coupons\/edit-coupon\/\d+/, { timeout: 5000 });
+  24  |   }).toPass({ timeout: 25000 });
+  25  | }
+  26  | 
+  27  | // ---------------------------------------------------------------------------
+  28  | // List
+  29  | // ---------------------------------------------------------------------------
+  30  | 
+  31  | test('Coupons list page loads with its core UI', async ({ page }) => {
+  32  |   await gotoCoupons(page);
+  33  | 
+  34  |   await expect(page.getByRole('button', { name: 'Add' })).toBeVisible();
+  35  |   await expect(page.getByText('Clear All')).toBeVisible();
+  36  |   await expect(page.getByPlaceholder('Search')).toBeVisible();
+  37  |   await expect(page.locator('.ant-select-selection-placeholder', { hasText: 'Discount Type' }).first()).toBeVisible();
+  38  |   await expect(page.getByPlaceholder('Start date')).toBeVisible();
+  39  |   await expect(page.getByPlaceholder('End date')).toBeVisible();
+  40  | 
+  41  |   await expect(page.getByRole('heading', { name: /Showing \d+ Coupons/ })).toBeVisible();
+  42  |   for (const col of ['Coupon Code', 'Discount Type', 'Discount Rate', 'Start Date', 'Expiry Date', 'Actions']) {
+  43  |     await expect(page.getByRole('columnheader', { name: col, exact: false }).first()).toBeVisible();
+  44  |   }
+  45  |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  46  | });
+  47  | 
+  48  | test('Search filters the coupon list', async ({ page }) => {
+  49  |   await gotoCoupons(page);
+  50  |   await page.waitForTimeout(1500);
+  51  | 
+  52  |   const code = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  53  |   const search = page.getByPlaceholder('Search');
+  54  |   await search.fill(code);
+  55  |   await search.press('Enter');
+  56  |   await expect(page.locator('tr.ant-table-row').filter({ hasText: code }).first()).toBeVisible({
+  57  |     timeout: 15000,
+  58  |   });
+  59  | 
+  60  |   await search.fill('zzzznotarealcoupon');
+  61  |   await search.press('Enter');
+  62  |   await expect(page.getByRole('heading', { name: /Showing 0 Coupons/ })).toBeVisible({ timeout: 15000 });
+  63  | });
+  64  | 
+  65  | test('Discount Type filter narrows the list', async ({ page }) => {
+  66  |   await gotoCoupons(page);
+  67  | 
+  68  |   const options = await openSelectFilter(page, 'Discount Type');
+  69  |   await expect(options.filter({ hasText: 'Flat' }).first()).toBeVisible();
+  70  |   await expect(options.filter({ hasText: 'Percentage' }).first()).toBeVisible();
+  71  | 
+  72  |   await options.filter({ hasText: 'Flat' }).first().click();
+  73  |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Flat' })).toBeVisible();
+  74  |   await expect(page.locator('tr.ant-table-row').first().locator('td').nth(3)).toContainText(/Flat/);
+  75  | });
+  76  | 
+  77  | // ---------------------------------------------------------------------------
+  78  | // Add / create
+  79  | // ---------------------------------------------------------------------------
+  80  | 
+  81  | test('Add button opens the Add Coupon form', async ({ page }) => {
+  82  |   await gotoCoupons(page);
+  83  |   await page.waitForTimeout(2000);
+  84  | 
+  85  |   const addBtn = page.getByRole('button', { name: 'Add' });
+  86  |   await expect(async () => {
+  87  |     await addBtn.click();
+  88  |     await expect(page).toHaveURL(/\/coupons\/add-coupon/, { timeout: 5000 });
+> 89  |   }).toPass({ timeout: 25000 });
+      |      ^ Error: expect(page).toHaveURL(expected) failed
+  90  | 
+  91  |   await expect(page.getByRole('button', { name: 'Save' })).toBeVisible();
+  92  |   await expect(page.locator('#couponCode')).toBeVisible();
+  93  | });
+  94  | 
+  95  | test('Adding a coupon with an empty form shows required-field validation', async ({ page }) => {
+  96  |   await gotoAddCoupon(page);
+  97  | 
+  98  |   await page.getByRole('button', { name: 'Save' }).click();
+  99  | 
+  100 |   for (const msg of [
+  101 |     'Please enter coupon code',
+  102 |     'Please enter coupon description',
+  103 |     'Please select a discount type',
+  104 |     'Please enter a price',
+  105 |     'Please select a coupon usage type',
+  106 |     'Please pick a start date',
+  107 |     'Please pick a end date',
+  108 |   ]) {
+  109 |     await expect(page.getByText(msg)).toBeVisible();
+  110 |   }
+  111 |   await expect(page).toHaveURL(/\/coupons\/add-coupon/);
+  112 | });
+  113 | 
+  114 | test('Create a valid coupon', async ({ page }) => {
+  115 |   const code = await createCoupon(page);
+  116 | 
+  117 |   await expect(page).toHaveURL(/\/coupons(\?|$)/, { timeout: 25000 });
+  118 |   await gotoCoupons(page);
+  119 |   const search = page.getByPlaceholder('Search');
+  120 |   await search.fill(code);
+  121 |   await search.press('Enter');
+  122 |   await expect(page.locator('tr.ant-table-row').filter({ hasText: code }).first()).toBeVisible({
+  123 |     timeout: 15000,
+  124 |   });
+  125 | });
+  126 | 
+  127 | // ---------------------------------------------------------------------------
+  128 | // Edit / delete
+  129 | // ---------------------------------------------------------------------------
+  130 | 
+  131 | test('Edit opens the coupon edit form', async ({ page }) => {
+  132 |   await gotoCoupons(page);
+  133 | 
+  134 |   const row = page.locator('tr.ant-table-row').first();
+  135 |   await expect(row).toBeVisible({ timeout: 20000 });
+  136 |   await row.locator('td').last().locator('svg').first().click();
+  137 | 
+  138 |   await expect(page).toHaveURL(/\/coupons\/edit-coupon\/\d+/, { timeout: 25000 });
+  139 |   await expect(page.locator('#couponCode')).toHaveValue(/\S/, { timeout: 25000 });
+  140 | });
+  141 | 
+  142 | test('Editing a coupon saves the change (persists)', async ({ page }) => {
+  143 |   const code = await createCoupon(page);
+  144 | 
+  145 |   await gotoCoupons(page);
+  146 |   await openCouponEditByCode(page, code);
+  147 |   await expect(page.locator('#couponCode')).toHaveValue(/\S/, { timeout: 25000 });
+  148 | 
+  149 |   const newDesc = 'Edited ' + uniqueAlpha(6);
+  150 |   await page.locator('#description').fill(newDesc);
+  151 |   await Promise.all([
+  152 |     page.waitForResponse(
+  153 |       (r) => r.url().includes('/api/coupon') && r.request().method() === 'POST',
+  154 |       { timeout: 30000 }
+  155 |     ),
+  156 |     page.getByRole('button', { name: 'Save' }).click(),
+  157 |   ]);
+  158 |   await expect(page).toHaveURL(/\/coupons(\?|$)/, { timeout: 25000 });
+  159 | 
+  160 |   // Reopen and confirm the description persisted.
+  161 |   await gotoCoupons(page);
+  162 |   await openCouponEditByCode(page, code);
+  163 |   await expect(page.locator('#couponCode')).toHaveValue(/\S/, { timeout: 25000 });
+  164 |   await expect(page.locator('#description')).toHaveValue(newDesc, { timeout: 25000 });
+  165 | });
+  166 | 
+  167 | test('Delete a coupon (with confirmation)', async ({ page }) => {
+  168 |   const code = await createCoupon(page);
+  169 | 
+  170 |   await gotoCoupons(page);
+  171 |   const search = page.getByPlaceholder('Search');
+  172 |   await search.fill(code);
+  173 |   await search.press('Enter');
+  174 | 
+  175 |   const row = page.locator('tr.ant-table-row').filter({ hasText: code }).first();
+  176 |   await expect(row).toBeVisible({ timeout: 15000 });
+  177 |   await row.locator('td').last().locator('svg').nth(1).click();
+  178 | 
+  179 |   const modal = page.locator('.ant-modal-content');
+  180 |   await expect(modal).toBeVisible();
+  181 |   await expect(modal.getByText('Delete Coupon')).toBeVisible();
+  182 |   await expect(modal.getByText(/Are you sure/i)).toBeVisible();
+  183 | 
+  184 |   const [resp] = await Promise.all([
+  185 |     page.waitForResponse(
+  186 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  187 |       { timeout: 25000 }
+  188 |     ),
+  189 |     modal.getByRole('button', { name: 'Delete' }).click(),
+```

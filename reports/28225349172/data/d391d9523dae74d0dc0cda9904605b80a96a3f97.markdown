@@ -1,0 +1,140 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/auth.spec.js >> Admin login (logged out) >> Wrong credentials show an error and stay on the login screen
+- Location: tests/admin/auth.spec.js:43:3
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/Please Check the Credentials/i)
+Expected: visible
+Timeout: 15000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 15000ms
+  - waiting for getByText(/Please Check the Credentials/i)
+
+```
+
+```yaml
+- img "Vype Logo"
+- heading "Log in" [level=1]
+- text: Email
+- textbox "Email":
+  - /placeholder: Enter Your Email
+  - text: dhaval.kukadia@hnrtech.com
+- text: Password
+- textbox "Password":
+  - /placeholder: Enter Your Password
+  - text: wrongpass999
+- img "eye-invisible"
+- checkbox "Remember me" [checked]
+- text: Remember me
+- button "Forgot your password?"
+- button "loading Login":
+  - img "loading"
+  - text: Login
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | 
+  3  | const LOGIN_URL = 'https://uat-phlox-admin.netlify.app/';
+  4  | const EMAIL = 'dhaval.kukadia@hnrtech.com';
+  5  | 
+  6  | // ---------------------------------------------------------------------------
+  7  | // Login negatives + protected routes — run logged OUT (no saved session).
+  8  | // ---------------------------------------------------------------------------
+  9  | test.describe('Admin login (logged out)', () => {
+  10 |   test.use({ storageState: { cookies: [], origins: [] } });
+  11 | 
+  12 |   // The app runs a token check on load and re-renders the form, which wipes
+  13 |   // anything typed too early — wait for it to settle before interacting.
+  14 |   async function gotoLogin(page) {
+  15 |     await page.goto(LOGIN_URL, { waitUntil: 'domcontentloaded' });
+  16 |     await expect(page.getByPlaceholder('Enter Your Email')).toBeVisible({ timeout: 25000 });
+  17 |     await page.waitForTimeout(2500);
+  18 |   }
+  19 | 
+  20 |   test('Login page loads with its fields', async ({ page }) => {
+  21 |     await gotoLogin(page);
+  22 |     await expect(page.getByPlaceholder('Enter Your Email')).toBeVisible();
+  23 |     await expect(page.getByPlaceholder('Enter Your Password')).toBeVisible();
+  24 |     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+  25 |     await expect(page.getByText(/Forgot your password/i)).toBeVisible();
+  26 |   });
+  27 | 
+  28 |   test('Submitting an empty form shows required-field validation', async ({ page }) => {
+  29 |     await gotoLogin(page);
+  30 |     await page.getByRole('button', { name: 'Login' }).click();
+  31 |     await expect(page.getByText('Please enter the Email!').first()).toBeVisible();
+  32 |     await expect(page.getByText('Please enter the Password!').first()).toBeVisible();
+  33 |   });
+  34 | 
+  35 |   test('A password shorter than 6 characters is rejected', async ({ page }) => {
+  36 |     await gotoLogin(page);
+  37 |     await page.getByPlaceholder('Enter Your Email').fill(EMAIL);
+  38 |     await page.getByPlaceholder('Enter Your Password').fill('123');
+  39 |     await page.getByRole('button', { name: 'Login' }).click();
+  40 |     await expect(page.getByText(/minimum 6 characters/i).first()).toBeVisible();
+  41 |   });
+  42 | 
+  43 |   test('Wrong credentials show an error and stay on the login screen', async ({ page }) => {
+  44 |     await gotoLogin(page);
+  45 |     await page.getByPlaceholder('Enter Your Email').fill(EMAIL);
+  46 |     await page.getByPlaceholder('Enter Your Password').fill('wrongpass999');
+  47 |     await page.getByRole('button', { name: 'Login' }).click();
+  48 | 
+> 49 |     await expect(page.getByText(/Please Check the Credentials/i)).toBeVisible({ timeout: 15000 });
+     |                                                                   ^ Error: expect(locator).toBeVisible() failed
+  50 |     // Still on the login screen (not authenticated).
+  51 |     await expect(page.getByPlaceholder('Enter Your Email')).toBeVisible();
+  52 |   });
+  53 | 
+  54 |   test('An admin route redirects to login when not authenticated', async ({ page }) => {
+  55 |     await page.goto('https://uat-phlox-admin.netlify.app/events', { waitUntil: 'domcontentloaded' });
+  56 |     // No session -> bounced to the login screen.
+  57 |     await expect(page.getByPlaceholder('Enter Your Email')).toBeVisible({ timeout: 20000 });
+  58 |     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+  59 |   });
+  60 | });
+  61 | 
+  62 | // ---------------------------------------------------------------------------
+  63 | // Logout — runs with the saved admin session (the default for this project).
+  64 | // (Logging out only clears this context; the saved session file is untouched,
+  65 | // so other admin specs are unaffected.)
+  66 | // ---------------------------------------------------------------------------
+  67 | test.describe('Admin session (logged in)', () => {
+  68 |   test('Logout returns to the login screen', async ({ page }) => {
+  69 |     await page.goto('https://uat-phlox-admin.netlify.app/events', { waitUntil: 'domcontentloaded' });
+  70 |     await expect(page.getByText('Logout')).toBeVisible({ timeout: 25000 });
+  71 |     await page.waitForTimeout(3000); // let the page settle before clicking
+  72 | 
+  73 |     // Retry the Logout click until the login screen appears (it can misfire
+  74 |     // while the page is still loading).
+  75 |     await expect(async () => {
+  76 |       if (await page.getByPlaceholder('Enter Your Email').isVisible().catch(() => false)) return;
+  77 |       await page.getByText('Logout').first().click();
+  78 |       await expect(page.getByPlaceholder('Enter Your Email')).toBeVisible({ timeout: 5000 });
+  79 |     }).toPass({ timeout: 25000 });
+  80 |   });
+  81 | });
+  82 | 
+  83 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  84 | test.afterEach(async ({ page }) => {
+  85 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  86 |   if (ms) await page.waitForTimeout(ms);
+  87 | });
+  88 | 
+```

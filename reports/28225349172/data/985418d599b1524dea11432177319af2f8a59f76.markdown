@@ -1,0 +1,329 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/orders.spec.js >> Filtering by an order date range surfaces orders
+- Location: tests/admin/orders.spec.js:96:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole('heading', { name: /Showing [1-9]\d* Orders/ })
+Expected: visible
+Timeout: 20000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 20000ms
+  - waiting for getByRole('heading', { name: /Showing [1-9]\d* Orders/ })
+
+```
+
+```yaml
+- complementary:
+  - img "left"
+  - img "Vype Logo"
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events?sortDirection=ascend&sortColumn=startTime
+        - img
+        - paragraph: Events
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - img
+        - paragraph: Spotlight Bundles
+    - listitem:
+      - link "Orders":
+        - /url: /orders
+        - img
+        - paragraph: Orders
+    - listitem:
+      - link "Users":
+        - /url: /users
+        - img
+        - paragraph: Users
+    - listitem:
+      - link "Organizations":
+        - /url: /organizations
+        - img
+        - paragraph: Organizations
+    - listitem:
+      - link "Products":
+        - /url: /products
+        - img
+        - paragraph: Products
+    - listitem:
+      - link "Coupons":
+        - /url: /coupons
+        - img
+        - paragraph: Coupons
+    - listitem:
+      - link "Gift Cards":
+        - /url: /giftcards
+        - img
+        - paragraph: Gift Cards
+    - listitem:
+      - link "Categories":
+        - /url: /categories
+        - img
+        - paragraph: Categories
+    - listitem:
+      - link "Levels":
+        - /url: /levels
+        - img
+        - paragraph: Levels
+    - listitem:
+      - link "School Districts":
+        - /url: /school-districts
+        - img
+        - paragraph: School Districts
+    - listitem:
+      - link "Zenfolio":
+        - /url: /browse-and-buy
+        - img
+        - paragraph: Zenfolio
+    - listitem:
+      - link "Payouts":
+        - /url: /payout?sortDirection=ascend&sortColumn=payee
+        - img
+        - paragraph: Payouts
+    - listitem:
+      - link "Reports":
+        - /url: /reports
+        - img
+        - paragraph: Reports
+- paragraph: "Staging: Sandbox, you can play around :)"
+- heading "Dhaval Kukadia" [level=6]
+- paragraph: Admin, Photographer
+- img "user"
+- paragraph: Logout
+- img
+- main:
+  - text: Home/Prepaid Orders Prepaid Orders
+  - button "Export"
+  - textbox "🔍 Search"
+  - combobox
+  - text: Event
+  - combobox
+  - text: Team
+  - combobox
+  - text: Category
+  - combobox
+  - text: Status
+  - combobox
+  - text: Photographer
+  - combobox
+  - text: Order Type
+  - combobox
+  - text: Payment status
+  - textbox "Order start date": 05-31-2026
+  - text: ⇀
+  - textbox "Order end date": 07-11-2026
+  - img "calendar"
+  - img "close-circle"
+  - textbox "Event start date"
+  - text: ⇀
+  - textbox "Event end date"
+  - img "calendar"
+  - heading [level=6]
+  - img "reload"
+  - img "setting"
+  - table:
+    - rowgroup:
+      - row "down Order Id caret-up caret-down Athlete name caret-up caret-down Order Date caret-up caret-down Team Name caret-up caret-down Event caret-up caret-down Event Date caret-up caret-down Product caret-up caret-down Price Paid caret-up caret-down Status caret-up caret-down Zenfolio Link Actions":
+        - columnheader "down":
+          - checkbox [disabled]
+          - img "down"
+        - columnheader "Order Id caret-up caret-down":
+          - text: Order Id
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Athlete name caret-up caret-down":
+          - text: Athlete name
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Order Date caret-up caret-down":
+          - text: Order Date
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Team Name caret-up caret-down":
+          - text: Team Name
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Event caret-up caret-down":
+          - text: Event
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Event Date caret-up caret-down":
+          - text: Event Date
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Product caret-up caret-down":
+          - text: Product
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Price Paid caret-up caret-down":
+          - text: Price Paid
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Status caret-up caret-down":
+          - text: Status
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Zenfolio Link"
+        - columnheader "Actions"
+  - table:
+    - rowgroup:
+      - row "No Data":
+        - cell "No Data":
+          - img
+          - paragraph: No Data
+```
+
+# Test source
+
+```ts
+  2   | const { gotoOrders, openSelectFilter, applyOrderDateRange } = require('./helpers');
+  3   | 
+  4   | // The admin Orders screen ("Prepaid Orders") is a read-only management view —
+  5   | // orders originate from customer purchases, so there's no "Add". These tests
+  6   | // cover the list UI, the filters, search and the (empty) table state.
+  7   | 
+  8   | test('Orders list page loads with its core UI', async ({ page }) => {
+  9   |   await gotoOrders(page);
+  10  | 
+  11  |   // Title / breadcrumb + the Export action.
+  12  |   await expect(page.getByText('Prepaid Orders').first()).toBeVisible();
+  13  |   await expect(page.getByRole('button', { name: 'Export' })).toBeEnabled();
+  14  | 
+  15  |   // Search + the filter dropdowns.
+  16  |   await expect(page.getByPlaceholder('Search')).toBeVisible();
+  17  |   for (const f of ['Event', 'Team', 'Category', 'Status', 'Photographer', 'Order Type', 'Payment status']) {
+  18  |     await expect(page.locator('.ant-select-selection-placeholder', { hasText: f }).first()).toBeVisible();
+  19  |   }
+  20  | 
+  21  |   // The order/event date-range inputs.
+  22  |   await expect(page.getByPlaceholder('Order start date')).toBeVisible();
+  23  |   await expect(page.getByPlaceholder('Event start date')).toBeVisible();
+  24  | 
+  25  |   // Key table columns.
+  26  |   for (const col of ['Order Id', 'Athlete name', 'Order Date', 'Price Paid', 'Status', 'Actions']) {
+  27  |     await expect(page.getByRole('columnheader', { name: col, exact: false }).first()).toBeVisible();
+  28  |   }
+  29  | });
+  30  | 
+  31  | test('Status filter offers the expected options and applies a selection', async ({ page }) => {
+  32  |   await gotoOrders(page);
+  33  | 
+  34  |   const options = await openSelectFilter(page, 'Status');
+  35  |   for (const o of ['Pending upload', 'Fulfilment awaits', 'Fulfilled', 'Refunded']) {
+  36  |     await expect(options.filter({ hasText: o }).first()).toBeVisible();
+  37  |   }
+  38  | 
+  39  |   // Status is a multi-select — picking an option marks it selected (the dropdown
+  40  |   // stays open), so assert the option's selected state rather than a single value.
+  41  |   await options.filter({ hasText: 'Fulfilled' }).first().click();
+  42  |   await expect(
+  43  |     page.locator('.ant-select-item-option-selected', { hasText: 'Fulfilled' })
+  44  |   ).toBeVisible();
+  45  | });
+  46  | 
+  47  | test('Order Type filter offers Event and Bundle', async ({ page }) => {
+  48  |   await gotoOrders(page);
+  49  | 
+  50  |   const options = await openSelectFilter(page, 'Order Type');
+  51  |   await expect(options.filter({ hasText: 'Event' }).first()).toBeVisible();
+  52  |   await expect(options.filter({ hasText: 'Bundle' }).first()).toBeVisible();
+  53  | 
+  54  |   await options.filter({ hasText: 'Bundle' }).first().click();
+  55  |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Bundle' })).toBeVisible();
+  56  | });
+  57  | 
+  58  | test('Search accepts a term and keeps the table rendered', async ({ page }) => {
+  59  |   await gotoOrders(page);
+  60  | 
+  61  |   const search = page.getByPlaceholder('Search');
+  62  |   await search.fill('zzzznotarealorder');
+  63  |   await search.press('Enter');
+  64  | 
+  65  |   // The query is held and the table chrome stays put (no crash); this sandbox
+  66  |   // admin has no matching prepaid orders, so no data rows appear.
+  67  |   await expect(search).toHaveValue('zzzznotarealorder');
+  68  |   await expect(page.getByRole('columnheader', { name: 'Order Id', exact: false }).first()).toBeVisible();
+  69  |   await expect(page.locator('tr.ant-table-row')).toHaveCount(0);
+  70  | });
+  71  | 
+  72  | test('Filtering by an Event applies the selection', async ({ page }) => {
+  73  |   await gotoOrders(page);
+  74  | 
+  75  |   const options = await openSelectFilter(page, 'Event');
+  76  |   const first = options.first();
+  77  |   await expect(first).toBeVisible({ timeout: 15000 });
+  78  |   const eventName = (await first.innerText()).trim();
+  79  |   await first.click();
+  80  | 
+  81  |   // The chosen event is shown as the applied filter value.
+  82  |   await expect(page.locator('.ant-select-selection-item').first()).toContainText(
+  83  |     eventName.slice(0, 10)
+  84  |   );
+  85  | });
+  86  | 
+  87  | test('Team, Category and Photographer filters open with options', async ({ page }) => {
+  88  |   await gotoOrders(page);
+  89  | 
+  90  |   for (const f of ['Team', 'Category', 'Photographer']) {
+  91  |     const options = await openSelectFilter(page, f);
+  92  |     await expect(options.first()).toBeVisible({ timeout: 15000 });
+  93  |   }
+  94  | });
+  95  | 
+  96  | test('Filtering by an order date range surfaces orders', async ({ page }) => {
+  97  |   await gotoOrders(page);
+  98  |   await applyOrderDateRange(page);
+  99  | 
+  100 |   // The range is applied and seeded orders now appear.
+  101 |   await expect(page.getByPlaceholder('Order start date')).not.toHaveValue('');
+> 102 |   await expect(page.getByRole('heading', { name: /Showing [1-9]\d* Orders/ })).toBeVisible({
+      |                                                                                ^ Error: expect(locator).toBeVisible() failed
+  103 |     timeout: 20000,
+  104 |   });
+  105 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible({ timeout: 20000 });
+  106 | });
+  107 | 
+  108 | test('Export downloads an orders file', async ({ page }) => {
+  109 |   await gotoOrders(page);
+  110 |   await applyOrderDateRange(page); // ensure there is data to export
+  111 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible({ timeout: 20000 });
+  112 | 
+  113 |   const [download] = await Promise.all([
+  114 |     page.waitForEvent('download', { timeout: 20000 }),
+  115 |     page.getByRole('button', { name: 'Export' }).click(),
+  116 |   ]);
+  117 |   expect(download.suggestedFilename()).toMatch(/Orders.*\.xlsx/i);
+  118 | });
+  119 | 
+  120 | test('Sorting the order list marks the column sorted', async ({ page }) => {
+  121 |   await gotoOrders(page);
+  122 |   await applyOrderDateRange(page);
+  123 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible({ timeout: 20000 });
+  124 | 
+  125 |   const header = page.getByRole('columnheader', { name: 'Order Date', exact: false }).first();
+  126 |   await header.click();
+  127 |   await expect(header).toHaveClass(/ant-table-column-sort/, { timeout: 10000 });
+  128 | });
+  129 | 
+  130 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  131 | test.afterEach(async ({ page }) => {
+  132 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  133 |   if (ms) await page.waitForTimeout(ms);
+  134 | });
+  135 | 
+```
