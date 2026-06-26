@@ -38,10 +38,11 @@ jobs:
             project: admin
     env:
       CI: 'true'
-      # Experiment: run 2 workers per suite to shorten wall-clock. Watch the
-      # flaky/failed counts — if the shared backend rate-limits under the load,
-      # drop back to 1. Read by playwright.config.js.
-      PW_WORKERS: '2'
+      # Tested PW_WORKERS=2: it cut ~7 min but the shared backend rate-limited
+      # under the load — frontend went 0->3 failed and admin 0->6 flaky. Not
+      # worth the false failures, so we stay at 1 (config default). The knob
+      # remains if a future, less load-sensitive backend makes parallelism safe.
+      PW_WORKERS: '1'
       # Admin login defaults to the sandbox account baked into admin.setup.js;
       # override via repo secrets if these are set.
       ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
