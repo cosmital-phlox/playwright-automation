@@ -1,33 +1,48 @@
 name: Scheduled UI Tests
 
 # Runs the full Playwright suite (customer frontend + admin panel) twice daily
-# at 11:30 AM IST (06:00 UTC) and 7:00 PM IST (13:30 UTC), publishes the HTML
-# report to GitHub Pages, and posts the result to Slack. Can also be triggered
-# manually from the Actions tab.
+# at 11:30 AM IST (06:00 UTC) and 7:00 PM IST (13:30 UTC), publishes a single
+# merged HTML report to GitHub Pages, and posts the result to Slack. Can also be
+# triggered manually from the Actions tab.
+#
+# The frontend and admin suites run as TWO PARALLEL jobs. They talk to different
+# backends (uat-phlox-frontend vs uat-phlox-admin), so running them at the same
+# time does not increase load on either — it roughly halves wall-clock time and
+# stops a slow frontend backend from holding up the admin suite (and vice versa).
+# Each job emits a "blob" report; a final job merges them into one HTML report.
 on:
   schedule:
     - cron: '0 6 * * *' # 11:30 AM IST
     - cron: '30 13 * * *' # 7:00 PM IST
   workflow_dispatch:
 
-# Allow the workflow to push the report to the gh-pages branch.
+# Allow the publish job to push the report to the gh-pages branch.
 permissions:
   contents: write
 
 jobs:
   test:
-    name: Run Playwright tests
+    name: ${{ matrix.suite }} tests
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # Per-job cap: a single slow-backend window can no longer drag the whole run
+    # toward an hour. If a suite blows past this it is killed and the other one
+    # plus the report still complete.
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: frontend
+            project: chromium
+          - suite: admin
+            project: admin
     env:
       CI: 'true'
       # Admin login defaults to the sandbox account baked into admin.setup.js;
       # override via repo secrets if these are set.
       ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-      # Defined at job level so the steps' `if:` conditions can read them.
       FRONTEND_STORAGE_STATE: ${{ secrets.FRONTEND_STORAGE_STATE }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -45,29 +60,60 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Restore frontend session (skips the OTP login)
-        if: ${{ env.FRONTEND_STORAGE_STATE != '' }}
-        env:
-          FRONTEND_STORAGE_STATE: ${{ secrets.FRONTEND_STORAGE_STATE }}
+        if: ${{ matrix.suite == 'frontend' && env.FRONTEND_STORAGE_STATE != '' }}
         run: |
           mkdir -p playwright/.auth
           echo "$FRONTEND_STORAGE_STATE" | base64 --decode > playwright/.auth/user.json
           echo "Restored frontend session from secret."
 
-      - name: Run tests (frontend + admin)
-        id: tests
+      - name: Run ${{ matrix.suite }} tests
         continue-on-error: true
-        run: npx playwright test --project=chromium --project=admin
+        run: npx playwright test --project=${{ matrix.project }} --reporter=blob
 
-      - name: Upload report artifact
+      - name: Upload blob report
         if: always()
         uses: actions/upload-artifact@v5
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: blob-${{ matrix.suite }}
+          path: blob-report/
           retention-days: 14
 
+  publish:
+    name: Merge report & notify
+    needs: [test]
+    if: always()
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download blob reports
+        uses: actions/download-artifact@v5
+        with:
+          path: all-blobs
+          pattern: blob-*
+          merge-multiple: true
+
+      - name: Merge blobs into one HTML report
+        run: npx playwright merge-reports --reporter html ./all-blobs
+
+      - name: Merge blobs into JSON (for Slack counts)
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: results.json
+        run: npx playwright merge-reports --reporter json ./all-blobs || true
+
       - name: Publish report to GitHub Pages
-        if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -76,22 +122,13 @@ jobs:
           keep_files: true
 
       - name: Notify Slack
-        if: always() && env.SLACK_WEBHOOK_URL != ''
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ env.SLACK_WEBHOOK_URL != '' }}
         run: |
-          if [ "${{ steps.tests.outcome }}" = "success" ]; then
-            STATUS="✅ Passed"
-            MENTION=""
-          else
-            STATUS="❌ Failed"
-            MENTION="<!channel> "
-          fi
-
-          # Pull pass/fail counts out of results.json (emitted by the JSON reporter in CI).
+          # Pass/fail counts come from the merged JSON report.
           STATS=""
+          FAILED=0
           if [ -f results.json ]; then
-            STATS=$(node -e "
+            read STATS FAILED < <(node -e "
               try {
                 const r = require('./results.json');
                 let pass = 0, fail = 0, skip = 0, flaky = 0;
@@ -106,9 +143,17 @@ jobs:
                   walk(s.suites);
                 });
                 walk(r.suites);
-                console.log(\`\${pass} passed, \${fail} failed, \${flaky} flaky, \${skip} skipped\`);
-              } catch (e) { console.log(''); }
+                process.stdout.write(\`\${pass} passed, \${fail} failed, \${flaky} flaky, \${skip} skipped\t\${fail}\`);
+              } catch (e) { process.stdout.write('\t0'); }
             ")
+          fi
+
+          if [ "${FAILED:-0}" -gt 0 ]; then
+            STATUS="❌ Failed"
+            MENTION="<!channel> "
+          else
+            STATUS="✅ Passed"
+            MENTION=""
           fi
 
           REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/${{ github.run_id }}/"

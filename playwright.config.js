@@ -31,8 +31,10 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry to absorb the flaky live backend (pages occasionally load empty /
-     slowly). Two retries locally makes a transient double-miss very unlikely. */
-  retries: 2,
+     slowly). One retry absorbs a single transient miss; we dropped from 2 to 1
+     because on a slow-backend window each retry re-runs a test at the full
+     120s+ timeout serially, which was ballooning CI runs toward an hour. */
+  retries: 1,
   /* Run serially: the app talks to a shared live backend that slows down /
      rate-limits under parallel load, causing flaky "still loading" failures. */
   workers: 1,
