@@ -1,0 +1,390 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/bundles.spec.js >> Delete removes a bundle (with confirmation)
+- Location: tests/admin/bundles.spec.js:174:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('.ant-modal-content')
+Expected: visible
+Timeout: 15000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 15000ms
+  - waiting for locator('.ant-modal-content')
+
+```
+
+```yaml
+- complementary:
+  - img "left"
+  - img "Vype Logo"
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events?sortDirection=ascend&sortColumn=startTime
+        - img
+        - paragraph: Events
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - img
+        - paragraph: Spotlight Bundles
+    - listitem:
+      - link "Orders":
+        - /url: /orders
+        - img
+        - paragraph: Orders
+    - listitem:
+      - link "Users":
+        - /url: /users
+        - img
+        - paragraph: Users
+    - listitem:
+      - link "Organizations":
+        - /url: /organizations
+        - img
+        - paragraph: Organizations
+    - listitem:
+      - link "Products":
+        - /url: /products
+        - img
+        - paragraph: Products
+    - listitem:
+      - link "Coupons":
+        - /url: /coupons
+        - img
+        - paragraph: Coupons
+    - listitem:
+      - link "Gift Cards":
+        - /url: /giftcards
+        - img
+        - paragraph: Gift Cards
+    - listitem:
+      - link "Categories":
+        - /url: /categories
+        - img
+        - paragraph: Categories
+    - listitem:
+      - link "Levels":
+        - /url: /levels
+        - img
+        - paragraph: Levels
+    - listitem:
+      - link "School Districts":
+        - /url: /school-districts
+        - img
+        - paragraph: School Districts
+    - listitem:
+      - link "Zenfolio":
+        - /url: /browse-and-buy
+        - img
+        - paragraph: Zenfolio
+    - listitem:
+      - link "Payouts":
+        - /url: /payout?sortDirection=ascend&sortColumn=payee
+        - img
+        - paragraph: Payouts
+    - listitem:
+      - link "Reports":
+        - /url: /reports
+        - img
+        - paragraph: Reports
+- paragraph: "Staging: Sandbox, you can play around :)"
+- heading "Dhaval Kukadia" [level=6]
+- paragraph: Admin, Photographer
+- img "user"
+- paragraph: Logout
+- img
+- main:
+  - text: Home/
+  - link "Bundles":
+    - /url: /bundles
+  - text: /Edit
+  - button "Back":
+    - img "arrow-left"
+  - text: 14U Team Texas - 7 - 7 on 7 Football 2026 (1 events) 07/11/2026 to 07/11/2026
+  - link "Preview":
+    - /url: https://sports.phloxphoto.com/bundleDetail/6122
+  - button "Save as Draft"
+  - button "Save and Publish"
+  - heading "Basic" [level=1]
+  - text: Title
+  - textbox "Bundle Name" [disabled]: 14U Team Texas - 7 - 7 on 7 Football 2026 (1 events)
+  - text: Team
+  - combobox
+  - text: 14U Team Texas Sports
+  - combobox
+  - text: 7 on 7 Football Level
+  - combobox
+  - text: 7 Gender
+  - combobox
+  - text: Gender Description
+  - textbox "Description"
+  - text: 0 / 10000
+  - heading "Linked Events ( 1 Event )" [level=1]
+  - combobox
+  - img "search"
+  - paragraph: Search Event Name
+  - button "Link"
+  - table:
+    - rowgroup:
+      - row "Event Title caret-up caret-down Date & Time of Event caret-up caret-down Actions":
+        - columnheader "Event Title caret-up caret-down":
+          - text: Event Title
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Date & Time of Event caret-up caret-down":
+          - text: Date & Time of Event
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "14U Team Texas @ 16U Team Texas Red - 7 - 7 on 7 Football 07/11/2026 9:00 AM - 11:00 AM":
+        - cell "14U Team Texas @ 16U Team Texas Red - 7 - 7 on 7 Football"
+        - cell "07/11/2026 9:00 AM - 11:00 AM"
+        - cell:
+          - img
+  - heading "Linked Products ( 2 Products )" [level=1]
+  - table:
+    - rowgroup:
+      - row "Title Product price Discount % Bundle price Actions":
+        - columnheader "Title"
+        - columnheader "Product price"
+        - columnheader "Discount %"
+        - columnheader "Bundle price"
+        - columnheader "Actions"
+      - row "(Sum of all events - 20%)":
+        - columnheader "(Sum of all events - 20%)"
+    - rowgroup:
+      - row "Spotlight Gallery - Standard Resolution 63 20 $50.40":
+        - cell "Spotlight Gallery - Standard Resolution"
+        - cell "63"
+        - cell "20"
+        - cell "$50.40"
+        - cell:
+          - img
+      - row "Spotlight Gallery - High Resolution 74 20 $59.20":
+        - cell "Spotlight Gallery - High Resolution"
+        - cell "74"
+        - cell "20"
+        - cell "$59.20"
+        - cell:
+          - img
+  - heading "Publish" [level=1]
+  - text: "Publish Status :"
+  - paragraph: Published
+  - paragraph: Weblink
+  - textbox [disabled]: https://uat-phlox-frontend.netlify.app/bundleDetail/6122
+  - button "copy":
+    - img "copy"
+  - heading "Accept No Orders After" [level=1]
+  - text: Date
+  - textbox "Date":
+    - /placeholder: Select date
+    - text: 07-11-2026
+  - img "calendar"
+  - button "close-circle":
+    - img "close-circle"
+  - text: Time
+  - textbox "Time":
+    - /placeholder: Select time
+    - text: 09:00 AM
+  - img "clock-circle"
+  - button "close-circle":
+    - img "close-circle"
+  - heading "Upload Cover Photo (Max 2mb, jpg/png/svg, preferred size 3000x2216)" [level=1]
+  - img
+  - button "Remove"
+  - heading "Order list" [level=1]
+  - heading "-" [level=3]
+  - heading "-" [level=3]
+  - button "View"
+```
+
+# Test source
+
+```ts
+  85  |   const [resp] = await Promise.all([
+  86  |     page.waitForResponse(
+  87  |       (r) => r.url().includes('/api/seasons') && r.request().method() === 'POST',
+  88  |       { timeout: 30000 }
+  89  |     ),
+  90  |     page.getByRole('button', { name: 'Save and Publish' }).click(),
+  91  |   ]);
+  92  |   expect(resp.ok()).toBeTruthy();
+  93  |   await expect(page.locator('.ant-form-item-explain-error')).toHaveCount(0);
+  94  | });
+  95  | 
+  96  | // ---------------------------------------------------------------------------
+  97  | // Search
+  98  | // ---------------------------------------------------------------------------
+  99  | 
+  100 | test('Search filters the bundle list', async ({ page }) => {
+  101 |   await gotoBundles(page);
+  102 | 
+  103 |   const firstRow = page.locator('tr.ant-table-row').first();
+  104 |   await expect(firstRow).toBeVisible({ timeout: 25000 });
+  105 |   const title = (await firstRow.locator('td').first().innerText()).trim();
+  106 |   const term = title.split(/\s+/)[0]; // a word from the first bundle's title
+  107 | 
+  108 |   const search = page.getByPlaceholder('Search');
+  109 |   await search.fill(term);
+  110 |   await search.press('Enter');
+  111 | 
+  112 |   // The matching bundle stays in the list.
+  113 |   await expect(page.locator('tr.ant-table-row').filter({ hasText: term }).first()).toBeVisible({
+  114 |     timeout: 15000,
+  115 |   });
+  116 | 
+  117 |   // A gibberish term yields zero results.
+  118 |   await search.fill('zzzznotarealbundle');
+  119 |   await search.press('Enter');
+  120 |   await expect(page.getByRole('heading', { name: /Showing 0 Bundles/ })).toBeVisible({
+  121 |     timeout: 15000,
+  122 |   });
+  123 | });
+  124 | 
+  125 | // ---------------------------------------------------------------------------
+  126 | // Negative / validation
+  127 | // ---------------------------------------------------------------------------
+  128 | 
+  129 | test('Publishing an empty bundle shows required-field validation', async ({ page }) => {
+  130 |   await gotoAddBundle(page);
+  131 |   await page.waitForTimeout(1500); // let the form finish hydrating before submitting
+  132 | 
+  133 |   await page.getByRole('button', { name: 'Save and Publish' }).click();
+  134 | 
+  135 |   // First message gets a generous wait — validation can render slowly under load.
+  136 |   await expect(page.getByText('Please select a team')).toBeVisible({ timeout: 25000 });
+  137 |   await expect(page.getByText('Please select a Sub Category')).toBeVisible();
+  138 |   await expect(page.getByText('Please select a Level')).toBeVisible();
+  139 |   await expect(page.getByText('Please pick a Date')).toBeVisible();
+  140 |   await expect(page.getByText('Please pick a time')).toBeVisible();
+  141 | 
+  142 |   await expect(page).toHaveURL(/\/bundles\/add-bundle/);
+  143 | });
+  144 | 
+  145 | // BUG: like the Add Event form, "Save as Draft" performs NO validation — an
+  146 | // entirely empty bundle is accepted and created.
+  147 | test('BUG: Save as Draft accepts a completely empty bundle', async ({ page }) => {
+  148 |   await gotoAddBundle(page);
+  149 | 
+  150 |   await page.getByRole('button', { name: 'Save as Draft' }).click();
+  151 | 
+  152 |   await expect(page.getByText(/Created Successfully/i)).toBeVisible({ timeout: 15000 });
+  153 |   await expect(page.locator('.ant-form-item-explain-error')).toHaveCount(0);
+  154 | });
+  155 | 
+  156 | // ---------------------------------------------------------------------------
+  157 | // Edit / delete
+  158 | // ---------------------------------------------------------------------------
+  159 | 
+  160 | test('Edit opens the bundle edit form', async ({ page }) => {
+  161 |   await gotoBundles(page);
+  162 | 
+  163 |   // The first action icon (pencil) opens the edit form for that bundle.
+  164 |   const row = page.locator('tr.ant-table-row').first();
+  165 |   await expect(row).toBeVisible({ timeout: 25000 });
+  166 |   await row.locator('td').last().locator('svg').first().click();
+  167 | 
+  168 |   await expect(page).toHaveURL(/\/bundles\/edit-bundle\/\d+/, { timeout: 25000 });
+  169 |   // The edit form is pre-populated — its title field (#seasonTitle) carries the
+  170 |   // existing bundle name.
+  171 |   await expect(page.locator('#seasonTitle')).toHaveValue(/\S/, { timeout: 25000 });
+  172 | });
+  173 | 
+  174 | test('Delete removes a bundle (with confirmation)', async ({ page }) => {
+  175 |   // Create a fresh bundle so there is something safe to delete.
+  176 |   await createAndPublishBundle(page);
+  177 |   await gotoBundles(page);
+  178 | 
+  179 |   // Bundle actions: the second icon (trash) opens the delete confirmation.
+  180 |   const row = page.locator('tr.ant-table-row').first();
+  181 |   await expect(row).toBeVisible({ timeout: 25000 });
+  182 |   await row.locator('td').last().locator('svg').nth(1).click();
+  183 | 
+  184 |   const modal = page.locator('.ant-modal-content');
+> 185 |   await expect(modal).toBeVisible();
+      |                       ^ Error: expect(locator).toBeVisible() failed
+  186 |   await expect(modal.getByText('Delete Bundle')).toBeVisible();
+  187 |   await expect(modal.getByText(/Are you sure/i)).toBeVisible();
+  188 | 
+  189 |   // Confirming fires the delete request; assert the backend accepts it (200).
+  190 |   // (The modal element lingers in the DOM after success, so we key off the API.)
+  191 |   const [resp] = await Promise.all([
+  192 |     page.waitForResponse(
+  193 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  194 |       { timeout: 25000 }
+  195 |     ),
+  196 |     modal.getByRole('button', { name: 'Delete' }).click(),
+  197 |   ]);
+  198 |   expect(resp.ok()).toBeTruthy();
+  199 | });
+  200 | 
+  201 | // ---------------------------------------------------------------------------
+  202 | // Filters / sorting
+  203 | // ---------------------------------------------------------------------------
+  204 | 
+  205 | test('Status filter offers options and applies a selection', async ({ page }) => {
+  206 |   await gotoBundles(page);
+  207 |   await page.waitForTimeout(1500);
+  208 | 
+  209 |   const options = await openSelectFilter(page, 'Status');
+  210 |   await expect(options.first()).toBeVisible({ timeout: 15000 });
+  211 |   const value = (await options.first().innerText()).trim();
+  212 |   await options.first().click();
+  213 | 
+  214 |   // Applied either as a selection tag (single) or a selected option (multi).
+  215 |   await expect(
+  216 |     page
+  217 |       .locator('.ant-select-selection-item')
+  218 |       .filter({ hasText: value })
+  219 |       .or(page.locator('.ant-select-item-option-selected').filter({ hasText: value }))
+  220 |       .first()
+  221 |   ).toBeVisible();
+  222 | });
+  223 | 
+  224 | test('Category filter offers options and applies a selection', async ({ page }) => {
+  225 |   await gotoBundles(page);
+  226 |   await page.waitForTimeout(1500);
+  227 | 
+  228 |   const options = await openSelectFilter(page, 'Category');
+  229 |   await expect(options.first()).toBeVisible({ timeout: 15000 });
+  230 |   const value = (await options.first().innerText()).trim();
+  231 |   await options.first().click();
+  232 | 
+  233 |   await expect(
+  234 |     page
+  235 |       .locator('.ant-select-selection-item')
+  236 |       .filter({ hasText: value })
+  237 |       .or(page.locator('.ant-select-item-option-selected').filter({ hasText: value }))
+  238 |       .first()
+  239 |   ).toBeVisible();
+  240 | });
+  241 | 
+  242 | test('Sorting by Title marks the column sorted', async ({ page }) => {
+  243 |   await gotoBundles(page);
+  244 | 
+  245 |   const header = page.getByRole('columnheader', { name: 'Title', exact: false }).first();
+  246 |   await header.click();
+  247 |   await expect(header).toHaveClass(/ant-table-column-sort/, { timeout: 10000 });
+  248 | });
+  249 | 
+  250 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  251 | test.afterEach(async ({ page }) => {
+  252 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  253 |   if (ms) await page.waitForTimeout(ms);
+  254 | });
+  255 | 
+```

@@ -1,0 +1,333 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/categories.spec.js >> Delete a category (with confirmation)
+- Location: tests/admin/categories.spec.js:140:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('tr.ant-table-row').filter({ hasText: 'QACat pyzveb' }).first()
+Expected: visible
+Timeout: 20000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 20000ms
+  - waiting for locator('tr.ant-table-row').filter({ hasText: 'QACat pyzveb' }).first()
+
+```
+
+```yaml
+- complementary:
+  - img "left"
+  - img "Vype Logo"
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events?sortDirection=ascend&sortColumn=startTime
+        - img
+        - paragraph: Events
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - img
+        - paragraph: Spotlight Bundles
+    - listitem:
+      - link "Orders":
+        - /url: /orders
+        - img
+        - paragraph: Orders
+    - listitem:
+      - link "Users":
+        - /url: /users
+        - img
+        - paragraph: Users
+    - listitem:
+      - link "Organizations":
+        - /url: /organizations
+        - img
+        - paragraph: Organizations
+    - listitem:
+      - link "Products":
+        - /url: /products
+        - img
+        - paragraph: Products
+    - listitem:
+      - link "Coupons":
+        - /url: /coupons
+        - img
+        - paragraph: Coupons
+    - listitem:
+      - link "Gift Cards":
+        - /url: /giftcards
+        - img
+        - paragraph: Gift Cards
+    - listitem:
+      - link "Categories":
+        - /url: /categories
+        - img
+        - paragraph: Categories
+    - listitem:
+      - link "Levels":
+        - /url: /levels
+        - img
+        - paragraph: Levels
+    - listitem:
+      - link "School Districts":
+        - /url: /school-districts
+        - img
+        - paragraph: School Districts
+    - listitem:
+      - link "Zenfolio":
+        - /url: /browse-and-buy
+        - img
+        - paragraph: Zenfolio
+    - listitem:
+      - link "Payouts":
+        - /url: /payout?sortDirection=ascend&sortColumn=payee
+        - img
+        - paragraph: Payouts
+    - listitem:
+      - link "Reports":
+        - /url: /reports
+        - img
+        - paragraph: Reports
+- paragraph: "Staging: Sandbox, you can play around :)"
+- heading "Dhaval Kukadia" [level=6]
+- paragraph: Admin, Photographer
+- img "user"
+- paragraph: Logout
+- img
+- main:
+  - text: Home/Categories Categories
+  - button "Add Category"
+  - heading "Showing 47 Categories" [level=6]
+  - table:
+    - rowgroup:
+      - 'row "Category Name # of sub-categories # of custom questions Actions"':
+        - columnheader "Category Name"
+        - columnheader "# of sub-categories"
+        - columnheader "# of custom questions"
+        - columnheader "Actions"
+  - table:
+    - rowgroup:
+      - row "Indoors 1 0":
+        - cell "Indoors":
+          - img
+          - text: Indoors
+        - cell "1"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "Marching/Drill Team 0 0":
+        - cell "Marching/Drill Team"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat fkcavx 0 0":
+        - cell "QACat fkcavx"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat fodmwu 0 0":
+        - cell "QACat fodmwu"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat ismhwu 0 0":
+        - cell "QACat ismhwu"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat itvbuq 0 0":
+        - cell "QACat itvbuq"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat jxbnqo 0 0":
+        - cell "QACat jxbnqo"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat kejveb 0 0":
+        - cell "QACat kejveb"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat mjrqaw 0 0":
+        - cell "QACat mjrqaw"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+      - row "QACat myecab 0 0":
+        - cell "QACat myecab"
+        - cell "0"
+        - cell "0"
+        - cell:
+          - img
+          - img
+  - list:
+    - listitem: 1-10 of 47
+    - listitem "Previous Page":
+      - button "left" [disabled]:
+        - img "left"
+    - listitem "Next Page":
+      - button "right":
+        - img "right"
+    - listitem:
+      - combobox
+      - text: 10 / page
+```
+
+# Test source
+
+```ts
+  45  | });
+  46  | 
+  47  | test('Expanding a category reveals its sub-categories', async ({ page }) => {
+  48  |   await gotoCategories(page);
+  49  | 
+  50  |   // "Indoors" is seeded with a sub-category and sorts first (always on page 1).
+  51  |   const parent = page.locator('tr.ant-table-row').filter({ hasText: 'Indoors' }).first();
+  52  |   await expect(parent).toBeVisible({ timeout: 15000 });
+  53  |   const before = await page.locator('tr.ant-table-row').count();
+  54  | 
+  55  |   await parent.locator('td').first().locator('svg').first().click();
+  56  |   await expect
+  57  |     .poll(async () => page.locator('tr.ant-table-row').count(), { timeout: 15000 })
+  58  |     .toBeGreaterThan(before);
+  59  | });
+  60  | 
+  61  | // ---------------------------------------------------------------------------
+  62  | // Add / create
+  63  | // ---------------------------------------------------------------------------
+  64  | 
+  65  | test('Add Category button opens the form', async ({ page }) => {
+  66  |   await gotoCategories(page);
+  67  |   await page.waitForTimeout(2000);
+  68  | 
+  69  |   const addBtn = page.getByRole('button', { name: 'Add Category' });
+  70  |   await expect(async () => {
+  71  |     await addBtn.click();
+  72  |     await expect(page).toHaveURL(/\/categories\/add-category/, { timeout: 5000 });
+  73  |   }).toPass({ timeout: 25000 });
+  74  | 
+  75  |   await expect(page.getByRole('button', { name: 'Save' })).toBeVisible();
+  76  |   await expect(page.locator('#categoryName')).toBeVisible();
+  77  | });
+  78  | 
+  79  | test('Adding a category with an empty form shows required-field validation', async ({ page }) => {
+  80  |   await gotoAddCategory(page);
+  81  | 
+  82  |   await page.getByRole('button', { name: 'Save' }).click();
+  83  | 
+  84  |   await expect(page.getByText('Please enter category name')).toBeVisible();
+  85  |   await expect(page).toHaveURL(/\/categories\/add-category/);
+  86  | });
+  87  | 
+  88  | test('Create a category', async ({ page }) => {
+  89  |   const name = await createCategory(page);
+  90  | 
+  91  |   // Save redirects to the list, where the new category appears.
+  92  |   await expect(page.locator('tr.ant-table-row').filter({ hasText: name }).first()).toBeVisible({
+  93  |     timeout: 20000,
+  94  |   });
+  95  | 
+  96  |   await deleteCategoryByName(page, name); // cleanup
+  97  | });
+  98  | 
+  99  | // ---------------------------------------------------------------------------
+  100 | // Edit / delete
+  101 | // ---------------------------------------------------------------------------
+  102 | 
+  103 | test('Edit opens the category edit form', async ({ page }) => {
+  104 |   await gotoCategories(page);
+  105 | 
+  106 |   const row = page.locator('tr.ant-table-row').first();
+  107 |   await expect(row).toBeVisible({ timeout: 20000 });
+  108 |   await row.locator('td').last().locator('svg').first().click();
+  109 | 
+  110 |   await expect(page).toHaveURL(/\/categories\/edit-category\/\d+/, { timeout: 25000 });
+  111 |   // The edit page's name field is #category (the add page uses #categoryName).
+  112 |   await expect(page.locator('#category')).toHaveValue(/\S/, { timeout: 25000 });
+  113 | });
+  114 | 
+  115 | test('Editing a category saves the change (persists)', async ({ page }) => {
+  116 |   const name = await createCategory(page);
+  117 | 
+  118 |   await gotoCategories(page);
+  119 |   await openCategoryEditByName(page, name);
+  120 |   await expect(page.locator('#category')).toHaveValue(/\S/, { timeout: 25000 });
+  121 | 
+  122 |   // Remember this record's own edit URL so we can verify persistence directly,
+  123 |   // without depending on the list. (The list has no search and is alphabetical,
+  124 |   // so a renamed row can fall onto page 2 under load — re-opening the record by
+  125 |   // its URL is the reliable check.)
+  126 |   const editUrl = page.url();
+  127 | 
+  128 |   const newName = 'QAEdited ' + name.split(' ')[1];
+  129 |   await page.locator('#category').fill(newName);
+  130 |   await page.getByRole('button', { name: 'Save' }).click();
+  131 |   await expect(page).toHaveURL(/\/categories\/?$/, { timeout: 25000 });
+  132 | 
+  133 |   // Re-open the same record and confirm the new name persisted.
+  134 |   await page.goto(editUrl, { waitUntil: 'domcontentloaded' });
+  135 |   await expect(page.locator('#category')).toHaveValue(newName, { timeout: 25000 });
+  136 | 
+  137 |   await deleteCategoryByName(page, newName); // cleanup
+  138 | });
+  139 | 
+  140 | test('Delete a category (with confirmation)', async ({ page }) => {
+  141 |   const name = await createCategory(page);
+  142 | 
+  143 |   await gotoCategories(page);
+  144 |   const row = page.locator('tr.ant-table-row').filter({ hasText: name }).first();
+> 145 |   await expect(row).toBeVisible({ timeout: 20000 });
+      |                     ^ Error: expect(locator).toBeVisible() failed
+  146 |   await row.locator('td').last().locator('svg').nth(1).click();
+  147 | 
+  148 |   const modal = page.locator('.ant-modal-content');
+  149 |   await expect(modal).toBeVisible();
+  150 |   await expect(modal.getByText('Delete Category')).toBeVisible();
+  151 |   await expect(modal.getByText(/Are you sure/i)).toBeVisible();
+  152 | 
+  153 |   await modal.getByRole('button', { name: 'Delete' }).click();
+  154 | 
+  155 |   // The category is removed from the list.
+  156 |   await expect(page.locator('tr.ant-table-row').filter({ hasText: name })).toHaveCount(0, {
+  157 |     timeout: 25000,
+  158 |   });
+  159 | });
+  160 | 
+  161 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  162 | test.afterEach(async ({ page }) => {
+  163 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  164 |   if (ms) await page.waitForTimeout(ms);
+  165 | });
+  166 | 
+```
