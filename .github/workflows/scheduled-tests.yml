@@ -71,8 +71,10 @@ jobs:
           echo "$FRONTEND_STORAGE_STATE" | base64 --decode > playwright/.auth/user.json
           echo "Restored frontend session from secret."
 
+      # No continue-on-error: a failing test fails this job (run shows ❌), which
+      # is the honest signal. The report + Slack still happen because the publish
+      # job below runs `if: always()` regardless of these jobs' outcome.
       - name: Run ${{ matrix.suite }} tests
-        continue-on-error: true
         run: npx playwright test --project=${{ matrix.project }} --reporter=blob
 
       - name: Upload blob report
