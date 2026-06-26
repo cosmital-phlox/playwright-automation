@@ -35,9 +35,12 @@ export default defineConfig({
      because on a slow-backend window each retry re-runs a test at the full
      120s+ timeout serially, which was ballooning CI runs toward an hour. */
   retries: 1,
-  /* Run serially: the app talks to a shared live backend that slows down /
-     rate-limits under parallel load, causing flaky "still loading" failures. */
-  workers: 1,
+  /* Workers default to 1 because the app talks to a shared live backend that
+     slows down / rate-limits under parallel load, causing flaky "still loading"
+     failures. Tunable via PW_WORKERS so CI can experiment with parallelism
+     without a code change — bump it only if runs stay green at the higher value;
+     back off if flaky/failed counts rise. */
+  workers: process.env.PW_WORKERS ? Number(process.env.PW_WORKERS) : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters
      In CI: never auto-open the HTML report, also emit JSON (so the Slack
      notifier can read pass/fail counts) and a line log. Locally: keep the
