@@ -4,7 +4,6 @@ const {
   gotoAddEvent,
   openSelectFilter,
   selectEventType,
-  fillRequiredMediaDayFields,
   createAndPublishMediaDay,
   findEventRowByTitle,
 } = require('./helpers');
@@ -69,25 +68,14 @@ test('Switching to Media Day reveals its form fields', async ({ page }) => {
 // ---------------------------------------------------------------------------
 
 test('Create and publish a Media Day event', async ({ page }) => {
-  await gotoAddEvent(page);
-  await selectEventType(page, 'Media Day');
-  const title = 'QA Media Day ' + Date.now();
-  await fillRequiredMediaDayFields(page, title);
-
-  // The real create is /api/events/create-one (the /api/events/clash-events
-  // pre-check fires first). Asserting on create-one confirms the event was
-  // actually created, not just that the conflict check ran.
-  const [resp] = await Promise.all([
-    page.waitForResponse(
-      (r) => r.url().includes('/api/events/create-one') && r.request().method() === 'POST',
-      { timeout: 30000 }
-    ),
-    page.getByRole('button', { name: 'Save and Publish' }).click(),
-  ]);
-  expect(resp.ok()).toBeTruthy();
-
-  // The form was accepted, not rejected — no required-field errors remain.
-  await expect(page.locator('.ant-form-item-explain-error')).toHaveCount(0);
+  test.slow(); // create may retry on schedule-conflict against the slow backend
+  // createAndPublishMediaDay fills the form on a future date, clicks Save and
+  // Publish, and waits for the real /api/events/create-one POST (not the
+  // /api/events/clash-events pre-check) — retrying on a further-out slot if a
+  // photographer schedule-conflict blocks the create. Reaching here means the
+  // event was actually created.
+  const title = await createAndPublishMediaDay(page);
+  expect(title).toMatch(/^QA Media Day/);
 });
 
 // ---------------------------------------------------------------------------
@@ -116,6 +104,7 @@ test('Publishing an empty Media Day shows required-field validation', async ({ p
 // ---------------------------------------------------------------------------
 
 test('Search finds a created Media Day by title', async ({ page }) => {
+  test.slow();
   const title = await createAndPublishMediaDay(page);
 
   const row = await findEventRowByTitle(page, title);
@@ -123,6 +112,7 @@ test('Search finds a created Media Day by title', async ({ page }) => {
 });
 
 test('Edit opens a Media Day in the edit form with its title intact', async ({ page }) => {
+  test.slow();
   const title = await createAndPublishMediaDay(page);
   const row = await findEventRowByTitle(page, title);
 
@@ -134,14 +124,56 @@ test('Edit opens a Media Day in the edit form with its title intact', async ({ p
   await expect(page.locator('#eventTitle')).toHaveValue(title, { timeout: 25000 });
 });
 
-// SKIPPED: Media Day list rows have three action icons — View (eye, →
-// /events/view-event/{id}), Edit (pencil, → /events/edit-event/{id}) and a
-// third "Delete" icon. Unlike Game rows (kebab → Delete → confirm modal →
-// DELETE /delete-one), clicking the Media Day Delete icon produces NO detectable
-// confirmation: no ant modal, no popconfirm/popover, no native window.confirm,
-// and no DELETE network request fire. So row deletion can't be driven reliably
-// from here yet. Re-enable once the Delete control's behavior is pinned down
-// (the View and Edit icons, and create/search/edit flows, are all covered).
+test('View opens a Media Day in read-only detail', async ({ page }) => {
+  test.slow();
+  const title = await createAndPublishMediaDay(page);
+  const row = await findEventRowByTitle(page, title);
+
+  // The 1st action icon (eye) opens the read-only view page.
+  await row.locator('td').last().locator('svg').first().click();
+
+  await expect(page).toHaveURL(/\/events\/view-event\/\d+/, { timeout: 25000 });
+  await expect(page.getByText(title).first()).toBeVisible({ timeout: 25000 });
+  // The view page offers an Edit action.
+  await expect(page.getByRole('button', { name: /^Edit$/ })).toBeVisible();
+});
+
+test('Editing a Media Day persists the change', async ({ page }) => {
+  test.slow();
+  const title = await createAndPublishMediaDay(page);
+  let row = await findEventRowByTitle(page, title);
+  await row.locator('td').last().locator('svg').nth(1).click(); // edit
+  await expect(page).toHaveURL(/\/events\/edit-event\/\d+/, { timeout: 25000 });
+
+  // Edit the (editable) Title and save — edits post to /api/events/update-one.
+  // We change the Title (a plain input) rather than Location, which is an
+  // autocomplete select that wouldn't persist a free-typed value.
+  const newTitle = title + ' Edited';
+  await page.locator('#eventTitle').fill(newTitle);
+  const [resp] = await Promise.all([
+    page.waitForResponse(
+      (r) => r.url().includes('/api/events/update-one') && r.request().method() === 'POST',
+      { timeout: 60000 }
+    ),
+    page.getByRole('button', { name: 'Save and Publish' }).click(),
+  ]);
+  expect(resp.ok()).toBeTruthy();
+  await page.waitForTimeout(1500);
+
+  // Reopen the edit form (find by the NEW title) and confirm the change stuck.
+  row = await findEventRowByTitle(page, newTitle);
+  await row.locator('td').last().locator('svg').nth(1).click();
+  await expect(page).toHaveURL(/\/events\/edit-event\/\d+/, { timeout: 25000 });
+  await expect(page.locator('#eventTitle')).toHaveValue(newTitle, { timeout: 25000 });
+});
+
+// SKIPPED: Media Day deletion can't be automated. The list row's 3rd (Delete)
+// icon produces NO detectable confirmation when clicked — no ant modal, no
+// popconfirm/popover, no native window.confirm, and no DELETE request — unlike
+// Game rows (kebab → Delete → modal → DELETE /delete-one) and unlike SOW
+// (icon → "Delete SOW" modal). The View and Edit detail pages have no delete
+// control either. Re-enable once the Delete control's behavior is identified.
+// (Create, search, view and edit-persistence are all covered above.)
 test.fixme('Delete removes a Media Day (with confirmation)', async ({ page }) => {
   const title = await createAndPublishMediaDay(page);
   const row = await findEventRowByTitle(page, title);

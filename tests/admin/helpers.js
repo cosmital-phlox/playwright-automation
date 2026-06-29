@@ -159,16 +159,16 @@ async function selectEventType(page, typeName) {
 //
 // Publishing fires a photographer schedule-conflict check, and two Media Days
 // sharing a day+time slot collide — which silently blocks the create. So we
-// pick a VARIED FUTURE date (several months out + a pseudo-random day) so each
-// create lands on a free slot.
-async function fillRequiredMediaDayFields(page, title) {
+// pick a FUTURE date keyed to `attempt` (each retry lands a few months further
+// out, so a fresh slot is tried) plus a pseudo-random day.
+async function fillRequiredMediaDayFields(page, title, attempt = 0) {
   await page.locator('#eventTitle').fill(title);
   await pickAntOption(page, 'Sports', 0);
   await pickAntOption(page, 'Level', 0);
 
   await page.locator('#basic_date').click();
   await page.waitForTimeout(700);
-  const monthsAhead = 3 + (Date.now() % 6); // 3..8 months out
+  const monthsAhead = 2 + attempt * 3 + (Date.now() % 3); // distinct month range per attempt
   for (let i = 0; i < monthsAhead; i++) {
     await page.locator('.ant-picker-header-next-btn').first().click();
     await page.waitForTimeout(220);
@@ -184,24 +184,43 @@ async function fillRequiredMediaDayFields(page, title) {
   return title;
 }
 
-// Create + publish a Media Day event with a unique title, waiting for the
-// backend to accept it. Returns the title so callers can find/assert the row.
+// Create + publish a Media Day event with a unique title. Resilient to the
+// photographer schedule-conflict: if the real create call (/api/events/
+// create-one — not the /api/events/clash-events pre-check) doesn't fire, the
+// slot likely clashed (test data accumulates on future dates), so we dismiss
+// any conflict modal and retry on a slot further out. Returns the title.
 async function createAndPublishMediaDay(page) {
-  await gotoAddEvent(page);
-  await selectEventType(page, 'Media Day');
   const title = 'QA Media Day ' + uniqueAlpha(6);
-  await fillRequiredMediaDayFields(page, title);
-  // Wait for the actual create call (/api/events/create-one) — not the
-  // /api/events/clash-events pre-check that fires first.
-  await Promise.all([
-    page.waitForResponse(
-      (r) => r.url().includes('/api/events/create-one') && r.request().method() === 'POST',
-      { timeout: 30000 }
-    ),
-    page.getByRole('button', { name: 'Save and Publish' }).click(),
-  ]);
-  await page.waitForTimeout(2000);
-  return title;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    await gotoAddEvent(page);
+    await selectEventType(page, 'Media Day');
+    await fillRequiredMediaDayFields(page, title, attempt);
+
+    const [created] = await Promise.all([
+      page
+        .waitForResponse(
+          (r) => r.url().includes('/api/events/create-one') && r.request().method() === 'POST',
+          { timeout: 35000 }
+        )
+        .then(() => true)
+        .catch(() => false),
+      page.getByRole('button', { name: 'Save and Publish' }).click(),
+    ]);
+
+    if (created) {
+      await page.waitForTimeout(2000);
+      return title;
+    }
+    // Clashed or stalled — close any conflict modal before the next attempt.
+    await page
+      .locator('.ant-modal-content button')
+      .filter({ hasText: /cancel|close|ok|got it|return to edit/i })
+      .first()
+      .click()
+      .catch(() => {});
+    await page.waitForTimeout(500);
+  }
+  throw new Error('Media Day create-one did not fire after 2 attempts (schedule conflicts / slow backend)');
 }
 
 // Find an event row by its exact title via the list search box. Retries the
@@ -296,6 +315,20 @@ async function createSow(page) {
   ]);
   await page.waitForTimeout(1500);
   return title;
+}
+
+// Find a SOW row by its exact title via the SOW list search box. Retries the
+// search (the backend can lag indexing a just-created SOW). Returns the row.
+async function findSowRowByTitle(page, title) {
+  await gotoSowList(page);
+  const search = page.getByPlaceholder(/search/i).first();
+  const row = page.locator('tr.ant-table-row', { hasText: title }).first();
+  await expect(async () => {
+    await search.fill(title);
+    await search.press('Enter');
+    await expect(row).toBeVisible({ timeout: 8000 });
+  }).toPass({ timeout: 45000 });
+  return row;
 }
 
 // --- Orders (Prepaid Orders) ---
@@ -913,6 +946,7 @@ module.exports = {
   pickDateInItem,
   fillRequiredSowFields,
   createSow,
+  findSowRowByTitle,
   gotoEvents,
   gotoAddEvent,
   gotoBundles,
