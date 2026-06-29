@@ -24,6 +24,9 @@ const ADD_SCHOOL_DISTRICT_URL = `${ADMIN_BASE}/school-districts/add`;
 const ZENFOLIO_URL = `${ADMIN_BASE}/browse-and-buy`;
 const PAYOUTS_URL = `${ADMIN_BASE}/payout`;
 const REPORTS_URL = `${ADMIN_BASE}/reports`;
+// Statement of Work lives as a tab on the Events page, with its own Add form.
+const SOW_LIST_URL = `${ADMIN_BASE}/events?tab=sow`;
+const ADD_SOW_URL = `${ADMIN_BASE}/events/add-sow`;
 
 // Navigate to `url` and wait for `ready` (a locator), reloading on the flaky
 // backend if the page comes up empty/slow. Throws after `attempts` reloads.
@@ -76,6 +79,53 @@ async function pickAntOption(page, label, index = 0) {
   return text;
 }
 
+// Set the event Time: a RANGE picker (start + end). Pick a start (09:00),
+// confirm with OK, then — if the picker advanced to the end time (OK still
+// showing) — pick a later end (10:00) and confirm. The end must be set or the
+// form rejects the slot with "Please pick valid Time Slot". The isVisible
+// guards keep this safe for forms that auto-close after the first OK.
+async function pickEventTime(page) {
+  await page.locator('#basic_times').click();
+  await page.waitForTimeout(700);
+  const ok = page.locator('.ant-picker-ok button');
+
+  const col = page.locator('.ant-picker-time-panel-column');
+  await col.nth(0).locator('.ant-picker-time-panel-cell-inner').nth(9).click(); // hour 09
+  await page.waitForTimeout(300);
+  await col.nth(1).locator('.ant-picker-time-panel-cell-inner').nth(0).click(); // minute 00
+  await page.waitForTimeout(300);
+  if (await ok.isVisible().catch(() => false)) {
+    await ok.click();
+    await page.waitForTimeout(500);
+  }
+
+  // End time (only if the range picker is still open after confirming start).
+  if (await ok.isVisible().catch(() => false)) {
+    const endCol = page.locator('.ant-picker-time-panel-column');
+    await endCol.nth(0).locator('.ant-picker-time-panel-cell-inner').nth(10).click(); // hour 10
+    await page.waitForTimeout(300);
+    await endCol.nth(1).locator('.ant-picker-time-panel-cell-inner').nth(0).click(); // minute 00
+    await page.waitForTimeout(300);
+    if (await ok.isVisible().catch(() => false)) {
+      await ok.click();
+      await page.waitForTimeout(400);
+    }
+  }
+}
+
+// Pick the event Date (last enabled day in view) and a Time slot. Used by the
+// Game fill helper.
+async function pickEventDateTime(page) {
+  await page.locator('#basic_date').click();
+  await page.waitForTimeout(800);
+  await page
+    .locator('.ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner')
+    .last()
+    .click();
+  await page.waitForTimeout(500);
+  await pickEventTime(page);
+}
+
 // Fill every field required to publish an event: Visiting/Home Team, Sports,
 // Level, Date and a Time slot. (Title is read-only — it auto-builds from these.)
 // Returns the auto-generated title so callers can assert on it.
@@ -84,29 +134,168 @@ async function fillRequiredEventFields(page) {
   await pickAntOption(page, 'Home Team', 1); // different from visiting
   await pickAntOption(page, 'Sports', 0);
   await pickAntOption(page, 'Level', 0);
+  await pickEventDateTime(page);
+  return (await page.locator('#eventTitle').inputValue()).trim();
+}
 
-  // Date: open the calendar and pick the last enabled day in view.
+// Switch the Add/Edit Event form's Event Type select to `typeName` (e.g.
+// "Media Day"). The form's field set changes with the type, so callers should
+// fill the type-appropriate fields afterwards.
+async function selectEventType(page, typeName) {
+  const item = page.locator('.ant-form-item', { hasText: 'Event Type' }).first();
+  await item.locator('.ant-select').first().click();
+  const option = page
+    .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+    .filter({ hasText: new RegExp(`^${typeName}$`) })
+    .first();
+  await option.waitFor({ state: 'visible', timeout: 12000 });
+  await option.click();
+  await page.waitForTimeout(1500); // let the form re-render its type-specific fields
+}
+
+// Fill the fields required to publish a Media Day event: Title (editable here,
+// unlike Game's auto-title), Sports, Level, Date and Time. Participating Teams
+// is optional, so we skip it for a deterministic create. Returns the title.
+//
+// Publishing fires a photographer schedule-conflict check, and two Media Days
+// sharing a day+time slot collide — which silently blocks the create. So we
+// pick a VARIED FUTURE date (several months out + a pseudo-random day) so each
+// create lands on a free slot.
+async function fillRequiredMediaDayFields(page, title) {
+  await page.locator('#eventTitle').fill(title);
+  await pickAntOption(page, 'Sports', 0);
+  await pickAntOption(page, 'Level', 0);
+
   await page.locator('#basic_date').click();
-  await page.waitForTimeout(800);
-  await page
-    .locator('.ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner')
-    .last()
-    .click();
+  await page.waitForTimeout(700);
+  const monthsAhead = 3 + (Date.now() % 6); // 3..8 months out
+  for (let i = 0; i < monthsAhead; i++) {
+    await page.locator('.ant-picker-header-next-btn').first().click();
+    await page.waitForTimeout(220);
+  }
+  const cells = page.locator('.ant-picker-cell-in-view:not(.ant-picker-cell-disabled) .ant-picker-cell-inner');
+  await cells.first().waitFor({ state: 'visible', timeout: 8000 });
+  const count = await cells.count();
+  const dayIndex = 3 + (Date.now() % Math.max(1, count - 4));
+  await cells.nth(Math.min(dayIndex, count - 1)).click();
   await page.waitForTimeout(500);
 
-  // Time: range picker — choose a start hour/minute; the end auto-fills.
-  await page.locator('#basic_times').click();
+  await pickEventTime(page);
+  return title;
+}
+
+// Create + publish a Media Day event with a unique title, waiting for the
+// backend to accept it. Returns the title so callers can find/assert the row.
+async function createAndPublishMediaDay(page) {
+  await gotoAddEvent(page);
+  await selectEventType(page, 'Media Day');
+  const title = 'QA Media Day ' + uniqueAlpha(6);
+  await fillRequiredMediaDayFields(page, title);
+  // Wait for the actual create call (/api/events/create-one) — not the
+  // /api/events/clash-events pre-check that fires first.
+  await Promise.all([
+    page.waitForResponse(
+      (r) => r.url().includes('/api/events/create-one') && r.request().method() === 'POST',
+      { timeout: 30000 }
+    ),
+    page.getByRole('button', { name: 'Save and Publish' }).click(),
+  ]);
+  await page.waitForTimeout(2000);
+  return title;
+}
+
+// Find an event row by its exact title via the list search box. Retries the
+// search (the backend can lag indexing a just-created event and is generally
+// flaky), returning the row locator once it appears.
+async function findEventRowByTitle(page, title) {
+  await gotoEvents(page);
+  const search = page.getByPlaceholder('Search');
+  const row = page.locator('tr.ant-table-row', { hasText: title }).first();
+  await expect(async () => {
+    await search.fill(title);
+    await search.press('Enter');
+    await expect(row).toBeVisible({ timeout: 8000 });
+  }).toPass({ timeout: 45000 });
+  return row;
+}
+
+// --- Statement of Work (SOW) ---
+
+// Open the Statement of Work list (a tab on the Events page).
+async function gotoSowList(page) {
+  await gotoWithRetry(page, SOW_LIST_URL, page.getByRole('button', { name: /Create New SOW/i }));
+  await expect(page.getByRole('heading', { name: /Showing \d+ Statements of Work/ })).toBeVisible({
+    timeout: 25000,
+  });
+}
+
+// Open the Add SOW form.
+async function gotoAddSow(page) {
+  await gotoWithRetry(page, ADD_SOW_URL, page.locator('#title'));
+  await page.waitForTimeout(1500);
+}
+
+// Pick a day in the date picker inside the form item whose label contains
+// `itemText`. `which` = 'first' (earliest in view) or 'last'. Scopes to the
+// most-recently-opened dropdown so an adjacent picker can't interfere.
+async function pickDateInItem(page, itemText, which = 'first') {
+  const item = page.locator('.ant-form-item', { hasText: itemText }).first();
+  await item.locator('.ant-picker').click();
   await page.waitForTimeout(700);
-  const col = page.locator('.ant-picker-time-panel-column');
-  await col.nth(0).locator('.ant-picker-time-panel-cell-inner').nth(9).click();
+  const dd = page.locator('.ant-picker-dropdown:not(.ant-picker-dropdown-hidden)').last();
+  const cells = dd.locator('.ant-picker-cell-in-view:not(.ant-picker-cell-disabled) .ant-picker-cell-inner');
+  await cells.first().waitFor({ state: 'visible', timeout: 10000 });
+  await (which === 'last' ? cells.last() : cells.first()).click();
+  await page.waitForTimeout(400);
+}
+
+// Fill the SOW form's required fields: Title, Duration (a date RANGE), Status
+// and Agreed on. (School district is optional and skipped.) Returns the title.
+async function fillRequiredSowFields(page, title) {
+  await page.locator('#title').fill(title);
+
+  // Duration is a date RANGE: start (first in-view) then end (last in-view).
+  const dur = page.locator('.ant-form-item', { hasText: 'Duration' }).first();
+  await dur.locator('.ant-picker').click();
+  await page.waitForTimeout(700);
+  const dd = page.locator('.ant-picker-dropdown:not(.ant-picker-dropdown-hidden)').last();
+  const dcells = dd.locator('.ant-picker-cell-in-view:not(.ant-picker-cell-disabled) .ant-picker-cell-inner');
+  await dcells.first().click();
   await page.waitForTimeout(300);
-  await col.nth(1).locator('.ant-picker-time-panel-cell-inner').nth(0).click();
+  await dcells.last().click();
   await page.waitForTimeout(300);
-  const ok = page.locator('.ant-picker-ok button');
-  if (await ok.isVisible().catch(() => false)) await ok.click();
+  await page.keyboard.press('Escape');
+
+  // Status select (Active / Inactive / Draft).
+  await page.locator('.ant-form-item', { hasText: 'Status' }).first().locator('.ant-select').click();
+  await page.waitForTimeout(500);
+  await page
+    .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+    .filter({ visible: true })
+    .first()
+    .click();
   await page.waitForTimeout(400);
 
-  return (await page.locator('#eventTitle').inputValue()).trim();
+  // Agreed on (single date).
+  await pickDateInItem(page, 'Agreed on', 'first');
+  return title;
+}
+
+// Create a SOW with a unique title and wait for the backend to accept it
+// (POST /api/sow/create-one). Returns the title.
+async function createSow(page) {
+  await gotoAddSow(page);
+  const title = 'QA SOW ' + uniqueAlpha(6);
+  await fillRequiredSowFields(page, title);
+  await Promise.all([
+    page.waitForResponse(
+      (r) => r.url().includes('/api/sow/create-one') && r.request().method() === 'POST',
+      { timeout: 30000 }
+    ),
+    page.getByRole('button', { name: /^Save$/ }).click(),
+  ]);
+  await page.waitForTimeout(1500);
+  return title;
 }
 
 // --- Orders (Prepaid Orders) ---
@@ -717,6 +906,13 @@ module.exports = {
   ZENFOLIO_URL,
   PAYOUTS_URL,
   REPORTS_URL,
+  SOW_LIST_URL,
+  ADD_SOW_URL,
+  gotoSowList,
+  gotoAddSow,
+  pickDateInItem,
+  fillRequiredSowFields,
+  createSow,
   gotoEvents,
   gotoAddEvent,
   gotoBundles,
@@ -757,7 +953,12 @@ module.exports = {
   gotoReports,
   gotoEventsFilteredByFirstTeam,
   pickAntOption,
+  pickEventDateTime,
   fillRequiredEventFields,
+  selectEventType,
+  fillRequiredMediaDayFields,
+  createAndPublishMediaDay,
+  findEventRowByTitle,
   fillRequiredBundleFields,
   createAndPublishEvent,
   createAndPublishBundle,
