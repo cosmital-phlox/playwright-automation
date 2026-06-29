@@ -1,0 +1,434 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/events.spec.js >> Edit opens the event edit form
+- Location: tests/admin/events.spec.js:145:1
+
+# Error details
+
+```
+Error: expect(page).toHaveURL(expected) failed
+
+Expected pattern: /\/events\/edit-event\/\d+/
+Received string:  "https://uat-phlox-admin.netlify.app/events?teams=2595&sortDirection=ascend&sortColumn=startTime"
+Timeout: 25000ms
+
+Call log:
+  - Expect "toHaveURL" with timeout 25000ms
+    52 × unexpected value "https://uat-phlox-admin.netlify.app/events?teams=2595&sortDirection=ascend&sortColumn=startTime"
+
+```
+
+```yaml
+- complementary:
+  - img "left"
+  - img "Vype Logo"
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events?sortDirection=ascend&sortColumn=startTime
+        - img
+        - paragraph: Events
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - img
+        - paragraph: Spotlight Bundles
+    - listitem:
+      - link "Orders":
+        - /url: /orders
+        - img
+        - paragraph: Orders
+    - listitem:
+      - link "Users":
+        - /url: /users
+        - img
+        - paragraph: Users
+    - listitem:
+      - link "Organizations":
+        - /url: /organizations
+        - img
+        - paragraph: Organizations
+    - listitem:
+      - link "Products":
+        - /url: /products
+        - img
+        - paragraph: Products
+    - listitem:
+      - link "Coupons":
+        - /url: /coupons
+        - img
+        - paragraph: Coupons
+    - listitem:
+      - link "Gift Cards":
+        - /url: /giftcards
+        - img
+        - paragraph: Gift Cards
+    - listitem:
+      - link "Categories":
+        - /url: /categories
+        - img
+        - paragraph: Categories
+    - listitem:
+      - link "Levels":
+        - /url: /levels
+        - img
+        - paragraph: Levels
+    - listitem:
+      - link "School Districts":
+        - /url: /school-districts
+        - img
+        - paragraph: School Districts
+    - listitem:
+      - link "Zenfolio":
+        - /url: /browse-and-buy
+        - img
+        - paragraph: Zenfolio
+    - listitem:
+      - link "Payouts":
+        - /url: /payout?sortDirection=ascend&sortColumn=payee
+        - img
+        - paragraph: Payouts
+    - listitem:
+      - link "Reports":
+        - /url: /reports
+        - img
+        - paragraph: Reports
+- paragraph: "Staging: Sandbox, you can play around :)"
+- heading "Dhaval Kukadia" [level=6]
+- paragraph: Admin, Photographer
+- img "user"
+- paragraph: Logout
+- img
+- main:
+  - tablist:
+    - tab "Vype Sideline" [selected]
+    - tab "Vype Media Days"
+    - tab "Statement of Work"
+    - button "Import"
+    - button "Add"
+  - tabpanel "Vype Sideline"
+  - textbox "🔍 Search"
+  - combobox
+  - text: 14U Team Texas
+  - combobox
+  - text: Levels
+  - combobox
+  - text: Staff
+  - combobox
+  - text: Category
+  - combobox
+  - text: Type
+  - combobox
+  - text: Fulfillment
+  - combobox
+  - text: Status
+  - textbox "Start date"
+  - text: ⇀
+  - textbox "End date"
+  - img "calendar"
+  - heading "Showing 2 Events" [level=6]
+  - img "reload"
+  - img "setting"
+  - table:
+    - rowgroup:
+      - 'row "down Title caret-up caret-down Location Event Date & Time caret-up caret-down Category caret-up caret-down Level # of pre-orders received Team orders # of photographers assigned Preorders $ Fulfillment Status Status Zenfolio Gallery Link Shot card Weblink Actions"':
+        - columnheader "down":
+          - checkbox
+          - img "down"
+        - columnheader "Title caret-up caret-down":
+          - text: Title
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Location"
+        - columnheader "Event Date & Time caret-up caret-down":
+          - text: Event Date & Time
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Category caret-up caret-down":
+          - text: Category
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Level"
+        - columnheader "# of pre-orders received"
+        - columnheader "Team orders"
+        - columnheader "# of photographers assigned"
+        - columnheader "Preorders $"
+        - columnheader "Fulfillment Status"
+        - columnheader "Status"
+        - columnheader "Zenfolio Gallery Link"
+        - columnheader "Shot card"
+        - columnheader "Weblink"
+        - columnheader "Actions"
+  - table:
+    - rowgroup:
+      - row "14U Team Texas @ 16U Team Texas Blue - Boys - 7 - 7 on 7 Football On Location - TBD 07/01/2026 1:00 PM 7 on 7 Football 7 0 0 2 $0.00 Unfulfilled Published - - link":
+        - cell:
+          - checkbox
+        - cell "14U Team Texas @ 16U Team Texas Blue - Boys - 7 - 7 on 7 Football"
+        - cell "On Location - TBD"
+        - cell "07/01/2026 1:00 PM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "0"
+        - cell "0"
+        - cell "2"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "-":
+          - paragraph: "-"
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4933
+          - img
+        - cell:
+          - img
+          - img
+          - img
+          - img
+      - row "14U Team Texas @ 16U Team Texas Red - 7 - 7 on 7 Football On Location - TBD 07/11/2026 9:00 AM 7 on 7 Football 7 0 0 1 $0.00 Unfulfilled Published - - link":
+        - cell:
+          - checkbox
+        - cell "14U Team Texas @ 16U Team Texas Red - 7 - 7 on 7 Football"
+        - cell "On Location - TBD"
+        - cell "07/11/2026 9:00 AM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "0"
+        - cell "0"
+        - cell "1"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "-":
+          - paragraph: "-"
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4889
+          - img
+        - cell:
+          - img
+          - img
+          - img
+  - list:
+    - listitem: 1-2 of 2
+    - listitem "Previous Page":
+      - button "left" [disabled]:
+        - img "left"
+    - listitem "Next Page":
+      - button "right" [disabled]:
+        - img "right"
+    - listitem:
+      - combobox
+      - text: 10 / page
+- tooltip "Schedule conflict"
+```
+
+# Test source
+
+```ts
+  54  | 
+  55  |   // Save actions are present.
+  56  |   await expect(page.getByRole('button', { name: 'Save as Draft' })).toBeVisible();
+  57  |   await expect(page.getByRole('button', { name: 'Save and Publish' })).toBeVisible();
+  58  | });
+  59  | 
+  60  | test('Event title is auto-generated and read-only', async ({ page }) => {
+  61  |   await gotoAddEvent(page);
+  62  | 
+  63  |   // Title is disabled — you never type it.
+  64  |   const title = page.locator('#eventTitle');
+  65  |   await expect(title).toBeDisabled();
+  66  | 
+  67  |   // After picking the teams/level/sport, the title builds itself from them.
+  68  |   const built = await fillRequiredEventFields(page);
+  69  |   expect(built.length).toBeGreaterThan(3);
+  70  |   expect(built).toContain('@'); // "{Visiting} @ {Home} - {Level} - {Sport}"
+  71  | });
+  72  | 
+  73  | // ---------------------------------------------------------------------------
+  74  | // Create / publish
+  75  | // ---------------------------------------------------------------------------
+  76  | 
+  77  | test('Create and publish a valid event', async ({ page }) => {
+  78  |   await gotoAddEvent(page);
+  79  |   await fillRequiredEventFields(page);
+  80  | 
+  81  |   // Publishing a fully-valid form submits to the backend (clash check + create)
+  82  |   // and clears all client-side validation.
+  83  |   const [resp] = await Promise.all([
+  84  |     page.waitForResponse(
+  85  |       (r) => r.url().includes('/api/events') && r.request().method() === 'POST',
+  86  |       { timeout: 30000 }
+  87  |     ),
+  88  |     page.getByRole('button', { name: 'Save and Publish' }).click(),
+  89  |   ]);
+  90  |   expect(resp.ok()).toBeTruthy();
+  91  | 
+  92  |   // No required-field errors remain (the form was accepted, not rejected).
+  93  |   await expect(page.locator('.ant-form-item-explain-error')).toHaveCount(0);
+  94  | });
+  95  | 
+  96  | // ---------------------------------------------------------------------------
+  97  | // Negative / validation
+  98  | // ---------------------------------------------------------------------------
+  99  | 
+  100 | test('Publishing an empty event shows required-field validation', async ({ page }) => {
+  101 |   await gotoAddEvent(page);
+  102 | 
+  103 |   await page.getByRole('button', { name: 'Save and Publish' }).click();
+  104 | 
+  105 |   // The form blocks the publish and flags every required field.
+  106 |   await expect(page.getByText('Please select a Visiting Team')).toBeVisible();
+  107 |   await expect(page.getByText('Please select a Home Team')).toBeVisible();
+  108 |   await expect(page.getByText('Please select a Sub Category')).toBeVisible();
+  109 |   await expect(page.getByText('Please select a Level')).toBeVisible();
+  110 |   await expect(page.getByText('Please pick a Date')).toBeVisible();
+  111 |   await expect(page.getByText('Please pick valid Time Slot')).toBeVisible();
+  112 | 
+  113 |   // We stay on the form (nothing was created).
+  114 |   await expect(page).toHaveURL(/\/events\/add-event/);
+  115 | });
+  116 | 
+  117 | // BUG: "Save as Draft" performs NO validation — an entirely empty form is
+  118 | // accepted and a blank "@ - -" draft is created. This test documents that gap;
+  119 | // a draft should arguably still require at least a title or teams.
+  120 | test('BUG: Save as Draft accepts a completely empty form', async ({ page }) => {
+  121 |   await gotoAddEvent(page);
+  122 | 
+  123 |   await page.getByRole('button', { name: 'Save as Draft' }).click();
+  124 | 
+  125 |   // It "succeeds" — a success toast appears and no validation is shown.
+  126 |   await expect(page.getByText(/Created Successfully/i)).toBeVisible({ timeout: 15000 });
+  127 |   await expect(page.locator('.ant-form-item-explain-error')).toHaveCount(0);
+  128 | });
+  129 | 
+  130 | test('Searching for a non-existent event shows no results', async ({ page }) => {
+  131 |   await gotoEvents(page);
+  132 | 
+  133 |   const search = page.getByPlaceholder('Search');
+  134 |   await search.fill('zzzznotarealadminevent');
+  135 |   await search.press('Enter');
+  136 | 
+  137 |   // The list resolves to an empty result (count line reads 0 / "No Data").
+  138 |   await expect(page.getByText(/Showing 0 Events/)).toBeVisible({ timeout: 15000 });
+  139 | });
+  140 | 
+  141 | // ---------------------------------------------------------------------------
+  142 | // Edit / delete
+  143 | // ---------------------------------------------------------------------------
+  144 | 
+  145 | test('Edit opens the event edit form', async ({ page }) => {
+  146 |   // Ensure at least one event exists, then surface it via the Team filter.
+  147 |   await createAndPublishEvent(page);
+  148 |   await gotoEventsFilteredByFirstTeam(page);
+  149 | 
+  150 |   // The first action icon (pencil) opens the edit form for that event.
+  151 |   const row = page.locator('tr.ant-table-row').first();
+  152 |   await row.locator('td').last().locator('svg').first().click();
+  153 | 
+> 154 |   await expect(page).toHaveURL(/\/events\/edit-event\/\d+/, { timeout: 25000 });
+      |                      ^ Error: expect(page).toHaveURL(expected) failed
+  155 |   // The form is pre-populated — the auto-title carries the existing value.
+  156 |   await expect(page.locator('#eventTitle')).toHaveValue(/\S/, { timeout: 25000 });
+  157 | });
+  158 | 
+  159 | test('Delete removes an event (with confirmation)', async ({ page }) => {
+  160 |   await createAndPublishEvent(page);
+  161 |   await gotoEventsFilteredByFirstTeam(page);
+  162 | 
+  163 |   // Event actions: a kebab (⋮) menu holds Duplicate / Delete.
+  164 |   const row = page.locator('tr.ant-table-row').first();
+  165 |   await row.locator('td').last().locator('svg').nth(1).click();
+  166 |   await page.locator('.ant-dropdown-menu-item', { hasText: 'Delete' }).click();
+  167 | 
+  168 |   // A confirmation dialog appears before anything is removed.
+  169 |   const modal = page.locator('.ant-modal-content');
+  170 |   await expect(modal).toBeVisible();
+  171 |   await expect(modal.getByText('Delete Event')).toBeVisible();
+  172 |   await expect(modal.getByText(/Are you sure/i)).toBeVisible();
+  173 | 
+  174 |   // Confirming fires the delete request; assert the backend accepts it (200).
+  175 |   const [resp] = await Promise.all([
+  176 |     page.waitForResponse(
+  177 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  178 |       { timeout: 25000 }
+  179 |     ),
+  180 |     modal.getByRole('button', { name: 'Delete' }).click(),
+  181 |   ]);
+  182 |   expect(resp.ok()).toBeTruthy();
+  183 | });
+  184 | 
+  185 | // ---------------------------------------------------------------------------
+  186 | // Filters / Import / clash detection
+  187 | // ---------------------------------------------------------------------------
+  188 | 
+  189 | test('Status filter offers the expected options', async ({ page }) => {
+  190 |   await gotoEvents(page);
+  191 |   await page.waitForTimeout(2000);
+  192 | 
+  193 |   const options = await openSelectFilter(page, 'Status');
+  194 |   for (const o of ['Draft', 'Published', 'Cancelled', 'Fulfilled']) {
+  195 |     await expect(options.filter({ hasText: o }).first()).toBeVisible();
+  196 |   }
+  197 | });
+  198 | 
+  199 | test('Type filter offers the expected options', async ({ page }) => {
+  200 |   await gotoEvents(page);
+  201 |   await page.waitForTimeout(2000);
+  202 | 
+  203 |   const options = await openSelectFilter(page, 'Type');
+  204 |   for (const o of ['Game', 'Tournament', 'Media Day']) {
+  205 |     await expect(options.filter({ hasText: o }).first()).toBeVisible();
+  206 |   }
+  207 | });
+  208 | 
+  209 | test('Import opens the CSV upload dialog', async ({ page }) => {
+  210 |   await gotoEvents(page);
+  211 |   await page.waitForTimeout(2000);
+  212 | 
+  213 |   const modal = page.locator('.ant-modal-content');
+  214 |   await expect(async () => {
+  215 |     if (!(await modal.isVisible().catch(() => false))) {
+  216 |       await page.getByRole('button', { name: 'Import' }).click();
+  217 |     }
+  218 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  219 |   }).toPass({ timeout: 20000 });
+  220 | 
+  221 |   await expect(modal.getByRole('heading', { name: 'Import events' })).toBeVisible();
+  222 |   await expect(modal.getByText(/Click or drag file/i).first()).toBeVisible();
+  223 |   await expect(modal.getByRole('button', { name: 'Import' })).toBeVisible();
+  224 |   await expect(modal.getByRole('button', { name: 'Cancel' })).toBeVisible();
+  225 | });
+  226 | 
+  227 | // Publishing an event whose photographer already has an event at the same
+  228 | // time triggers a schedule-conflict modal and blocks creation. The standard
+  229 | // fixture event (created elsewhere in this suite) makes this collide reliably.
+  230 | test('Publishing a conflicting event shows the schedule-conflict modal', async ({ page }) => {
+  231 |   await createAndPublishEvent(page); // ensure the conflicting event exists
+  232 | 
+  233 |   await gotoAddEvent(page);
+  234 |   await fillRequiredEventFields(page); // same teams/date/time -> conflict
+  235 |   await page.getByRole('button', { name: 'Save and Publish' }).click();
+  236 | 
+  237 |   await expect(page.getByText(/schedule conflict/i).first()).toBeVisible({ timeout: 25000 });
+  238 |   await expect(page).toHaveURL(/\/events\/add-event/);
+  239 | });
+  240 | 
+  241 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  242 | test.afterEach(async ({ page }) => {
+  243 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  244 |   if (ms) await page.waitForTimeout(ms);
+  245 | });
+  246 | 
+```
