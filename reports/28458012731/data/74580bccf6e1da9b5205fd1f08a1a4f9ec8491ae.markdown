@@ -1,0 +1,322 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/organizations.spec.js >> Edit opens the organization edit form
+- Location: tests/admin/organizations.spec.js:119:1
+
+# Error details
+
+```
+Error: expect(page).toHaveURL(expected) failed
+
+Expected pattern: /\/organizations\/edit-organization\/\d+/
+Received string:  "https://uat-phlox-admin.netlify.app/organizations/view-organization/2979"
+Timeout: 5000ms
+
+Call log:
+  - Expect "toHaveURL" with timeout 5000ms
+    4 × unexpected value "https://uat-phlox-admin.netlify.app/organizations"
+    10 × unexpected value "https://uat-phlox-admin.netlify.app/organizations/view-organization/2979"
+
+
+Call Log:
+- Timeout 25000ms exceeded while waiting on the predicate
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - img "left" [ref=e9]:
+        - img [ref=e10]
+      - img "Vype Logo" [ref=e13]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Events" [ref=e18] [cursor=pointer]:
+            - /url: /events?sortDirection=ascend&sortColumn=startTime
+            - img [ref=e20]
+            - paragraph [ref=e23]: Events
+        - listitem [ref=e24]:
+          - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+            - /url: /bundles
+            - img [ref=e27]
+            - paragraph [ref=e31]: Spotlight Bundles
+        - listitem [ref=e32]:
+          - link "Orders" [ref=e33] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e35]
+            - paragraph [ref=e38]: Orders
+        - listitem [ref=e39]:
+          - link "Users" [ref=e40] [cursor=pointer]:
+            - /url: /users
+            - img [ref=e42]
+            - paragraph [ref=e45]: Users
+        - listitem [ref=e46]:
+          - link "Organizations" [ref=e47] [cursor=pointer]:
+            - /url: /organizations
+            - img [ref=e49]
+            - paragraph [ref=e52]: Organizations
+        - listitem [ref=e53]:
+          - link "Products" [ref=e54] [cursor=pointer]:
+            - /url: /products
+            - img [ref=e56]
+            - paragraph [ref=e59]: Products
+        - listitem [ref=e60]:
+          - link "Coupons" [ref=e61] [cursor=pointer]:
+            - /url: /coupons
+            - img [ref=e63]
+            - paragraph [ref=e66]: Coupons
+        - listitem [ref=e67]:
+          - link "Gift Cards" [ref=e68] [cursor=pointer]:
+            - /url: /giftcards
+            - img [ref=e70]
+            - paragraph [ref=e73]: Gift Cards
+        - listitem [ref=e74]:
+          - link "Categories" [ref=e75] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e77]
+            - paragraph [ref=e80]: Categories
+        - listitem [ref=e81]:
+          - link "Levels" [ref=e82] [cursor=pointer]:
+            - /url: /levels
+            - img [ref=e84]
+            - paragraph [ref=e87]: Levels
+        - listitem [ref=e88]:
+          - link "School Districts" [ref=e89] [cursor=pointer]:
+            - /url: /school-districts
+            - img [ref=e91]
+            - paragraph [ref=e94]: School Districts
+        - listitem [ref=e95]:
+          - link "Zenfolio" [ref=e96] [cursor=pointer]:
+            - /url: /browse-and-buy
+            - img [ref=e98]
+            - paragraph [ref=e101]: Zenfolio
+        - listitem [ref=e102]:
+          - link "Payouts" [ref=e103] [cursor=pointer]:
+            - /url: /payout?sortDirection=ascend&sortColumn=payee
+            - img [ref=e105]
+            - paragraph [ref=e108]: Payouts
+        - listitem [ref=e109]:
+          - link "Reports" [ref=e110] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e112]
+            - paragraph [ref=e133]: Reports
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - paragraph [ref=e138]: "Staging: Sandbox, you can play around :)"
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - heading "Dhaval Kukadia" [level=6] [ref=e141]
+          - paragraph [ref=e142]: Admin, Photographer
+        - img "user" [ref=e145]:
+          - img [ref=e146]
+        - generic [ref=e148] [cursor=pointer]:
+          - paragraph [ref=e149]: Logout
+          - img [ref=e151]
+    - main [ref=e154]:
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]:
+              - generic [ref=e160]: Home
+              - text: /
+            - generic [ref=e161]:
+              - link "Organizations" [ref=e163] [cursor=pointer]:
+                - /url: /organizations
+              - text: /
+            - generic [ref=e165]: Details
+          - generic [ref=e166]:
+            - generic [ref=e167]:
+              - button "Back" [ref=e169] [cursor=pointer]:
+                - img "arrow-left" [ref=e170]:
+                  - img [ref=e171]
+              - generic "QAOrg QAOhaziah" [ref=e173]
+            - button "Edit" [ref=e175] [cursor=pointer]:
+              - generic [ref=e176]: Edit
+        - generic [ref=e179]:
+          - generic [ref=e182]: Basic
+          - generic [ref=e184]:
+            - generic [ref=e185]:
+              - paragraph [ref=e186]: ORGANIZATION
+              - heading "QAOrg QAOhaziah" [level=2] [ref=e187]
+            - generic [ref=e189]: Team
+          - generic [ref=e190]:
+            - generic [ref=e191]:
+              - generic [ref=e192]:
+                - generic [ref=e193]: Organization Name
+                - generic [ref=e194]: QAOrg QAOhaziah
+              - generic [ref=e195]:
+                - generic [ref=e196]: Short Name
+                - generic [ref=e197]: QAOhaziah
+              - generic [ref=e198]:
+                - generic [ref=e199]: NCES ID
+                - generic [ref=e200]: —
+            - generic [ref=e201]:
+              - generic [ref=e202]: Notes
+              - generic [ref=e203]: No notes added.
+          - generic [ref=e206]: Contact & Address
+          - generic [ref=e207]:
+            - generic [ref=e208]:
+              - generic [ref=e209]:
+                - generic [ref=e210]: Street Address
+                - generic [ref=e211]: —
+              - generic [ref=e212]:
+                - generic [ref=e213]: Apartment / Suite
+                - generic [ref=e214]: —
+              - generic [ref=e215]:
+                - generic [ref=e216]: City
+                - generic [ref=e217]: —
+            - generic [ref=e218]:
+              - generic [ref=e219]:
+                - generic [ref=e220]: State / Province
+                - generic [ref=e221]: —
+              - generic [ref=e222]:
+                - generic [ref=e223]: Zip Code
+                - generic [ref=e224]: —
+              - generic [ref=e225]:
+                - generic [ref=e226]: School District
+                - generic [ref=e227]: —
+            - generic [ref=e228]:
+              - generic [ref=e229]:
+                - generic [ref=e230]: Phone
+                - generic [ref=e231]: —
+              - generic [ref=e232]:
+                - generic [ref=e233]: Google Map Link
+                - generic [ref=e234]: —
+              - generic [ref=e235]:
+                - generic [ref=e236]: Website
+                - generic [ref=e237]: —
+```
+
+# Test source
+
+```ts
+  1   | const { test, expect } = require('@playwright/test');
+  2   | const {
+  3   |   gotoOrgs,
+  4   |   gotoAddOrg,
+  5   |   createOrg,
+  6   |   uniqueAlpha,
+  7   |   openSelectFilter,
+  8   | } = require('./helpers');
+  9   | 
+  10  | // Open the first organization row's edit form. The edit-pencil click can misfire
+  11  | // while the list is still settling, so retry until the edit URL sticks.
+  12  | async function openFirstOrgEdit(page) {
+  13  |   const row = page.locator('tr.ant-table-row').first();
+  14  |   await expect(row).toBeVisible({ timeout: 20000 });
+  15  |   await expect(async () => {
+  16  |     if (!/\/organizations\/edit-organization\/\d+/.test(page.url())) {
+  17  |       await row.locator('td').last().locator('svg').first().click();
+  18  |     }
+  19  |     await expect(page).toHaveURL(/\/organizations\/edit-organization\/\d+/, { timeout: 5000 });
+> 20  |   }).toPass({ timeout: 25000 });
+      |      ^ Error: expect(page).toHaveURL(expected) failed
+  21  | }
+  22  | 
+  23  | // ---------------------------------------------------------------------------
+  24  | // List
+  25  | // ---------------------------------------------------------------------------
+  26  | 
+  27  | test('Organizations list page loads with its core UI', async ({ page }) => {
+  28  |   await gotoOrgs(page);
+  29  | 
+  30  |   for (const btn of ['Import', 'Export', 'Add']) {
+  31  |     await expect(page.getByRole('button', { name: btn })).toBeVisible();
+  32  |   }
+  33  |   await expect(page.getByText('Clear All')).toBeVisible();
+  34  |   await expect(page.getByPlaceholder('Search')).toBeVisible();
+  35  |   for (const f of ['Type', 'City']) {
+  36  |     await expect(page.locator('.ant-select-selection-placeholder', { hasText: f }).first()).toBeVisible();
+  37  |   }
+  38  | 
+  39  |   await expect(page.getByRole('heading', { name: /Showing \d+ Organizations/ })).toBeVisible();
+  40  |   for (const col of ['Name', 'Short name', 'Parent', 'Type', 'City', 'State', 'Zip Code', 'Actions']) {
+  41  |     await expect(page.getByRole('columnheader', { name: col, exact: false }).first()).toBeVisible();
+  42  |   }
+  43  |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  44  | });
+  45  | 
+  46  | // BUG: the Organizations search box does nothing — typing a term (even gibberish)
+  47  | // never filters the list; the count and rows stay unchanged and no request fires.
+  48  | test('BUG: the search box does not filter the list', async ({ page }) => {
+  49  |   await gotoOrgs(page);
+  50  | 
+  51  |   await expect(page.locator('tr.ant-table-row')).toHaveCount(10);
+  52  |   const search = page.getByPlaceholder('Search');
+  53  |   await search.fill('zzzznotarealorganization');
+  54  |   await search.press('Enter');
+  55  |   await page.waitForTimeout(3000);
+  56  | 
+  57  |   // A working search would show "Showing 0 Organizations"; instead the full page
+  58  |   // of rows remains (search is non-functional).
+  59  |   await expect(page.locator('tr.ant-table-row')).toHaveCount(10);
+  60  | });
+  61  | 
+  62  | test('Type filter narrows the list', async ({ page }) => {
+  63  |   await gotoOrgs(page);
+  64  | 
+  65  |   const options = await openSelectFilter(page, 'Type');
+  66  |   for (const o of ['Booster Club', 'Team', 'Venue']) {
+  67  |     await expect(options.filter({ hasText: o }).first()).toBeVisible();
+  68  |   }
+  69  | 
+  70  |   await options.filter({ hasText: 'Venue' }).first().click();
+  71  |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Venue' })).toBeVisible();
+  72  |   // The first row's Type column now reflects the filter.
+  73  |   await expect(page.locator('tr.ant-table-row').first().locator('td').nth(3)).toContainText(/Venue/);
+  74  | });
+  75  | 
+  76  | // ---------------------------------------------------------------------------
+  77  | // Add / create
+  78  | // ---------------------------------------------------------------------------
+  79  | 
+  80  | test('Add button opens the Add Organization form', async ({ page }) => {
+  81  |   await gotoOrgs(page);
+  82  |   await page.waitForTimeout(2000);
+  83  | 
+  84  |   const addBtn = page.getByRole('button', { name: 'Add' });
+  85  |   await expect(async () => {
+  86  |     await addBtn.click();
+  87  |     await expect(page).toHaveURL(/\/organizations\/add-organization/, { timeout: 5000 });
+  88  |   }).toPass({ timeout: 25000 });
+  89  | 
+  90  |   await expect(page.getByRole('button', { name: 'Save' })).toBeVisible();
+  91  |   await expect(page.locator('#name')).toBeVisible();
+  92  |   await expect(page.locator('#shortName')).toBeVisible();
+  93  | });
+  94  | 
+  95  | test('Adding an organization with an empty form shows required-field validation', async ({ page }) => {
+  96  |   await gotoAddOrg(page);
+  97  | 
+  98  |   await page.getByRole('button', { name: 'Save' }).click();
+  99  | 
+  100 |   await expect(page.getByText('Please select a Type')).toBeVisible();
+  101 |   await expect(page.getByText('Please enter Organizations Name')).toBeVisible();
+  102 |   await expect(page.getByText('Please enter a short name for organization')).toBeVisible();
+  103 |   await expect(page).toHaveURL(/\/organizations\/add-organization/);
+  104 | });
+  105 | 
+  106 | test('Create a valid organization', async ({ page }) => {
+  107 |   const { shortName } = await createOrg(page);
+  108 | 
+  109 |   // Save redirects to the list, where the new org sorts to the top.
+  110 |   await expect(page).toHaveURL(/\/organizations(\?|$)/, { timeout: 25000 });
+  111 |   await gotoOrgs(page);
+  112 |   await expect(page.locator('tr.ant-table-row').first()).toContainText(shortName, { timeout: 20000 });
+  113 | });
+  114 | 
+  115 | // ---------------------------------------------------------------------------
+  116 | // Edit / delete
+  117 | // ---------------------------------------------------------------------------
+  118 | 
+  119 | test('Edit opens the organization edit form', async ({ page }) => {
+  120 |   await gotoOrgs(page);
+```
