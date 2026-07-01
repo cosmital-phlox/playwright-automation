@@ -1,0 +1,469 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/school-districts.spec.js >> Pagination navigates to the next page
+- Location: tests/admin/school-districts.spec.js:220:1
+
+# Error details
+
+```
+Error: expect(received).not.toBe(expected) // Object.is equality
+
+Expected: not ""
+
+Call Log:
+- Timeout 15000ms exceeded while waiting on the predicate
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - img "left" [ref=e9]:
+        - img [ref=e10]
+      - img "Vype Logo" [ref=e13]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Events" [ref=e18] [cursor=pointer]:
+            - /url: /events?sortDirection=ascend&sortColumn=startTime
+            - img [ref=e20]
+            - paragraph [ref=e23]: Events
+        - listitem [ref=e24]:
+          - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+            - /url: /bundles
+            - img [ref=e27]
+            - paragraph [ref=e31]: Spotlight Bundles
+        - listitem [ref=e32]:
+          - link "Orders" [ref=e33] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e35]
+            - paragraph [ref=e38]: Orders
+        - listitem [ref=e39]:
+          - link "Users" [ref=e40] [cursor=pointer]:
+            - /url: /users
+            - img [ref=e42]
+            - paragraph [ref=e45]: Users
+        - listitem [ref=e46]:
+          - link "Organizations" [ref=e47] [cursor=pointer]:
+            - /url: /organizations
+            - img [ref=e49]
+            - paragraph [ref=e52]: Organizations
+        - listitem [ref=e53]:
+          - link "Products" [ref=e54] [cursor=pointer]:
+            - /url: /products
+            - img [ref=e56]
+            - paragraph [ref=e59]: Products
+        - listitem [ref=e60]:
+          - link "Coupons" [ref=e61] [cursor=pointer]:
+            - /url: /coupons
+            - img [ref=e63]
+            - paragraph [ref=e66]: Coupons
+        - listitem [ref=e67]:
+          - link "Gift Cards" [ref=e68] [cursor=pointer]:
+            - /url: /giftcards
+            - img [ref=e70]
+            - paragraph [ref=e73]: Gift Cards
+        - listitem [ref=e74]:
+          - link "Categories" [ref=e75] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e77]
+            - paragraph [ref=e80]: Categories
+        - listitem [ref=e81]:
+          - link "Levels" [ref=e82] [cursor=pointer]:
+            - /url: /levels
+            - img [ref=e84]
+            - paragraph [ref=e87]: Levels
+        - listitem [ref=e88]:
+          - link "School Districts" [ref=e89] [cursor=pointer]:
+            - /url: /school-districts
+            - img [ref=e91]
+            - paragraph [ref=e94]: School Districts
+        - listitem [ref=e95]:
+          - link "Zenfolio" [ref=e96] [cursor=pointer]:
+            - /url: /browse-and-buy
+            - img [ref=e98]
+            - paragraph [ref=e101]: Zenfolio
+        - listitem [ref=e102]:
+          - link "Payouts" [ref=e103] [cursor=pointer]:
+            - /url: /payout?sortDirection=ascend&sortColumn=payee
+            - img [ref=e105]
+            - paragraph [ref=e108]: Payouts
+        - listitem [ref=e109]:
+          - link "Reports" [ref=e110] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e112]
+            - paragraph [ref=e133]: Reports
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - paragraph [ref=e138]: "Staging: Sandbox, you can play around :)"
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - heading "Dhaval Kukadia" [level=6] [ref=e141]
+          - paragraph [ref=e142]: Admin, Photographer
+        - img "user" [ref=e145]:
+          - img [ref=e146]
+        - generic [ref=e148] [cursor=pointer]:
+          - paragraph [ref=e149]: Logout
+          - img [ref=e151]
+    - main [ref=e154]:
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]:
+              - generic [ref=e160]: Home
+              - text: /
+            - generic [ref=e162]: School Districts
+          - generic [ref=e163]:
+            - generic "School Districts" [ref=e165]
+            - generic [ref=e167]:
+              - button "Import" [ref=e168] [cursor=pointer]:
+                - generic [ref=e169]: Import
+              - button "Add" [ref=e170] [cursor=pointer]:
+                - generic [ref=e171]: Add
+        - generic [ref=e175]:
+          - generic [ref=e177]:
+            - textbox "🔍 Search" [ref=e179]
+            - generic [ref=e181] [cursor=pointer]:
+              - generic [ref=e182]:
+                - combobox [ref=e184]
+                - generic: State
+              - generic:
+                - img:
+                  - img
+          - generic [ref=e185]:
+            - heading "Showing 82 School Districts" [level=6] [ref=e186]
+            - img "reload" [ref=e187] [cursor=pointer]:
+              - img [ref=e188]
+          - generic [ref=e193]:
+            - generic [ref=e195]:
+              - table [ref=e197]:
+                - rowgroup [ref=e206]:
+                  - row "School District caret-up caret-down District Code caret-up caret-down Schools caret-up caret-down Status caret-up caret-down State caret-up caret-down Actions" [ref=e207]:
+                    - columnheader [ref=e208]:
+                      - checkbox [ref=e212] [cursor=pointer]
+                    - columnheader "School District caret-up caret-down" [ref=e214] [cursor=pointer]:
+                      - generic [ref=e215]:
+                        - generic [ref=e216]: School District
+                        - generic [ref=e218]:
+                          - img "caret-up" [ref=e219]:
+                            - img [ref=e220]
+                          - img "caret-down" [ref=e222]:
+                            - img [ref=e223]
+                    - columnheader "District Code caret-up caret-down" [ref=e225] [cursor=pointer]:
+                      - generic [ref=e226]:
+                        - generic [ref=e227]: District Code
+                        - generic [ref=e229]:
+                          - img "caret-up" [ref=e230]:
+                            - img [ref=e231]
+                          - img "caret-down" [ref=e233]:
+                            - img [ref=e234]
+                    - columnheader "Schools caret-up caret-down" [ref=e236] [cursor=pointer]:
+                      - generic [ref=e237]:
+                        - generic [ref=e238]: Schools
+                        - generic [ref=e240]:
+                          - img "caret-up" [ref=e241]:
+                            - img [ref=e242]
+                          - img "caret-down" [ref=e244]:
+                            - img [ref=e245]
+                    - columnheader "Status caret-up caret-down" [ref=e247] [cursor=pointer]:
+                      - generic [ref=e248]:
+                        - generic [ref=e249]: Status
+                        - generic [ref=e251]:
+                          - img "caret-up" [ref=e252]:
+                            - img [ref=e253]
+                          - img "caret-down" [ref=e255]:
+                            - img [ref=e256]
+                    - columnheader "State caret-up caret-down" [ref=e258] [cursor=pointer]:
+                      - generic [ref=e259]:
+                        - generic [ref=e260]: State
+                        - generic [ref=e262]:
+                          - img "caret-up" [ref=e263]:
+                            - img [ref=e264]
+                          - img "caret-down" [ref=e266]:
+                            - img [ref=e267]
+                    - columnheader "Actions" [ref=e269]
+              - table [ref=e271]:
+                - rowgroup [ref=e280]:
+                  - row "QASD lhejfs - 1 Active California" [ref=e281]:
+                    - cell [ref=e282]:
+                      - checkbox [ref=e285] [cursor=pointer]
+                    - cell "QASD lhejfs" [ref=e287]
+                    - cell "-" [ref=e288]
+                    - cell "1" [ref=e289]
+                    - cell "Active" [ref=e290]
+                    - cell "California" [ref=e291]
+                    - cell [ref=e292]:
+                      - generic [ref=e293]:
+                        - img [ref=e294] [cursor=pointer]
+                        - img [ref=e297] [cursor=pointer]
+                  - row "QASDEdited iibshq - 1 Active California" [ref=e300]:
+                    - cell [ref=e301]:
+                      - checkbox [ref=e304] [cursor=pointer]
+                    - cell "QASDEdited iibshq" [ref=e306]
+                    - cell "-" [ref=e307]
+                    - cell "1" [ref=e308]
+                    - cell "Active" [ref=e309]
+                    - cell "California" [ref=e310]
+                    - cell [ref=e311]:
+                      - generic [ref=e312]:
+                        - img [ref=e313] [cursor=pointer]
+                        - img [ref=e316] [cursor=pointer]
+                  - row "QASD sckrhq - 1 Active California" [ref=e319]:
+                    - cell [ref=e320]:
+                      - checkbox [ref=e323] [cursor=pointer]
+                    - cell "QASD sckrhq" [ref=e325]
+                    - cell "-" [ref=e326]
+                    - cell "1" [ref=e327]
+                    - cell "Active" [ref=e328]
+                    - cell "California" [ref=e329]
+                    - cell [ref=e330]:
+                      - generic [ref=e331]:
+                        - img [ref=e332] [cursor=pointer]
+                        - img [ref=e335] [cursor=pointer]
+                  - row "QASD qxvuxk - 1 Active California" [ref=e338]:
+                    - cell [ref=e339]:
+                      - checkbox [ref=e342] [cursor=pointer]
+                    - cell "QASD qxvuxk" [ref=e344]
+                    - cell "-" [ref=e345]
+                    - cell "1" [ref=e346]
+                    - cell "Active" [ref=e347]
+                    - cell "California" [ref=e348]
+                    - cell [ref=e349]:
+                      - generic [ref=e350]:
+                        - img [ref=e351] [cursor=pointer]
+                        - img [ref=e354] [cursor=pointer]
+                  - row "QASDEdited dpxtxk - 1 Active California" [ref=e357]:
+                    - cell [ref=e358]:
+                      - checkbox [ref=e361] [cursor=pointer]
+                    - cell "QASDEdited dpxtxk" [ref=e363]
+                    - cell "-" [ref=e364]
+                    - cell "1" [ref=e365]
+                    - cell "Active" [ref=e366]
+                    - cell "California" [ref=e367]
+                    - cell [ref=e368]:
+                      - generic [ref=e369]:
+                        - img [ref=e370] [cursor=pointer]
+                        - img [ref=e373] [cursor=pointer]
+                  - row "QASD ashtxk - 1 Active California" [ref=e376]:
+                    - cell [ref=e377]:
+                      - checkbox [ref=e380] [cursor=pointer]
+                    - cell "QASD ashtxk" [ref=e382]
+                    - cell "-" [ref=e383]
+                    - cell "1" [ref=e384]
+                    - cell "Active" [ref=e385]
+                    - cell "California" [ref=e386]
+                    - cell [ref=e387]:
+                      - generic [ref=e388]:
+                        - img [ref=e389] [cursor=pointer]
+                        - img [ref=e392] [cursor=pointer]
+                  - row "QASDEdited zcroyi - 1 Active California" [ref=e395]:
+                    - cell [ref=e396]:
+                      - checkbox [ref=e399] [cursor=pointer]
+                    - cell "QASDEdited zcroyi" [ref=e401]
+                    - cell "-" [ref=e402]
+                    - cell "1" [ref=e403]
+                    - cell "Active" [ref=e404]
+                    - cell "California" [ref=e405]
+                    - cell [ref=e406]:
+                      - generic [ref=e407]:
+                        - img [ref=e408] [cursor=pointer]
+                        - img [ref=e411] [cursor=pointer]
+                  - row "QASD snznyi - 1 Active California" [ref=e414]:
+                    - cell [ref=e415]:
+                      - checkbox [ref=e418] [cursor=pointer]
+                    - cell "QASD snznyi" [ref=e420]
+                    - cell "-" [ref=e421]
+                    - cell "1" [ref=e422]
+                    - cell "Active" [ref=e423]
+                    - cell "California" [ref=e424]
+                    - cell [ref=e425]:
+                      - generic [ref=e426]:
+                        - img [ref=e427] [cursor=pointer]
+                        - img [ref=e430] [cursor=pointer]
+                  - row "QASD dpptvd - 1 Active California" [ref=e433]:
+                    - cell [ref=e434]:
+                      - checkbox [ref=e437] [cursor=pointer]
+                    - cell "QASD dpptvd" [ref=e439]
+                    - cell "-" [ref=e440]
+                    - cell "1" [ref=e441]
+                    - cell "Active" [ref=e442]
+                    - cell "California" [ref=e443]
+                    - cell [ref=e444]:
+                      - generic [ref=e445]:
+                        - img [ref=e446] [cursor=pointer]
+                        - img [ref=e449] [cursor=pointer]
+                  - row "QASDEdited rrvsvd - 1 Active California" [ref=e452]:
+                    - cell [ref=e453]:
+                      - checkbox [ref=e456] [cursor=pointer]
+                    - cell "QASDEdited rrvsvd" [ref=e458]
+                    - cell "-" [ref=e459]
+                    - cell "1" [ref=e460]
+                    - cell "Active" [ref=e461]
+                    - cell "California" [ref=e462]
+                    - cell [ref=e463]:
+                      - generic [ref=e464]:
+                        - img [ref=e465] [cursor=pointer]
+                        - img [ref=e468] [cursor=pointer]
+            - list [ref=e471]:
+              - listitem [ref=e472]: 11-20 of 82
+              - listitem "Previous Page" [ref=e473] [cursor=pointer]:
+                - button "left" [ref=e474]:
+                  - img "left" [ref=e475]:
+                    - img [ref=e476]
+              - listitem "Next 5 Pages" [ref=e478] [cursor=pointer]:
+                - generic [ref=e480]:
+                  - img "double-right" [ref=e481]:
+                    - img [ref=e482]
+                  - generic [ref=e484]: •••
+              - listitem "Next Page" [ref=e485] [cursor=pointer]:
+                - button "right" [active] [ref=e486]:
+                  - img "right" [ref=e487]:
+                    - img [ref=e488]
+              - listitem [ref=e490]:
+                - generic [ref=e491] [cursor=pointer]:
+                  - generic [ref=e492]:
+                    - combobox [ref=e494]
+                    - generic [ref=e495]: 10 / page
+                  - generic:
+                    - img:
+                      - img
+```
+
+# Test source
+
+```ts
+  136 |   await Promise.all([
+  137 |     page.waitForResponse(
+  138 |       (r) => r.url().includes('/api/school-districts') && r.request().method() === 'POST',
+  139 |       { timeout: 30000 }
+  140 |     ),
+  141 |     page.getByRole('button', { name: 'Save changes' }).click(),
+  142 |   ]);
+  143 |   await expect(page).toHaveURL(/\/school-districts\/?$/, { timeout: 25000 });
+  144 | 
+  145 |   await gotoSchoolDistricts(page);
+  146 |   await search.fill(newName);
+  147 |   await search.press('Enter');
+  148 |   await expect(page.locator('tr.ant-table-row').filter({ hasText: newName }).first()).toBeVisible({
+  149 |     timeout: 15000,
+  150 |   });
+  151 | });
+  152 | 
+  153 | test('Delete a school district (with confirmation)', async ({ page }) => {
+  154 |   const name = await createSchoolDistrict(page); // unlinked -> deletable
+  155 | 
+  156 |   await gotoSchoolDistricts(page);
+  157 |   const search = page.getByPlaceholder('Search');
+  158 |   await search.fill(name);
+  159 |   await search.press('Enter');
+  160 |   const row = page.locator('tr.ant-table-row').filter({ hasText: name }).first();
+  161 |   await expect(row).toBeVisible({ timeout: 15000 });
+  162 |   await row.locator('td').last().locator('svg').nth(1).click();
+  163 | 
+  164 |   const modal = page.locator('.ant-modal-content');
+  165 |   await expect(modal).toBeVisible();
+  166 |   await expect(modal.getByText('Delete School District')).toBeVisible();
+  167 | 
+  168 |   // Confirming deletes the district (the DELETE …→200 is the real proof; the
+  169 |   // modal's body text can render a beat late, so we don't gate on it).
+  170 |   const [resp] = await Promise.all([
+  171 |     page.waitForResponse(
+  172 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  173 |       { timeout: 45000 } // the delete can be slow under full-suite backend load
+  174 |     ),
+  175 |     modal.getByRole('button', { name: 'Delete' }).click(),
+  176 |   ]);
+  177 |   expect(resp.ok()).toBeTruthy();
+  178 | });
+  179 | 
+  180 | // A district linked to events cannot be deleted — the seed "Murx International
+  181 | // School" is linked, so the delete dialog blocks with an explanatory message.
+  182 | test('A district linked to events cannot be deleted', async ({ page }) => {
+  183 |   await gotoSchoolDistricts(page);
+  184 |   await page.waitForTimeout(1500);
+  185 | 
+  186 |   const search = page.getByPlaceholder('Search');
+  187 |   await search.fill('Murx International School');
+  188 |   await search.press('Enter');
+  189 |   const row = page.locator('tr.ant-table-row').filter({ hasText: 'Murx' }).first();
+  190 |   await expect(row).toBeVisible({ timeout: 15000 });
+  191 |   await row.locator('td').last().locator('svg').nth(1).click();
+  192 | 
+  193 |   const modal = page.locator('.ant-modal-content');
+  194 |   await expect(modal).toBeVisible();
+  195 |   await expect(modal.getByText(/Unable to delete school district/i)).toBeVisible();
+  196 |   await expect(modal.getByText(/linked to one or more events/i)).toBeVisible();
+  197 | });
+  198 | 
+  199 | // ---------------------------------------------------------------------------
+  200 | // Import / pagination / sorting
+  201 | // ---------------------------------------------------------------------------
+  202 | 
+  203 | test('Import opens the upload dialog', async ({ page }) => {
+  204 |   await gotoSchoolDistricts(page);
+  205 |   await page.waitForTimeout(2000);
+  206 | 
+  207 |   const modal = page.locator('.ant-modal-content');
+  208 |   await expect(async () => {
+  209 |     if (!(await modal.isVisible().catch(() => false))) {
+  210 |       await page.getByRole('button', { name: 'Import' }).click();
+  211 |     }
+  212 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  213 |   }).toPass({ timeout: 20000 });
+  214 | 
+  215 |   await expect(modal.getByRole('heading', { name: 'Import school districts' })).toBeVisible();
+  216 |   await expect(modal.getByText(/Click or drag file/i).first()).toBeVisible();
+  217 |   await expect(modal.getByRole('button', { name: 'Cancel' })).toBeVisible();
+  218 | });
+  219 | 
+  220 | test('Pagination navigates to the next page', async ({ page }) => {
+  221 |   await gotoSchoolDistricts(page);
+  222 |   await page.waitForTimeout(2000);
+  223 | 
+  224 |   const firstBefore = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  225 |   await page.locator('li.ant-pagination-next').click();
+  226 | 
+  227 |   await expect(page.locator('li.ant-pagination-item-active')).toHaveText('2', { timeout: 15000 });
+  228 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  229 |   // The page-2 data fetch can lag the pagination indicator — wait for the top
+  230 |   // row to actually change before asserting.
+  231 |   await expect
+  232 |     .poll(
+  233 |       async () => (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim(),
+  234 |       { timeout: 15000 }
+  235 |     )
+> 236 |     .not.toBe(firstBefore);
+      |          ^ Error: expect(received).not.toBe(expected) // Object.is equality
+  237 | });
+  238 | 
+  239 | test('Sorting by School District reorders the list', async ({ page }) => {
+  240 |   await gotoSchoolDistricts(page);
+  241 |   await page.waitForTimeout(2000);
+  242 | 
+  243 |   const header = page.getByRole('columnheader', { name: 'School District', exact: false }).first();
+  244 |   await header.click();
+  245 |   await expect(header).toHaveClass(/ant-table-column-sort/, { timeout: 10000 });
+  246 |   await page.waitForTimeout(1500);
+  247 |   const firstAsc = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  248 | 
+  249 |   await header.click();
+  250 |   await page.waitForTimeout(1500);
+  251 |   const firstDesc = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  252 | 
+  253 |   expect(firstAsc).not.toBe(firstDesc);
+  254 | });
+  255 | 
+  256 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  257 | test.afterEach(async ({ page }) => {
+  258 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  259 |   if (ms) await page.waitForTimeout(ms);
+  260 | });
+  261 | 
+```
