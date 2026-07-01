@@ -1,0 +1,503 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/events.spec.js >> Delete removes an event (with confirmation)
+- Location: tests/admin/events.spec.js:159:1
+
+# Error details
+
+```
+Test timeout of 120000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 120000ms exceeded.
+Call log:
+  - waiting for locator('.ant-dropdown-menu-item').filter({ hasText: 'Delete' })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - img "left" [ref=e9]:
+        - img [ref=e10]
+      - img "Vype Logo" [ref=e13]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Events" [ref=e18] [cursor=pointer]:
+            - /url: /events?sortDirection=ascend&sortColumn=startTime
+            - img [ref=e20]
+            - paragraph [ref=e23]: Events
+        - listitem [ref=e24]:
+          - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+            - /url: /bundles
+            - img [ref=e27]
+            - paragraph [ref=e31]: Spotlight Bundles
+        - listitem [ref=e32]:
+          - link "Orders" [ref=e33] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e35]
+            - paragraph [ref=e38]: Orders
+        - listitem [ref=e39]:
+          - link "Users" [ref=e40] [cursor=pointer]:
+            - /url: /users
+            - img [ref=e42]
+            - paragraph [ref=e45]: Users
+        - listitem [ref=e46]:
+          - link "Organizations" [ref=e47] [cursor=pointer]:
+            - /url: /organizations
+            - img [ref=e49]
+            - paragraph [ref=e52]: Organizations
+        - listitem [ref=e53]:
+          - link "Products" [ref=e54] [cursor=pointer]:
+            - /url: /products
+            - img [ref=e56]
+            - paragraph [ref=e59]: Products
+        - listitem [ref=e60]:
+          - link "Coupons" [ref=e61] [cursor=pointer]:
+            - /url: /coupons
+            - img [ref=e63]
+            - paragraph [ref=e66]: Coupons
+        - listitem [ref=e67]:
+          - link "Gift Cards" [ref=e68] [cursor=pointer]:
+            - /url: /giftcards
+            - img [ref=e70]
+            - paragraph [ref=e73]: Gift Cards
+        - listitem [ref=e74]:
+          - link "Categories" [ref=e75] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e77]
+            - paragraph [ref=e80]: Categories
+        - listitem [ref=e81]:
+          - link "Levels" [ref=e82] [cursor=pointer]:
+            - /url: /levels
+            - img [ref=e84]
+            - paragraph [ref=e87]: Levels
+        - listitem [ref=e88]:
+          - link "School Districts" [ref=e89] [cursor=pointer]:
+            - /url: /school-districts
+            - img [ref=e91]
+            - paragraph [ref=e94]: School Districts
+        - listitem [ref=e95]:
+          - link "Zenfolio" [ref=e96] [cursor=pointer]:
+            - /url: /browse-and-buy
+            - img [ref=e98]
+            - paragraph [ref=e101]: Zenfolio
+        - listitem [ref=e102]:
+          - link "Payouts" [ref=e103] [cursor=pointer]:
+            - /url: /payout?sortDirection=ascend&sortColumn=payee
+            - img [ref=e105]
+            - paragraph [ref=e108]: Payouts
+        - listitem [ref=e109]:
+          - link "Reports" [ref=e110] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e112]
+            - paragraph [ref=e133]: Reports
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - paragraph [ref=e138]: "Staging: Sandbox, you can play around :)"
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - heading "Dhaval Kukadia" [level=6] [ref=e141]
+          - paragraph [ref=e142]: Admin, Photographer
+        - img "user" [ref=e145]:
+          - img [ref=e146]
+        - generic [ref=e148] [cursor=pointer]:
+          - paragraph [ref=e149]: Logout
+          - img [ref=e151]
+    - main [ref=e154]:
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]:
+              - generic [ref=e160]: Home
+              - text: /
+            - generic [ref=e161]:
+              - link "Events" [ref=e163] [cursor=pointer]:
+                - /url: /events
+              - text: /
+            - generic [ref=e165]: Details
+          - generic [ref=e166]:
+            - generic [ref=e167]:
+              - button "Back" [ref=e169] [cursor=pointer]:
+                - img "arrow-left" [ref=e170]:
+                  - img [ref=e171]
+              - generic "14U Team Texas @ 16U Team Texas Blue - Boys - 7 - 7 on 7 Football" [ref=e173]
+              - generic "07/01/2026 — 07/01/2026" [ref=e174]
+            - button "Edit" [ref=e176] [cursor=pointer]:
+              - generic [ref=e177]: Edit
+        - generic [ref=e180]:
+          - generic [ref=e183]: Event Details
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - paragraph [ref=e187]: EVENT · GAME
+              - heading "14U Team Texas @ 16U Team Texas Blue - Boys - 7 - 7 on 7 Football" [level=2] [ref=e188]
+              - paragraph [ref=e189]: 07/01/2026 — 07/01/2026
+            - generic [ref=e190]: Published
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - generic [ref=e193]: Event Type
+              - generic [ref=e194]: Game
+            - generic [ref=e195]:
+              - generic [ref=e196]: Sport
+              - generic [ref=e197]: Sports
+            - generic [ref=e198]:
+              - generic [ref=e199]: Gender
+              - generic [ref=e200]: Boys
+            - generic [ref=e201]:
+              - generic [ref=e202]: Level
+              - generic [ref=e203]: "7"
+            - generic [ref=e204]:
+              - generic [ref=e205]: Date & Time
+              - generic [ref=e206]: 07/01/2026 6:00 PM — 8:00 PM
+            - generic [ref=e207]:
+              - generic [ref=e208]: Location
+              - generic [ref=e209]: 14U Team Texas
+            - generic [ref=e210]:
+              - generic [ref=e211]: Visiting Team
+              - generic [ref=e212]: 14U Team Texas
+            - generic [ref=e213]:
+              - generic [ref=e214]: Home Team
+              - generic [ref=e215]: 16U Team Texas Blue
+            - generic [ref=e216]:
+              - generic [ref=e217]: Event Description
+              - generic [ref=e218]: sdfgnbvc
+          - generic [ref=e221]: Status
+          - generic [ref=e222]:
+            - generic [ref=e223]:
+              - generic [ref=e224]: Weblink
+              - link "https://uat-phlox-frontend.netlify.app/eventDetail/4933" [ref=e225] [cursor=pointer]:
+                - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4933
+            - generic [ref=e226]:
+              - generic [ref=e227]: Zenfolio folder
+              - generic [ref=e228]: —
+          - generic [ref=e231]: Order Summary
+          - generic [ref=e232]:
+            - generic [ref=e233]:
+              - generic [ref=e234]: Team
+              - generic [ref=e235]: Orders
+              - generic [ref=e236]: Amount
+            - paragraph [ref=e237]: No data.
+          - generic [ref=e240]: Tracker
+          - generic [ref=e241]:
+            - generic [ref=e242]:
+              - generic [ref=e243]: Event status
+              - generic [ref=e244]: Unfulfilled
+            - generic [ref=e245]:
+              - generic [ref=e246]: Order status
+              - generic [ref=e247]: 0/0 fulfilled
+            - generic [ref=e248]:
+              - generic [ref=e249]: Image count
+              - generic [ref=e250]: 0 Images
+          - generic [ref=e251]:
+            - paragraph [ref=e252]: Browse & Buy Gallery
+            - generic [ref=e253]:
+              - generic [ref=e254]: Dhaval Kukadia (Owner)
+              - generic [ref=e255]: Pending
+            - generic [ref=e256]:
+              - generic [ref=e257]: Aayush Srivastav
+              - generic [ref=e258]: Pending
+          - generic [ref=e261]: Sales Analysis
+          - generic [ref=e262]:
+            - generic [ref=e263]:
+              - generic [ref=e264]: Sales
+              - generic [ref=e265]:
+                - generic [ref=e266]: Pre-order sales
+                - generic [ref=e267]: $0.00
+              - generic [ref=e268]:
+                - generic [ref=e269]: Offline sales
+                - generic [ref=e270]: $0.00
+              - generic [ref=e271]:
+                - generic [ref=e272]: Zenfolio B&B
+                - generic [ref=e273]: $0.00
+              - generic [ref=e274]:
+                - generic [ref=e275]: Zenfolio Spotlights
+                - generic [ref=e276]: $0.00
+              - generic [ref=e277]:
+                - generic [ref=e278]: Total sales
+                - generic [ref=e279]: $0.00
+            - generic [ref=e280]:
+              - generic [ref=e281]: Payout breakdown
+              - generic [ref=e282]:
+                - generic [ref=e283]: Vypesideline
+                - generic [ref=e284]: ($100.00)
+              - generic [ref=e285]:
+                - generic [ref=e286]: Dhaval Kukadia · Fixed
+                - generic [ref=e287]: ($0.00)
+              - generic [ref=e288]:
+                - generic [ref=e289]: Aayush Srivastav · Fixed
+                - generic [ref=e290]: ($100.00)
+              - generic [ref=e291]:
+                - generic [ref=e292]: Total payout
+                - generic [ref=e293]: ($0.00)
+          - generic [ref=e296]: Products
+          - generic [ref=e297]:
+            - paragraph [ref=e298]: "Maximum order capacity — Individual: 50 · Team: 0"
+            - generic [ref=e299]:
+              - generic [ref=e300]: Title
+              - generic [ref=e301]: Category
+              - generic [ref=e302]: "# orders"
+              - generic [ref=e303]: Default Price
+              - generic [ref=e304]: Multiplier
+              - generic [ref=e305]: Price
+            - generic [ref=e306]:
+              - generic [ref=e307]: Spotlight Gallery - Standard Resolution
+              - generic [ref=e308]: Individual
+              - generic [ref=e309]: "0"
+              - generic [ref=e310]: $63.00
+              - generic [ref=e311]: "1"
+              - generic [ref=e312]: $63.00
+            - generic [ref=e313]:
+              - generic [ref=e314]: Spotlight Gallery - High Resolution
+              - generic [ref=e315]: Individual
+              - generic [ref=e316]: "0"
+              - generic [ref=e317]: $74.00
+              - generic [ref=e318]: "1"
+              - generic [ref=e319]: $74.00
+          - generic [ref=e322]: Professionals
+          - generic [ref=e323]:
+            - paragraph [ref=e324]: 2 professionals
+            - generic [ref=e325]:
+              - generic [ref=e326]: Name
+              - generic [ref=e327]: Role
+              - generic [ref=e328]: Level
+              - generic [ref=e329]: Compensation
+              - generic [ref=e330]: Confirmation
+              - generic [ref=e331]: Rate
+            - generic [ref=e332]:
+              - generic [ref=e333]: Dhaval Kukadia
+              - generic [ref=e334]: Owner · Photographer
+              - generic [ref=e335]: "-"
+              - generic [ref=e336]: Fixed
+              - generic [ref=e337]: Confirmed
+              - generic [ref=e338]: $0.00
+            - generic [ref=e339]:
+              - generic [ref=e340]: Aayush Srivastav
+              - generic [ref=e341]: Photographer
+              - generic [ref=e342]: "5"
+              - generic [ref=e343]: Fixed
+              - generic [ref=e344]: Confirmed
+              - generic [ref=e345]: $100.00
+          - generic [ref=e348]: Payout
+          - generic [ref=e349]:
+            - generic [ref=e350]:
+              - generic [ref=e351]: Payee
+              - generic [ref=e352]: Role
+              - generic [ref=e353]: Total
+              - generic [ref=e354]: Paid
+              - generic [ref=e355]: Balance
+            - generic [ref=e356]:
+              - generic [ref=e357]: Dhaval Kukadia
+              - generic [ref=e358]: Staff
+              - generic [ref=e359]: $0.00
+              - generic [ref=e360]: —
+              - generic [ref=e361]: $0.00
+            - generic [ref=e362]:
+              - generic [ref=e363]: Aayush Srivastav
+              - generic [ref=e364]: Staff
+              - generic [ref=e365]: $100.00
+              - generic [ref=e366]: —
+              - generic [ref=e367]: $100.00
+          - generic [ref=e370]: Logs
+          - generic [ref=e372]:
+            - generic [ref=e373]:
+              - generic [ref=e374]: You
+              - generic [ref=e375]: Created this event
+            - generic [ref=e376]: 06/29/2026 05:44 AM
+```
+
+# Test source
+
+```ts
+  66  | 
+  67  |   // After picking the teams/level/sport, the title builds itself from them.
+  68  |   const built = await fillRequiredEventFields(page);
+  69  |   expect(built.length).toBeGreaterThan(3);
+  70  |   expect(built).toContain('@'); // "{Visiting} @ {Home} - {Level} - {Sport}"
+  71  | });
+  72  | 
+  73  | // ---------------------------------------------------------------------------
+  74  | // Create / publish
+  75  | // ---------------------------------------------------------------------------
+  76  | 
+  77  | test('Create and publish a valid event', async ({ page }) => {
+  78  |   await gotoAddEvent(page);
+  79  |   await fillRequiredEventFields(page);
+  80  | 
+  81  |   // Publishing a fully-valid form submits to the backend (clash check + create)
+  82  |   // and clears all client-side validation.
+  83  |   const [resp] = await Promise.all([
+  84  |     page.waitForResponse(
+  85  |       (r) => r.url().includes('/api/events') && r.request().method() === 'POST',
+  86  |       { timeout: 30000 }
+  87  |     ),
+  88  |     page.getByRole('button', { name: 'Save and Publish' }).click(),
+  89  |   ]);
+  90  |   expect(resp.ok()).toBeTruthy();
+  91  | 
+  92  |   // No required-field errors remain (the form was accepted, not rejected).
+  93  |   await expect(page.locator('.ant-form-item-explain-error')).toHaveCount(0);
+  94  | });
+  95  | 
+  96  | // ---------------------------------------------------------------------------
+  97  | // Negative / validation
+  98  | // ---------------------------------------------------------------------------
+  99  | 
+  100 | test('Publishing an empty event shows required-field validation', async ({ page }) => {
+  101 |   await gotoAddEvent(page);
+  102 | 
+  103 |   await page.getByRole('button', { name: 'Save and Publish' }).click();
+  104 | 
+  105 |   // The form blocks the publish and flags every required field.
+  106 |   await expect(page.getByText('Please select a Visiting Team')).toBeVisible();
+  107 |   await expect(page.getByText('Please select a Home Team')).toBeVisible();
+  108 |   await expect(page.getByText('Please select a Sub Category')).toBeVisible();
+  109 |   await expect(page.getByText('Please select a Level')).toBeVisible();
+  110 |   await expect(page.getByText('Please pick a Date')).toBeVisible();
+  111 |   await expect(page.getByText('Please pick valid Time Slot')).toBeVisible();
+  112 | 
+  113 |   // We stay on the form (nothing was created).
+  114 |   await expect(page).toHaveURL(/\/events\/add-event/);
+  115 | });
+  116 | 
+  117 | // BUG: "Save as Draft" performs NO validation — an entirely empty form is
+  118 | // accepted and a blank "@ - -" draft is created. This test documents that gap;
+  119 | // a draft should arguably still require at least a title or teams.
+  120 | test('BUG: Save as Draft accepts a completely empty form', async ({ page }) => {
+  121 |   await gotoAddEvent(page);
+  122 | 
+  123 |   await page.getByRole('button', { name: 'Save as Draft' }).click();
+  124 | 
+  125 |   // It "succeeds" — a success toast appears and no validation is shown.
+  126 |   await expect(page.getByText(/Created Successfully/i)).toBeVisible({ timeout: 15000 });
+  127 |   await expect(page.locator('.ant-form-item-explain-error')).toHaveCount(0);
+  128 | });
+  129 | 
+  130 | test('Searching for a non-existent event shows no results', async ({ page }) => {
+  131 |   await gotoEvents(page);
+  132 | 
+  133 |   const search = page.getByPlaceholder('Search');
+  134 |   await search.fill('zzzznotarealadminevent');
+  135 |   await search.press('Enter');
+  136 | 
+  137 |   // The list resolves to an empty result (count line reads 0 / "No Data").
+  138 |   await expect(page.getByText(/Showing 0 Events/)).toBeVisible({ timeout: 15000 });
+  139 | });
+  140 | 
+  141 | // ---------------------------------------------------------------------------
+  142 | // Edit / delete
+  143 | // ---------------------------------------------------------------------------
+  144 | 
+  145 | test('Edit opens the event edit form', async ({ page }) => {
+  146 |   // Ensure at least one event exists, then surface it via the Team filter.
+  147 |   await createAndPublishEvent(page);
+  148 |   await gotoEventsFilteredByFirstTeam(page);
+  149 | 
+  150 |   // The first action icon (pencil) opens the edit form for that event.
+  151 |   const row = page.locator('tr.ant-table-row').first();
+  152 |   await row.locator('td').last().locator('svg').first().click();
+  153 | 
+  154 |   await expect(page).toHaveURL(/\/events\/edit-event\/\d+/, { timeout: 25000 });
+  155 |   // The form is pre-populated — the auto-title carries the existing value.
+  156 |   await expect(page.locator('#eventTitle')).toHaveValue(/\S/, { timeout: 25000 });
+  157 | });
+  158 | 
+  159 | test('Delete removes an event (with confirmation)', async ({ page }) => {
+  160 |   await createAndPublishEvent(page);
+  161 |   await gotoEventsFilteredByFirstTeam(page);
+  162 | 
+  163 |   // Event actions: a kebab (⋮) menu holds Duplicate / Delete.
+  164 |   const row = page.locator('tr.ant-table-row').first();
+  165 |   await row.locator('td').last().locator('svg').nth(1).click();
+> 166 |   await page.locator('.ant-dropdown-menu-item', { hasText: 'Delete' }).click();
+      |                                                                        ^ Error: locator.click: Test timeout of 120000ms exceeded.
+  167 | 
+  168 |   // A confirmation dialog appears before anything is removed.
+  169 |   const modal = page.locator('.ant-modal-content');
+  170 |   await expect(modal).toBeVisible();
+  171 |   await expect(modal.getByText('Delete Event')).toBeVisible();
+  172 |   await expect(modal.getByText(/Are you sure/i)).toBeVisible();
+  173 | 
+  174 |   // Confirming fires the delete request; assert the backend accepts it (200).
+  175 |   const [resp] = await Promise.all([
+  176 |     page.waitForResponse(
+  177 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  178 |       { timeout: 25000 }
+  179 |     ),
+  180 |     modal.getByRole('button', { name: 'Delete' }).click(),
+  181 |   ]);
+  182 |   expect(resp.ok()).toBeTruthy();
+  183 | });
+  184 | 
+  185 | // ---------------------------------------------------------------------------
+  186 | // Filters / Import / clash detection
+  187 | // ---------------------------------------------------------------------------
+  188 | 
+  189 | test('Status filter offers the expected options', async ({ page }) => {
+  190 |   await gotoEvents(page);
+  191 |   await page.waitForTimeout(2000);
+  192 | 
+  193 |   const options = await openSelectFilter(page, 'Status');
+  194 |   for (const o of ['Draft', 'Published', 'Cancelled', 'Fulfilled']) {
+  195 |     await expect(options.filter({ hasText: o }).first()).toBeVisible();
+  196 |   }
+  197 | });
+  198 | 
+  199 | test('Type filter offers the expected options', async ({ page }) => {
+  200 |   await gotoEvents(page);
+  201 |   await page.waitForTimeout(2000);
+  202 | 
+  203 |   const options = await openSelectFilter(page, 'Type');
+  204 |   for (const o of ['Game', 'Tournament', 'Media Day']) {
+  205 |     await expect(options.filter({ hasText: o }).first()).toBeVisible();
+  206 |   }
+  207 | });
+  208 | 
+  209 | test('Import opens the CSV upload dialog', async ({ page }) => {
+  210 |   await gotoEvents(page);
+  211 |   await page.waitForTimeout(2000);
+  212 | 
+  213 |   const modal = page.locator('.ant-modal-content');
+  214 |   await expect(async () => {
+  215 |     if (!(await modal.isVisible().catch(() => false))) {
+  216 |       await page.getByRole('button', { name: 'Import' }).click();
+  217 |     }
+  218 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  219 |   }).toPass({ timeout: 20000 });
+  220 | 
+  221 |   await expect(modal.getByRole('heading', { name: 'Import events' })).toBeVisible();
+  222 |   await expect(modal.getByText(/Click or drag file/i).first()).toBeVisible();
+  223 |   await expect(modal.getByRole('button', { name: 'Import' })).toBeVisible();
+  224 |   await expect(modal.getByRole('button', { name: 'Cancel' })).toBeVisible();
+  225 | });
+  226 | 
+  227 | // Publishing an event whose photographer already has an event at the same
+  228 | // time triggers a schedule-conflict modal and blocks creation. The standard
+  229 | // fixture event (created elsewhere in this suite) makes this collide reliably.
+  230 | test('Publishing a conflicting event shows the schedule-conflict modal', async ({ page }) => {
+  231 |   await createAndPublishEvent(page); // ensure the conflicting event exists
+  232 | 
+  233 |   await gotoAddEvent(page);
+  234 |   await fillRequiredEventFields(page); // same teams/date/time -> conflict
+  235 |   await page.getByRole('button', { name: 'Save and Publish' }).click();
+  236 | 
+  237 |   await expect(page.getByText(/schedule conflict/i).first()).toBeVisible({ timeout: 25000 });
+  238 |   await expect(page).toHaveURL(/\/events\/add-event/);
+  239 | });
+  240 | 
+  241 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  242 | test.afterEach(async ({ page }) => {
+  243 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  244 |   if (ms) await page.waitForTimeout(ms);
+  245 | });
+  246 | 
+```

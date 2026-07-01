@@ -1,0 +1,403 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/payment.spec.js >> Pay with a card
+- Location: tests/frontend/payment.spec.js:33:1
+
+# Error details
+
+```
+Test timeout of 180000ms exceeded.
+```
+
+```
+Error: locator.fill: Test timeout of 180000ms exceeded.
+Call log:
+  - waiting for getByRole('textbox', { name: 'First name of player' })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - navigation [ref=e6]:
+      - generic [ref=e7]:
+        - link "ratio image" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img "ratio image" [ref=e10]
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - link "Future Events" [ref=e13] [cursor=pointer]:
+              - /url: /events-bundles?search_type=Future+events
+            - link "Spotlight Bundles" [ref=e15] [cursor=pointer]:
+              - /url: /bundles
+            - link "Past Events" [ref=e17] [cursor=pointer]:
+              - /url: /events-bundles?search_type=Past+events
+            - link "FAQ" [ref=e19] [cursor=pointer]:
+              - /url: https://phloxphoto.com/faqs/
+            - link "Contact Us" [ref=e21] [cursor=pointer]:
+              - /url: https://phloxphoto.com/contact-us/
+            - generic [ref=e24] [cursor=pointer]:
+              - generic [ref=e25]: About
+              - img [ref=e26]
+          - generic [ref=e29]:
+            - link "Cart 3" [ref=e30] [cursor=pointer]:
+              - /url: /cart
+              - img [ref=e32]
+              - text: Cart
+              - generic [ref=e34]: "3"
+            - generic [ref=e37] [cursor=pointer]:
+              - generic [ref=e38]: raj.pal@hnrtech.com
+              - img [ref=e39]
+    - generic [ref=e42] [cursor=pointer]:
+      - img [ref=e44]
+      - generic [ref=e46]: 1 product added to cart
+      - img [ref=e48]
+  - alert [ref=e50]: Billing Detail
+  - generic [ref=e51]:
+    - generic [ref=e52]:
+      - link "Return to cart" [ref=e54] [cursor=pointer]:
+        - /url: /cart
+        - img [ref=e55]
+        - text: Return to cart
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - heading "Billing Details" [level=3] [ref=e62]
+          - generic [ref=e63]:
+            - generic [ref=e65]:
+              - generic [ref=e66]:
+                - text: First name
+                - generic [ref=e67]: "*"
+              - textbox "First Name" [ref=e68]: John
+            - generic [ref=e70]:
+              - generic [ref=e71]:
+                - text: Last name
+                - generic [ref=e72]: "*"
+              - textbox "Last Name" [ref=e73]: Doe
+            - generic [ref=e75]:
+              - generic [ref=e76]:
+                - text: Street address
+                - generic [ref=e77]: "*"
+              - textbox "E.g. 67061 Eugenia Streets" [ref=e78]: 123 Main Street
+            - generic [ref=e80]:
+              - generic [ref=e81]: Apartment, suite, unit, etc (Optional)
+              - textbox "E.g. Mills" [ref=e82]
+            - generic [ref=e84]:
+              - generic [ref=e85]:
+                - text: Town/City
+                - generic [ref=e86]: "*"
+              - textbox "Town/City" [ref=e87]: Austin
+            - generic [ref=e89]:
+              - generic [ref=e90]:
+                - text: State
+                - generic [ref=e91]: "*"
+              - combobox "State *" [ref=e94] [cursor=pointer]:
+                - option "Texas"
+                - option "Alabama" [selected]
+                - option "Alaska"
+                - option "Arizona"
+                - option "Arkansas"
+                - option "California"
+                - option "Colorado"
+                - option "Connecticut"
+                - option "Delaware"
+                - option "District of Columbia"
+                - option "Florida"
+                - option "Georgia"
+                - option "Hawaii"
+                - option "Idaho"
+                - option "Illinois"
+                - option "Indiana"
+                - option "Iowa"
+                - option "Kansas"
+                - option "Kentucky"
+                - option "Louisiana"
+                - option "Maine"
+                - option "Maryland"
+                - option "Massachusetts"
+                - option "Michigan"
+                - option "Minnesota"
+                - option "Mississippi"
+                - option "Missouri"
+                - option "Montana"
+                - option "Nebraska"
+                - option "Nevada"
+                - option "New Hampshire"
+                - option "New Jersey"
+                - option "New Mexico"
+                - option "New York"
+                - option "North Carolina"
+                - option "North Dakota"
+                - option "Ohio"
+                - option "Oklahoma"
+                - option "Oregon"
+                - option "Pennsylvania"
+                - option "Rhode Island"
+                - option "South Carolina"
+                - option "South Dakota"
+                - option "Tennessee"
+                - option "Utah"
+                - option "Vermont"
+                - option "Virginia"
+                - option "Washington"
+                - option "West Virginia"
+                - option "Wisconsin"
+                - option "Wyoming"
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - text: Zip code
+                - generic [ref=e98]: "*"
+              - textbox "E.g. 50613" [ref=e99]: "78701"
+            - generic [ref=e101]:
+              - generic [ref=e102]:
+                - text: Phone number
+                - generic [ref=e103]: "*"
+              - textbox "Your 10 digit phone number" [ref=e104]: "1234567890"
+            - generic [ref=e106]:
+              - generic [ref=e107]:
+                - text: Email address
+                - generic [ref=e108]: "*"
+              - textbox "Your email address" [active] [ref=e109]: raj.pal@hnrtech.com
+        - generic [ref=e110]:
+          - heading "Player Details" [level=3] [ref=e112]
+          - generic [ref=e113]:
+            - generic [ref=e115]:
+              - generic [ref=e116]:
+                - text: What is the name of your team ?
+                - generic [ref=e117]: "*"
+              - combobox "What is the name of your team ? *" [ref=e119] [cursor=pointer]:
+                - option "Select your team" [disabled] [selected]
+                - option "A+ Academy"
+                - option "Airline High School"
+                - option "All Saints Episcopal School of Forth Worth"
+            - generic [ref=e121]:
+              - generic [ref=e122]:
+                - text: Graduation year
+                - generic [ref=e123]: "*"
+              - combobox "Graduation year *" [ref=e125] [cursor=pointer]:
+                - option "Player’s graduation year" [disabled] [selected]
+                - option "2025"
+                - option "2026"
+                - option "2027"
+                - option "2028"
+                - option "2029"
+                - option "2030"
+                - option "2031"
+            - generic [ref=e127]:
+              - generic [ref=e128]: What is your instagram id ? (Optional)
+              - textbox "Player’s instagram ID" [ref=e129]
+            - generic [ref=e131]:
+              - generic [ref=e132]: What is your twitter id ? (Optional)
+              - textbox "Player’s twitter ID" [ref=e133]
+        - generic [ref=e137]:
+          - heading "Other Details" [level=3] [ref=e139]
+          - generic [ref=e142]:
+            - generic [ref=e143]: Notes for the photographer (Optional)
+            - textbox [ref=e144]
+        - generic [ref=e146]:
+          - generic [ref=e148] [cursor=pointer]:
+            - checkbox "Please send me order updates via text message(Optional)" [ref=e149]
+            - text: Please send me order updates via text message(Optional)
+          - generic [ref=e150]:
+            - link "Return to cart" [ref=e152] [cursor=pointer]:
+              - /url: /cart
+              - img [ref=e153]
+              - text: Return to cart
+            - button "Proceed to Payment" [ref=e155] [cursor=pointer]
+    - img [ref=e157]
+  - img [ref=e164]
+  - contentinfo [ref=e170]:
+    - generic [ref=e172]:
+      - generic [ref=e174]:
+        - list [ref=e177]:
+          - listitem [ref=e178]:
+            - link "Events" [ref=e179] [cursor=pointer]:
+              - /url: /events-bundles
+          - listitem [ref=e180]:
+            - link "Spotlight Bundles" [ref=e181] [cursor=pointer]:
+              - /url: /bundles
+          - listitem [ref=e182]:
+            - link "Find Your Photos" [ref=e183] [cursor=pointer]:
+              - /url: https://phloxphotos.com/sports
+          - listitem [ref=e184]:
+            - link "Services" [ref=e185] [cursor=pointer]:
+              - /url: https://phloxphoto.com/phlox-productions/
+          - listitem [ref=e186]:
+            - link "About" [ref=e187] [cursor=pointer]:
+              - /url: https://phloxphoto.com/about/
+        - list [ref=e190]:
+          - listitem [ref=e191]:
+            - link "Photographers" [ref=e192] [cursor=pointer]:
+              - /url: https://phloxphoto.com/about/
+          - listitem [ref=e193]:
+            - link "Contact us" [ref=e194] [cursor=pointer]:
+              - /url: https://phloxphoto.com/contact-us/
+          - listitem [ref=e195]:
+            - generic [ref=e196] [cursor=pointer]: Terms & Conditions
+          - listitem [ref=e197]:
+            - link "Policy" [ref=e198] [cursor=pointer]:
+              - /url: https://phloxphoto.com/fulfillment-policy/
+      - generic [ref=e200]:
+        - link "Footer logo Logo" [ref=e201] [cursor=pointer]:
+          - /url: "#"
+          - img "Footer logo" [ref=e202]
+          - generic [ref=e203]: Logo
+        - paragraph [ref=e204]: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed.
+        - generic [ref=e205]:
+          - link "Facebook" [ref=e206] [cursor=pointer]:
+            - /url: https://www.facebook.com/phlox.photos/
+            - generic [ref=e207]:
+              - img [ref=e209]
+              - generic [ref=e211]: Facebook
+          - link "Twitter" [ref=e212] [cursor=pointer]:
+            - /url: https://twitter.com/phloxphotos
+            - generic [ref=e213]:
+              - img [ref=e215]
+              - generic [ref=e217]: Twitter
+          - link "Instagram" [ref=e218] [cursor=pointer]:
+            - /url: https://www.instagram.com/phlox.photo
+            - generic [ref=e219]:
+              - img [ref=e221]
+              - generic [ref=e223]: Instagram
+    - generic [ref=e227]:
+      - img "copyright" [ref=e228]: ©
+      - text: 2026 VYPE Sideline Photography. All rights reserved.
+```
+
+# Test source
+
+```ts
+  1   | const { test, expect } = require('@playwright/test');
+  2   | const { selectComboByIndex, reachBillingWithTeam } = require('./helpers');
+  3   | 
+  4   | // These flows are long: reaching a team-bearing event + Stripe processing can
+  5   | // exceed the default 120s, especially the first test (which discovers the good
+  6   | // event). Give the whole file more headroom.
+  7   | test.describe.configure({ timeout: 180000 });
+  8   | 
+  9   | // Fills billing + player details and opens the payment modal.
+  10  | async function reachPaymentModal(page) {
+  11  |   // Reach the billing page on an event that actually has teams.
+  12  |   await reachBillingWithTeam(page);
+  13  | 
+  14  |   // Billing Details
+  15  |   await page.getByRole('textbox', { name: 'First Name', exact: true }).fill('John');
+  16  |   await page.getByRole('textbox', { name: 'Last Name', exact: true }).fill('Doe');
+  17  |   await page.getByRole('textbox', { name: 'E.g. 67061 Eugenia Streets' }).fill('123 Main Street');
+  18  |   await page.getByRole('textbox', { name: 'Town/City' }).fill('Austin');
+  19  |   await selectComboByIndex(page, 'State *');
+  20  |   await page.getByRole('textbox', { name: 'E.g. 50613' }).fill('78701');
+  21  |   await page.getByRole('textbox', { name: 'Your 10 digit phone number' }).fill('1234567890');
+  22  |   await page.getByRole('textbox', { name: 'Your email address' }).fill('raj.pal@hnrtech.com');
+  23  | 
+  24  |   // Player Details
+> 25  |   await page.getByRole('textbox', { name: 'First name of player' }).fill('Mike');
+      |                                                                     ^ Error: locator.fill: Test timeout of 180000ms exceeded.
+  26  |   await page.getByRole('textbox', { name: 'Last Name of player' }).fill('Smith');
+  27  |   await selectComboByIndex(page, 'What is the name of your team ? *');
+  28  |   await selectComboByIndex(page, 'Graduation year *');
+  29  | 
+  30  |   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
+  31  | }
+  32  | 
+  33  | test('Pay with a card', async ({ page }) => {
+  34  |   await reachPaymentModal(page);
+  35  | 
+  36  |   // Fill the Stripe card fields (test mode — 4242 card charges nothing).
+  37  |   const stripe = page.frameLocator('iframe[title="Secure payment input frame"]');
+  38  |   await stripe.getByPlaceholder('1234 1234 1234 1234').fill('4242 4242 4242 4242');
+  39  |   await stripe.getByPlaceholder('MM / YY').fill('12 / 34');
+  40  |   await stripe.getByPlaceholder('CVC').fill('123');
+  41  | 
+  42  |   await page.getByRole('button', { name: /^Pay \$/ }).click();
+  43  | 
+  44  |   // Payment succeeds and we land on the order confirmation page.
+  45  |   // (Stripe processing + redirect can take several seconds.)
+  46  |   await expect(page).toHaveURL(/orderStatus.*redirect_status=succeeded/, { timeout: 30000 });
+  47  |   await expect(page.getByRole('heading', { name: 'Your order is confirmed' })).toBeVisible();
+  48  |   await expect(page.getByText(/Order Number: #\d+/)).toBeVisible();
+  49  |   await expect(page.getByText(/Thank you for placing an order/)).toBeVisible();
+  50  | 
+  51  |   // The confirmation page offers two actions.
+  52  |   await expect(page.getByRole('button', { name: 'Go to Home Page' })).toBeVisible();
+  53  |   const viewReceipt = page.getByRole('link', { name: 'View Receipt' }).first();
+  54  |   await expect(viewReceipt).toBeVisible();
+  55  | 
+  56  |   // "View Receipt" opens the receipt in a new browser tab.
+  57  |   const [receiptTab] = await Promise.all([
+  58  |     page.context().waitForEvent('page'),
+  59  |     viewReceipt.click(),
+  60  |   ]);
+  61  |   await receiptTab.waitForLoadState();
+  62  |   await expect(receiptTab).toHaveURL(/orderReceipt/);
+  63  | 
+  64  |   // The receipt tab has a "Print Receipt" button (SPA — give it time to render).
+  65  |   await expect(receiptTab.getByRole('button', { name: 'Print Receipt' })).toBeVisible({
+  66  |     timeout: 15000,
+  67  |   });
+  68  | });
+  69  | 
+  70  | // Negative: a declined card (Stripe test card 4000...0002) does NOT create an
+  71  | // order — the payment is rejected and we stay on the billing page.
+  72  | test('Declined card does not complete the order', async ({ page }) => {
+  73  |   await reachPaymentModal(page);
+  74  | 
+  75  |   const stripe = page.frameLocator('iframe[title="Secure payment input frame"]');
+  76  |   await stripe.getByPlaceholder('1234 1234 1234 1234').fill('4000 0000 0000 0002'); // always declined
+  77  |   await stripe.getByPlaceholder('MM / YY').fill('12 / 34');
+  78  |   await stripe.getByPlaceholder('CVC').fill('123');
+  79  | 
+  80  |   await page.getByRole('button', { name: /^Pay \$/ }).click();
+  81  | 
+  82  |   // Give Stripe time to process and reject, then confirm no order was placed.
+  83  |   await page.waitForTimeout(8000);
+  84  |   await expect(page).toHaveURL(/billingDetails/);
+  85  |   await expect(page.getByRole('heading', { name: 'Your order is confirmed' })).toHaveCount(0);
+  86  | });
+  87  | 
+  88  | // Other Stripe test cards that fail server-side. Each should surface its error
+  89  | // in the payment element and leave the order uncreated.
+  90  | const FAILING_CARDS = [
+  91  |   { name: 'insufficient funds', number: '4000 0000 0000 9995', error: /insufficient funds/i },
+  92  |   { name: 'expired card', number: '4000 0000 0000 0069', error: /expired/i },
+  93  |   { name: 'incorrect CVC', number: '4000 0000 0000 0127', error: /security code is (incorrect|invalid)/i },
+  94  | ];
+  95  | 
+  96  | for (const card of FAILING_CARDS) {
+  97  |   test(`Payment fails with ${card.name}`, async ({ page }) => {
+  98  |     await reachPaymentModal(page);
+  99  | 
+  100 |     const stripe = page.frameLocator('iframe[title="Secure payment input frame"]');
+  101 |     await stripe.getByPlaceholder('1234 1234 1234 1234').fill(card.number);
+  102 |     await stripe.getByPlaceholder('MM / YY').fill('12 / 34');
+  103 |     await stripe.getByPlaceholder('CVC').fill('123');
+  104 |     await page.getByRole('button', { name: /^Pay \$/ }).click();
+  105 | 
+  106 |     // The payment element shows the specific error and no order is created.
+  107 |     await expect(stripe.getByText(card.error)).toBeVisible({ timeout: 25000 });
+  108 |     await expect(page).toHaveURL(/billingDetails/);
+  109 |     await expect(page.getByRole('heading', { name: 'Your order is confirmed' })).toHaveCount(0);
+  110 |   });
+  111 | }
+  112 | 
+  113 | // Clicking Pay with empty card fields does not place an order — Stripe's own
+  114 | // validation blocks submission, so we stay on the billing page.
+  115 | test('Payment with empty card fields is rejected', async ({ page }) => {
+  116 |   await reachPaymentModal(page);
+  117 |   await page.getByRole('button', { name: /^Pay \$/ }).click();
+  118 | 
+  119 |   await page.waitForTimeout(5000);
+  120 |   await expect(page).toHaveURL(/billingDetails/);
+  121 |   await expect(page.getByRole('heading', { name: 'Your order is confirmed' })).toHaveCount(0);
+  122 | });
+  123 | 
+  124 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  125 | test.afterEach(async ({ page }) => {
+```
