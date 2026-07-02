@@ -1,0 +1,222 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/coupon.spec.js >> Applied coupon has no remove control (known gap)
+- Location: tests/frontend/coupon.spec.js:63:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole('heading', { name: /^- \$\d/ })
+Expected: visible
+Timeout: 15000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 15000ms
+  - waiting for getByRole('heading', { name: /^- \$\d/ })
+
+```
+
+```yaml
+- navigation:
+  - link "ratio image":
+    - /url: /
+    - img "ratio image"
+  - link "Future Events":
+    - /url: /events-bundles?search_type=Future+events
+  - link "Spotlight Bundles":
+    - /url: /bundles
+  - link "Past Events":
+    - /url: /events-bundles?search_type=Past+events
+  - link "FAQ":
+    - /url: https://phloxphoto.com/faqs/
+  - link "Contact Us":
+    - /url: https://phloxphoto.com/contact-us/
+  - text: About
+  - link "Cart 1":
+    - /url: /cart
+  - text: raj.pal@hnrtech.com
+- text: 1 product added to cart
+- alert: Cart
+- heading "Your Cart" [level=1]
+- paragraph: You have total 1 items in your cart
+- heading "Order Summary" [level=3]
+- text: Products Subtotal
+- link "Spotlight Gallery - Standard Resolution Test event Demo 901 Jun 26 - Jul 03, 2026 @ 1:00 am - 2:00 am $63.00 Remove":
+  - /url: /eventDetail/4846
+  - figure:
+    - img
+  - heading "Spotlight Gallery - Standard Resolution" [level=4]
+  - heading "Test event Demo 901" [level=3]
+  - heading "Jun 26 - Jul 03, 2026 @ 1:00 am - 2:00 am" [level=4]
+  - heading "$63.00" [level=4]
+  - heading "Remove" [level=4]
+- heading "Do you have coupon code?" [level=4]
+- textbox "Enter coupon code": Flat50
+- button "Apply"
+- text: Invalid or Expired coupon applied
+- paragraph: Redeem gift card
+- heading "Total Price" [level=4]
+- heading "$63.00" [level=4]
+- heading "Discount" [level=4]
+- heading "$0.00" [level=4]
+- heading "Tax" [level=4]
+- heading "$5.20" [level=4]
+- heading "Order Total" [level=4]
+- heading "$68.20" [level=4]
+- heading "Gift Card" [level=4]
+- heading "$0.00" [level=4]
+- paragraph: Payable:$68.20
+- text: By clicking on ‘Proceed to Checkout button, I declare that I have read and agree with all the terms & conditions.
+- link "Proceed to Checkout":
+  - /url: /checkOut/billingDetails
+  - button "Proceed to Checkout"
+- text: 1 product added to cart
+- img
+- img
+- contentinfo:
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events-bundles
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+    - listitem:
+      - link "Find Your Photos":
+        - /url: https://phloxphotos.com/sports
+    - listitem:
+      - link "Services":
+        - /url: https://phloxphoto.com/phlox-productions/
+    - listitem:
+      - link "About":
+        - /url: https://phloxphoto.com/about/
+  - list:
+    - listitem:
+      - link "Photographers":
+        - /url: https://phloxphoto.com/about/
+    - listitem:
+      - link "Contact us":
+        - /url: https://phloxphoto.com/contact-us/
+    - listitem: Terms & Conditions
+    - listitem:
+      - link "Policy":
+        - /url: https://phloxphoto.com/fulfillment-policy/
+  - link "Footer logo Logo":
+    - /url: "#"
+    - img "Footer logo"
+    - text: Logo
+  - paragraph: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed.
+  - link "Facebook":
+    - /url: https://www.facebook.com/phlox.photos/
+  - link "Twitter":
+    - /url: https://twitter.com/phloxphotos
+  - link "Instagram":
+    - /url: https://www.instagram.com/phlox.photo
+  - img "copyright": ©
+  - text: 2026 VYPE Sideline Photography. All rights reserved.
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | const { openFirstEvent } = require('./helpers');
+  3  | 
+  4  | // TODO: replace with a real, working coupon code that produces a discount.
+  5  | const COUPON = 'Flat50';
+  6  | 
+  7  | test('Apply a coupon code and see the discount', async ({ page }) => {
+  8  |   // Already logged in via saved session (see auth.setup.js).
+  9  |   // First add a product so the cart has something to discount.
+  10 |   // Opens the first event, reloading if the events list is empty/slow.
+  11 |   await openFirstEvent(page);
+  12 | 
+  13 |   await page.getByText('Spotlight Gallery - Standard Resolution').click();
+  14 |   const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+  15 |   await expect(addToCart).toBeEnabled();
+  16 |   await addToCart.click();
+  17 | 
+  18 |   // Go to the cart and wait until it fully loads (the product line renders
+  19 |   // a moment after the page; entering the coupon before that wipes the field).
+  20 |   await page.goto('https://uat-phlox-frontend.netlify.app/cart');
+  21 |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+  22 |   await expect(
+  23 |     page.getByRole('heading', { name: 'Spotlight Gallery - Standard Resolution' }).first()
+  24 |   ).toBeVisible();
+  25 | 
+  26 |   // Enter the coupon code — the Apply button is disabled until text is entered.
+  27 |   await page.getByRole('textbox', { name: 'Enter coupon code' }).fill(COUPON);
+  28 |   const applyButton = page.getByRole('button', { name: 'Apply' });
+  29 |   await expect(applyButton).toBeEnabled();
+  30 |   await applyButton.click();
+  31 | 
+  32 |   // The coupon is applied: the Discount line now shows a reduction
+  33 |   // (a negative dollar amount instead of $0.00).
+  34 |   await expect(page.getByRole('heading', { name: /^- \$\d/ })).toBeVisible();
+  35 | });
+  36 | 
+  37 | // Negative: an invalid coupon shows an error and applies no discount.
+  38 | test('Invalid coupon shows an error and no discount', async ({ page }) => {
+  39 |   await openFirstEvent(page);
+  40 |   await page.getByText('Spotlight Gallery - Standard Resolution').click();
+  41 |   const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+  42 |   await expect(addToCart).toBeEnabled();
+  43 |   await addToCart.click();
+  44 | 
+  45 |   await page.goto('https://uat-phlox-frontend.netlify.app/cart');
+  46 |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+  47 |   await expect(
+  48 |     page.getByRole('heading', { name: 'Spotlight Gallery - Standard Resolution' }).first()
+  49 |   ).toBeVisible();
+  50 | 
+  51 |   await page.getByRole('textbox', { name: 'Enter coupon code' }).fill('NOTREAL999');
+  52 |   await page.getByRole('button', { name: 'Apply' }).click();
+  53 | 
+  54 |   // Error message appears and there is no discount (no negative amount).
+  55 |   await expect(page.getByText(/Invalid or Expired coupon/i)).toBeVisible();
+  56 |   await expect(page.getByRole('heading', { name: /^- \$\d/ })).toHaveCount(0);
+  57 | });
+  58 | 
+  59 | // Documents a product gap: once a coupon is applied there is NO way to remove it
+  60 | // (the coupon card only has the input + Apply + a success notice — no remove
+  61 | // control, unlike the gift card). This test will fail if a remove control is
+  62 | // ever added, prompting us to write the real "remove coupon" test.
+  63 | test('Applied coupon has no remove control (known gap)', async ({ page }) => {
+  64 |   await openFirstEvent(page);
+  65 |   await page.getByText('Spotlight Gallery - Standard Resolution').click();
+  66 |   const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+  67 |   await expect(addToCart).toBeEnabled();
+  68 |   await addToCart.click();
+  69 | 
+  70 |   await page.goto('https://uat-phlox-frontend.netlify.app/cart');
+  71 |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+  72 |   await expect(
+  73 |     page.getByRole('heading', { name: 'Spotlight Gallery - Standard Resolution' }).first()
+  74 |   ).toBeVisible();
+  75 | 
+  76 |   await page.getByRole('textbox', { name: 'Enter coupon code' }).fill('Flat50');
+  77 |   await page.getByRole('button', { name: 'Apply' }).click();
+> 78 |   await expect(page.getByRole('heading', { name: /^- \$\d/ })).toBeVisible(); // discount applied
+     |                                                                ^ Error: expect(locator).toBeVisible() failed
+  79 | 
+  80 |   // The coupon card (.couponBox + notification) offers no remove control.
+  81 |   const couponCard = page.locator('.card', { hasText: 'Do you have coupon code?' });
+  82 |   await expect(couponCard.getByText(/remove/i)).toHaveCount(0);
+  83 | });
+  84 | 
+  85 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  86 | test.afterEach(async ({ page }) => {
+  87 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  88 |   if (ms) await page.waitForTimeout(ms);
+  89 | });
+  90 | 
+```
