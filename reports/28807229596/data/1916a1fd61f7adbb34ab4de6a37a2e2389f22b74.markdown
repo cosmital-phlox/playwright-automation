@@ -1,0 +1,441 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/bundles.spec.js >> Delete removes a bundle (with confirmation)
+- Location: tests/admin/bundles.spec.js:174:1
+
+# Error details
+
+```
+TimeoutError: locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option').filter({ visible: true }).first() to be visible
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - img "left" [ref=e9]:
+        - img [ref=e10]
+      - img "Vype Logo" [ref=e13]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Events" [ref=e18] [cursor=pointer]:
+            - /url: /events?sortDirection=ascend&sortColumn=startTime
+            - img [ref=e20]
+            - paragraph [ref=e23]: Events
+        - listitem [ref=e24]:
+          - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+            - /url: /bundles
+            - img [ref=e27]
+            - paragraph [ref=e31]: Spotlight Bundles
+        - listitem [ref=e32]:
+          - link "Orders" [ref=e33] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e35]
+            - paragraph [ref=e38]: Orders
+        - listitem [ref=e39]:
+          - link "Users" [ref=e40] [cursor=pointer]:
+            - /url: /users
+            - img [ref=e42]
+            - paragraph [ref=e45]: Users
+        - listitem [ref=e46]:
+          - link "Organizations" [ref=e47] [cursor=pointer]:
+            - /url: /organizations
+            - img [ref=e49]
+            - paragraph [ref=e52]: Organizations
+        - listitem [ref=e53]:
+          - link "Products" [ref=e54] [cursor=pointer]:
+            - /url: /products
+            - img [ref=e56]
+            - paragraph [ref=e59]: Products
+        - listitem [ref=e60]:
+          - link "Coupons" [ref=e61] [cursor=pointer]:
+            - /url: /coupons
+            - img [ref=e63]
+            - paragraph [ref=e66]: Coupons
+        - listitem [ref=e67]:
+          - link "Gift Cards" [ref=e68] [cursor=pointer]:
+            - /url: /giftcards
+            - img [ref=e70]
+            - paragraph [ref=e73]: Gift Cards
+        - listitem [ref=e74]:
+          - link "Categories" [ref=e75] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e77]
+            - paragraph [ref=e80]: Categories
+        - listitem [ref=e81]:
+          - link "Levels" [ref=e82] [cursor=pointer]:
+            - /url: /levels
+            - img [ref=e84]
+            - paragraph [ref=e87]: Levels
+        - listitem [ref=e88]:
+          - link "School Districts" [ref=e89] [cursor=pointer]:
+            - /url: /school-districts
+            - img [ref=e91]
+            - paragraph [ref=e94]: School Districts
+        - listitem [ref=e95]:
+          - link "Zenfolio" [ref=e96] [cursor=pointer]:
+            - /url: /browse-and-buy
+            - img [ref=e98]
+            - paragraph [ref=e101]: Zenfolio
+        - listitem [ref=e102]:
+          - link "Payouts" [ref=e103] [cursor=pointer]:
+            - /url: /payout?sortDirection=ascend&sortColumn=payee
+            - img [ref=e105]
+            - paragraph [ref=e108]: Payouts
+        - listitem [ref=e109]:
+          - link "Reports" [ref=e110] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e112]
+            - paragraph [ref=e133]: Reports
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - paragraph [ref=e138]: "Staging: Sandbox, you can play around :)"
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - heading "Dhaval Kukadia" [level=6] [ref=e141]
+          - paragraph [ref=e142]: Admin, Photographer
+        - img "user" [ref=e145]:
+          - img [ref=e146]
+        - generic [ref=e148] [cursor=pointer]:
+          - paragraph [ref=e149]: Logout
+          - img [ref=e151]
+    - main [ref=e154]:
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]:
+              - generic [ref=e160]: Home
+              - text: /
+            - generic [ref=e161]:
+              - link "Bundles" [ref=e163] [cursor=pointer]:
+                - /url: /bundles
+              - text: /
+            - generic [ref=e165]: Add Bundle
+          - generic [ref=e166]:
+            - generic [ref=e167]:
+              - button "Back" [ref=e169] [cursor=pointer]:
+                - img "arrow-left" [ref=e170]:
+                  - img [ref=e171]
+              - generic "Bundle Name" [ref=e173]
+            - generic [ref=e174]:
+              - button "Save as Draft" [ref=e175] [cursor=pointer]:
+                - generic [ref=e176]: Save as Draft
+              - button "Save and Publish" [ref=e177] [cursor=pointer]:
+                - generic [ref=e178]: Save and Publish
+        - generic [ref=e181]:
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - heading "Basic" [level=1] [ref=e188]: Basic
+              - generic [ref=e190]:
+                - generic [ref=e191]:
+                  - generic [ref=e192]:
+                    - generic "Title" [ref=e194]
+                    - textbox "Bundle Title" [disabled] [ref=e198]
+                  - generic [ref=e199]:
+                    - generic "Team" [ref=e201]
+                    - generic [ref=e205] [cursor=pointer]:
+                      - generic [ref=e206]:
+                        - combobox [active] [ref=e208]
+                        - generic: Team
+                      - generic:
+                        - img:
+                          - img
+                - generic [ref=e209]:
+                  - generic [ref=e210]:
+                    - generic "Sports" [ref=e212]
+                    - generic [ref=e216] [cursor=pointer]:
+                      - generic [ref=e217]:
+                        - combobox [ref=e219]
+                        - generic: Sports
+                      - generic:
+                        - img:
+                          - img
+                  - generic [ref=e220]:
+                    - generic "Level" [ref=e222]
+                    - generic [ref=e226] [cursor=pointer]:
+                      - generic [ref=e227]:
+                        - combobox [ref=e229]
+                        - generic: Level
+                      - generic:
+                        - img:
+                          - img
+                - generic [ref=e231]:
+                  - generic "Gender" [ref=e233]
+                  - generic [ref=e237] [cursor=pointer]:
+                    - generic [ref=e238]:
+                      - combobox [ref=e240]
+                      - generic: Gender
+                    - generic:
+                      - img:
+                        - img
+                - generic [ref=e242]:
+                  - generic "Description" [ref=e244]
+                  - generic [ref=e248]:
+                    - textbox "Bundle Description" [ref=e249]
+                    - text: 0 / 10000
+            - generic [ref=e250]:
+              - generic [ref=e252]:
+                - heading "Linked Events -" [level=1] [ref=e255]
+                - generic [ref=e257]:
+                  - generic [ref=e259]:
+                    - combobox [ref=e261]
+                    - generic:
+                      - generic:
+                        - img "search":
+                          - img
+                        - paragraph: Search Event Name
+                  - button "Link" [ref=e262] [cursor=pointer]:
+                    - generic [ref=e263]: Link
+              - paragraph [ref=e267]: You have not linked any event to this Bundle.
+            - generic [ref=e268]:
+              - heading "Add Products ( 2 Products )" [level=1] [ref=e273]
+              - table [ref=e283]:
+                - rowgroup [ref=e290]:
+                  - row "Title Product price Discount % Bundle price Actions" [ref=e291]:
+                    - columnheader "Title" [ref=e292]
+                    - columnheader "Product price" [ref=e293]
+                    - columnheader "Discount %" [ref=e294]
+                    - columnheader "Bundle price" [ref=e295]
+                    - columnheader "Actions" [ref=e296]
+                  - row "(Sum of all events - 20%)" [ref=e297]:
+                    - columnheader "(Sum of all events - 20%)" [ref=e298]
+                - rowgroup [ref=e299]:
+                  - row "Spotlight Gallery - Standard Resolution 63 20 $0" [ref=e300]:
+                    - cell "Spotlight Gallery - Standard Resolution" [ref=e301]
+                    - cell "63" [ref=e302]
+                    - cell "20" [ref=e303]:
+                      - generic [ref=e304]: "20"
+                    - cell "$0" [ref=e305]
+                    - cell [ref=e306]:
+                      - img [ref=e308] [cursor=pointer]
+                  - row "Spotlight Gallery - High Resolution 74 20 $0" [ref=e311]:
+                    - cell "Spotlight Gallery - High Resolution" [ref=e312]
+                    - cell "74" [ref=e313]
+                    - cell "20" [ref=e314]:
+                      - generic [ref=e315]: "20"
+                    - cell "$0" [ref=e316]
+                    - cell [ref=e317]:
+                      - img [ref=e319] [cursor=pointer]
+          - generic [ref=e322]:
+            - generic [ref=e323]:
+              - heading "Publish" [level=1] [ref=e328]: Publish
+              - generic [ref=e332]:
+                - generic [ref=e333]: "Publish Status :"
+                - paragraph [ref=e334]: Draft
+            - generic [ref=e335]:
+              - heading "Accept No Orders After" [level=1] [ref=e340]: Accept No Orders After
+              - generic [ref=e341]:
+                - generic [ref=e342]:
+                  - generic "Date" [ref=e344]
+                  - generic [ref=e349]:
+                    - textbox "Date" [ref=e350]:
+                      - /placeholder: Select date
+                    - generic:
+                      - img "calendar":
+                        - img
+                - generic [ref=e351]:
+                  - generic "Time" [ref=e353]
+                  - generic [ref=e358]:
+                    - textbox "Time" [ref=e359]:
+                      - /placeholder: Select time
+                    - generic:
+                      - img "clock-circle":
+                        - img
+            - generic [ref=e360]:
+              - heading "Upload Cover Photo (Max 2mb, jpg/png/svg, preferred size 3000x2216)" [level=1] [ref=e365]:
+                - text: Upload Cover Photo
+                - generic [ref=e366]: (Max 2mb, jpg/png/svg, preferred size 3000x2216)
+              - generic [ref=e369]:
+                - img [ref=e371]
+                - button "Remove" [ref=e372] [cursor=pointer]:
+                  - generic [ref=e373]: Remove
+```
+
+# Test source
+
+```ts
+  1   | const { expect } = require('@playwright/test');
+  2   | 
+  3   | const ADMIN_BASE = 'https://uat-phlox-admin.netlify.app';
+  4   | const EVENTS_URL = `${ADMIN_BASE}/events`;
+  5   | const ADD_EVENT_URL = `${ADMIN_BASE}/events/add-event`;
+  6   | const BUNDLES_URL = `${ADMIN_BASE}/bundles`;
+  7   | const ADD_BUNDLE_URL = `${ADMIN_BASE}/bundles/add-bundle`;
+  8   | const ORDERS_URL = `${ADMIN_BASE}/orders`;
+  9   | const USERS_URL = `${ADMIN_BASE}/users`;
+  10  | const ADD_USER_URL = `${ADMIN_BASE}/users/add-user`;
+  11  | const ORGANIZATIONS_URL = `${ADMIN_BASE}/organizations`;
+  12  | const ADD_ORG_URL = `${ADMIN_BASE}/organizations/add-organization`;
+  13  | const PRODUCTS_URL = `${ADMIN_BASE}/products`;
+  14  | const ADD_PRODUCT_URL = `${ADMIN_BASE}/products/add-product`;
+  15  | const COUPONS_URL = `${ADMIN_BASE}/coupons`;
+  16  | const ADD_COUPON_URL = `${ADMIN_BASE}/coupons/add-coupon`;
+  17  | const GIFTCARDS_URL = `${ADMIN_BASE}/giftcards`;
+  18  | const ADD_GIFTCARD_URL = `${ADMIN_BASE}/giftcards/add-giftcard`;
+  19  | const CATEGORIES_URL = `${ADMIN_BASE}/categories`;
+  20  | const ADD_CATEGORY_URL = `${ADMIN_BASE}/categories/add-category/`;
+  21  | const LEVELS_URL = `${ADMIN_BASE}/levels`;
+  22  | const SCHOOL_DISTRICTS_URL = `${ADMIN_BASE}/school-districts`;
+  23  | const ADD_SCHOOL_DISTRICT_URL = `${ADMIN_BASE}/school-districts/add`;
+  24  | const ZENFOLIO_URL = `${ADMIN_BASE}/browse-and-buy`;
+  25  | const PAYOUTS_URL = `${ADMIN_BASE}/payout`;
+  26  | const REPORTS_URL = `${ADMIN_BASE}/reports`;
+  27  | 
+  28  | // Navigate to `url` and wait for `ready` (a locator), reloading on the flaky
+  29  | // backend if the page comes up empty/slow. Throws after `attempts` reloads.
+  30  | async function gotoWithRetry(page, url, ready, { attempts = 3, timeout = 20000 } = {}) {
+  31  |   for (let i = 0; i < attempts; i++) {
+  32  |     try {
+  33  |       // goto is inside the try so a slow-load timeout reloads instead of failing.
+  34  |       await page.goto(url, { waitUntil: 'domcontentloaded' });
+  35  |       await ready.waitFor({ state: 'visible', timeout });
+  36  |       return;
+  37  |     } catch (err) {
+  38  |       if (i === attempts - 1) throw err;
+  39  |     }
+  40  |   }
+  41  | }
+  42  | 
+  43  | // Open the Events list and wait for the page chrome to be ready.
+  44  | // (The "Events" page title isn't a real heading element, so we key off the
+  45  | // Add button, which always renders.)
+  46  | async function gotoEvents(page) {
+  47  |   await gotoWithRetry(page, EVENTS_URL, page.getByRole('button', { name: 'Add' }));
+  48  |   await expect(page.getByText(/Showing \d+ Events/)).toBeVisible({ timeout: 25000 });
+  49  | }
+  50  | 
+  51  | // Open the Add Event form and wait for it to render.
+  52  | async function gotoAddEvent(page) {
+  53  |   await page.goto(ADD_EVENT_URL, { waitUntil: 'domcontentloaded' });
+  54  |   await expect(page.getByRole('button', { name: 'Save and Publish' })).toBeVisible({
+  55  |     timeout: 25000,
+  56  |   });
+  57  |   // The form's selects hydrate after the page chrome; give them a moment.
+  58  |   await page.waitForTimeout(1500);
+  59  | }
+  60  | 
+  61  | // Pick an option from the Ant Design <select> sitting in the form item whose
+  62  | // label contains `label`. Picks the Nth *visible* option (default the first).
+  63  | // The options load from the backend and the virtual list can render them hidden
+  64  | // for a beat, so we filter to visible and wait.
+  65  | async function pickAntOption(page, label, index = 0) {
+  66  |   const item = page.locator('.ant-form-item', { hasText: label }).first();
+  67  |   await item.locator('.ant-select').first().click();
+  68  |   const option = page
+  69  |     .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+  70  |     .filter({ visible: true })
+  71  |     .nth(index);
+> 72  |   await option.waitFor({ state: 'visible', timeout: 15000 });
+      |                ^ TimeoutError: locator.waitFor: Timeout 15000ms exceeded.
+  73  |   const text = (await option.innerText()).trim();
+  74  |   await option.click();
+  75  |   await page.waitForTimeout(400);
+  76  |   return text;
+  77  | }
+  78  | 
+  79  | // Fill every field required to publish an event: Visiting/Home Team, Sports,
+  80  | // Level, Date and a Time slot. (Title is read-only — it auto-builds from these.)
+  81  | // Returns the auto-generated title so callers can assert on it.
+  82  | async function fillRequiredEventFields(page) {
+  83  |   await pickAntOption(page, 'Visiting Team', 0);
+  84  |   await pickAntOption(page, 'Home Team', 1); // different from visiting
+  85  |   await pickAntOption(page, 'Sports', 0);
+  86  |   await pickAntOption(page, 'Level', 0);
+  87  | 
+  88  |   // Date: open the calendar and pick the last enabled day in view.
+  89  |   await page.locator('#basic_date').click();
+  90  |   await page.waitForTimeout(800);
+  91  |   await page
+  92  |     .locator('.ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner')
+  93  |     .last()
+  94  |     .click();
+  95  |   await page.waitForTimeout(500);
+  96  | 
+  97  |   // Time: range picker — choose a start hour/minute; the end auto-fills.
+  98  |   await page.locator('#basic_times').click();
+  99  |   await page.waitForTimeout(700);
+  100 |   const col = page.locator('.ant-picker-time-panel-column');
+  101 |   await col.nth(0).locator('.ant-picker-time-panel-cell-inner').nth(9).click();
+  102 |   await page.waitForTimeout(300);
+  103 |   await col.nth(1).locator('.ant-picker-time-panel-cell-inner').nth(0).click();
+  104 |   await page.waitForTimeout(300);
+  105 |   const ok = page.locator('.ant-picker-ok button');
+  106 |   if (await ok.isVisible().catch(() => false)) await ok.click();
+  107 |   await page.waitForTimeout(400);
+  108 | 
+  109 |   return (await page.locator('#eventTitle').inputValue()).trim();
+  110 | }
+  111 | 
+  112 | // --- Orders (Prepaid Orders) ---
+  113 | 
+  114 | // Open the Orders list. It's keyed off the Export button, which always renders.
+  115 | async function gotoOrders(page) {
+  116 |   await gotoWithRetry(page, ORDERS_URL, page.getByRole('button', { name: 'Export' }));
+  117 |   // Wait for the table chrome and let the filter controls wire up before use.
+  118 |   await page
+  119 |     .getByRole('columnheader', { name: 'Order Id', exact: false })
+  120 |     .first()
+  121 |     .waitFor({ state: 'visible', timeout: 25000 });
+  122 |   await page.waitForTimeout(2500);
+  123 | }
+  124 | 
+  125 | // Set the Orders "Order date" range to the widest span the picker offers (first
+  126 | // visible day → last visible day). The Orders list stays empty until a date
+  127 | // range is applied, so this surfaces the seeded orders.
+  128 | async function applyOrderDateRange(page) {
+  129 |   await page.getByPlaceholder('Order start date').click();
+  130 |   await page.waitForTimeout(1000);
+  131 |   const cells = page.locator(
+  132 |     '.ant-picker-dropdown:not(.ant-picker-dropdown-hidden) .ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner'
+  133 |   );
+  134 |   await cells.first().click();
+  135 |   await page.waitForTimeout(400);
+  136 |   await cells.last().click();
+  137 |   await page.waitForTimeout(1500);
+  138 | }
+  139 | 
+  140 | // Open an Ant Select filter by the placeholder/label it shows and return a
+  141 | // locator for its (visible) options. Retries the open — the first click can
+  142 | // misfire while the list is still settling on the flaky backend.
+  143 | async function openSelectFilter(page, label) {
+  144 |   const select = page.locator('.ant-select').filter({ hasText: label }).first();
+  145 |   const options = page
+  146 |     .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+  147 |     .filter({ visible: true });
+  148 |   for (let i = 0; i < 4; i++) {
+  149 |     await select.click();
+  150 |     const opened = await options
+  151 |       .first()
+  152 |       .waitFor({ state: 'visible', timeout: 5000 })
+  153 |       .then(() => true)
+  154 |       .catch(() => false);
+  155 |     if (opened) return options;
+  156 |     await page.keyboard.press('Escape').catch(() => {});
+  157 |     await page.waitForTimeout(800);
+  158 |   }
+  159 |   return options; // caller's assertion will surface a clear failure if still empty
+  160 | }
+  161 | 
+  162 | // --- Users ---
+  163 | 
+  164 | // Open the Users list and wait for the count line.
+  165 | async function gotoUsers(page) {
+  166 |   await gotoWithRetry(page, USERS_URL, page.getByRole('button', { name: 'Add' }));
+  167 |   await expect(page.getByRole('heading', { name: /Showing \d+ Users/ })).toBeVisible({
+  168 |     timeout: 25000,
+  169 |   });
+  170 | }
+  171 | 
+  172 | // Open the Add User form.
+```
