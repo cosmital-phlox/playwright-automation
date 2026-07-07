@@ -85,7 +85,7 @@ export default defineConfig({
     {
       name: 'chromium',
       // Admin specs live under tests/admin and run via the `admin` project only.
-      testIgnore: /admin\//,
+      testIgnore: /(admin|staging)\//,
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/user.json',
@@ -95,7 +95,7 @@ export default defineConfig({
 
     {
       name: 'firefox',
-      testIgnore: /admin\//,
+      testIgnore: /(admin|staging)\//,
       use: {
         ...devices['Desktop Firefox'],
         storageState: 'playwright/.auth/user.json',
@@ -119,9 +119,27 @@ export default defineConfig({
       dependencies: ['admin-setup'],
     },
 
+    // --- Staging admin (phlox-admin.netlify.app) — Roles / RBAC module ---
+    // Separate site + login from the uat admin. Logs in with the QA Super Admin
+    // (email default + STAGING_PASSWORD env) and saves staging.json. Not part of
+    // the CI run (CI selects chromium + admin explicitly).
+    {
+      name: 'staging-setup',
+      testMatch: /roles\.setup\.js/,
+    },
+    {
+      name: 'staging',
+      testMatch: /staging\/.*\.spec\.js/,
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/staging.json',
+      },
+      dependencies: ['staging-setup'],
+    },
+
     {
       name: 'webkit',
-      testIgnore: /admin\//,
+      testIgnore: /(admin|staging)\//,
       use: {
         ...devices['Desktop Safari'],
         storageState: 'playwright/.auth/user.json',
