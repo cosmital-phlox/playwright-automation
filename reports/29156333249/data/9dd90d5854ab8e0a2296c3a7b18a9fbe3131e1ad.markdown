@@ -1,0 +1,760 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/orders.spec.js >> Status filter offers the expected options and applies a selection
+- Location: tests/admin/orders.spec.js:31:1
+
+# Error details
+
+```
+Test timeout of 120000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 120000ms exceeded.
+Call log:
+  - waiting for locator('.ant-select').filter({ hasText: 'Status' }).first()
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - img "left" [ref=e9]:
+        - img [ref=e10]
+      - img "Vype Logo" [ref=e13]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Events" [ref=e18] [cursor=pointer]:
+            - /url: /events?sortDirection=ascend&sortColumn=startTime
+            - img [ref=e20]
+            - paragraph [ref=e23]: Events
+        - listitem [ref=e24]:
+          - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+            - /url: /bundles
+            - img [ref=e27]
+            - paragraph [ref=e31]: Spotlight Bundles
+        - listitem [ref=e32]:
+          - link "Orders" [ref=e33] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e35]
+            - paragraph [ref=e38]: Orders
+        - listitem [ref=e39]:
+          - link "Users" [ref=e40] [cursor=pointer]:
+            - /url: /users
+            - img [ref=e42]
+            - paragraph [ref=e45]: Users
+        - listitem [ref=e46]:
+          - link "Organizations" [ref=e47] [cursor=pointer]:
+            - /url: /organizations
+            - img [ref=e49]
+            - paragraph [ref=e52]: Organizations
+        - listitem [ref=e53]:
+          - link "Products" [ref=e54] [cursor=pointer]:
+            - /url: /products
+            - img [ref=e56]
+            - paragraph [ref=e59]: Products
+        - listitem [ref=e60]:
+          - link "Coupons" [ref=e61] [cursor=pointer]:
+            - /url: /coupons
+            - img [ref=e63]
+            - paragraph [ref=e66]: Coupons
+        - listitem [ref=e67]:
+          - link "Gift Cards" [ref=e68] [cursor=pointer]:
+            - /url: /giftcards
+            - img [ref=e70]
+            - paragraph [ref=e73]: Gift Cards
+        - listitem [ref=e74]:
+          - link "Categories" [ref=e75] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e77]
+            - paragraph [ref=e80]: Categories
+        - listitem [ref=e81]:
+          - link "Levels" [ref=e82] [cursor=pointer]:
+            - /url: /levels
+            - img [ref=e84]
+            - paragraph [ref=e87]: Levels
+        - listitem [ref=e88]:
+          - link "School Districts" [ref=e89] [cursor=pointer]:
+            - /url: /school-districts
+            - img [ref=e91]
+            - paragraph [ref=e94]: School Districts
+        - listitem [ref=e95]:
+          - link "Zenfolio" [ref=e96] [cursor=pointer]:
+            - /url: /browse-and-buy
+            - img [ref=e98]
+            - paragraph [ref=e101]: Zenfolio
+        - listitem [ref=e102]:
+          - link "Payouts" [ref=e103] [cursor=pointer]:
+            - /url: /payout?sortDirection=ascend&sortColumn=payee
+            - img [ref=e105]
+            - paragraph [ref=e108]: Payouts
+        - listitem [ref=e109]:
+          - link "Reports" [ref=e110] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e112]
+            - paragraph [ref=e133]: Reports
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - generic [ref=e137] [cursor=pointer]:
+        - paragraph [ref=e138]: UAT
+        - img [ref=e139]
+      - generic [ref=e141]:
+        - generic [ref=e142]:
+          - heading "Dhaval Kukadia" [level=6] [ref=e143]
+          - paragraph [ref=e144]: Admin, Photographer
+        - img "user" [ref=e147]:
+          - img [ref=e148]
+        - generic [ref=e150] [cursor=pointer]:
+          - paragraph [ref=e151]: Logout
+          - img [ref=e153]
+    - main [ref=e156]:
+      - generic [ref=e158]:
+        - generic [ref=e159]:
+          - generic [ref=e160]:
+            - generic [ref=e161]:
+              - generic [ref=e162]: Home
+              - text: /
+            - generic [ref=e164]: Prepaid Orders
+          - generic [ref=e165]:
+            - generic "Prepaid Orders" [ref=e167]
+            - button "Export" [ref=e169] [cursor=pointer]:
+              - generic [ref=e170]: Export
+        - generic [ref=e174]:
+          - generic [ref=e176]:
+            - textbox "🔍 Search" [ref=e178]
+            - generic [ref=e180] [cursor=pointer]:
+              - generic [ref=e181]:
+                - combobox [ref=e183]
+                - generic: Event
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e184] [cursor=pointer]:
+              - generic [ref=e185]:
+                - combobox [ref=e187]
+                - generic: Team
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e188] [cursor=pointer]:
+              - generic [ref=e189]:
+                - combobox [ref=e191]
+                - generic: Category
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e192] [cursor=pointer]:
+              - generic: Pending upload, Fulfilment awaits
+              - generic [ref=e194]:
+                - generic "Pending upload" [ref=e196]:
+                  - generic [ref=e197]: Pending ...
+                  - generic [ref=e198]: ×
+                - generic "+1" [ref=e200]:
+                  - generic [ref=e201]: "+1"
+                - combobox [active] [ref=e204]
+              - generic:
+                - img:
+                  - img
+              - img [ref=e206]:
+                - img [ref=e207]
+            - generic [ref=e209] [cursor=pointer]:
+              - generic [ref=e210]:
+                - combobox [ref=e212]
+                - generic: Photographer
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e213] [cursor=pointer]:
+              - generic [ref=e214]:
+                - combobox [ref=e216]
+                - generic: Order Type
+              - generic:
+                - img:
+                  - img
+          - generic [ref=e218]:
+            - generic [ref=e219] [cursor=pointer]:
+              - generic [ref=e221]:
+                - generic "Paid" [ref=e223]:
+                  - generic [ref=e224]: Paid
+                  - generic [ref=e225]: ×
+                - combobox [ref=e228]
+              - generic:
+                - img:
+                  - img
+              - img [ref=e230]:
+                - img [ref=e231]
+            - generic [ref=e233]:
+              - textbox "Order start date" [ref=e235]
+              - generic [ref=e236]: ⇀
+              - textbox "Order end date" [ref=e238]
+              - generic:
+                - img "calendar":
+                  - img
+            - generic [ref=e239]:
+              - textbox "Event start date" [ref=e241]
+              - generic [ref=e242]: ⇀
+              - textbox "Event end date" [ref=e244]
+              - generic:
+                - img "calendar":
+                  - img
+          - generic [ref=e245]:
+            - heading "Showing 317 Orders" [level=6] [ref=e246]
+            - generic [ref=e248]:
+              - img "reload" [ref=e249] [cursor=pointer]:
+                - img [ref=e250]
+              - img "setting" [ref=e253] [cursor=pointer]:
+                - img [ref=e254]
+          - generic [ref=e259]:
+            - generic [ref=e261]:
+              - table [ref=e263]:
+                - rowgroup [ref=e277]:
+                  - row "down Order Id caret-up caret-down Athlete name caret-up caret-down Order Date caret-up caret-down Team Name caret-up caret-down Event caret-up caret-down Event Date caret-up caret-down Product caret-up caret-down Price Paid caret-up caret-down Status caret-up caret-down Zenfolio Link Actions" [ref=e278]:
+                    - columnheader "down" [ref=e279]:
+                      - generic [ref=e280]:
+                        - checkbox [ref=e283] [cursor=pointer]
+                        - img "down" [ref=e287] [cursor=pointer]:
+                          - img [ref=e288]
+                    - columnheader "Order Id caret-up caret-down" [ref=e290] [cursor=pointer]:
+                      - generic [ref=e291]:
+                        - generic [ref=e292]: Order Id
+                        - generic [ref=e294]:
+                          - img "caret-up" [ref=e295]:
+                            - img [ref=e296]
+                          - img "caret-down" [ref=e298]:
+                            - img [ref=e299]
+                    - columnheader "Athlete name caret-up caret-down" [ref=e301] [cursor=pointer]:
+                      - generic [ref=e302]:
+                        - generic [ref=e303]: Athlete name
+                        - generic [ref=e305]:
+                          - img "caret-up" [ref=e306]:
+                            - img [ref=e307]
+                          - img "caret-down" [ref=e309]:
+                            - img [ref=e310]
+                    - columnheader "Order Date caret-up caret-down" [ref=e312] [cursor=pointer]:
+                      - generic [ref=e313]:
+                        - generic [ref=e314]: Order Date
+                        - generic [ref=e316]:
+                          - img "caret-up" [ref=e317]:
+                            - img [ref=e318]
+                          - img "caret-down" [ref=e320]:
+                            - img [ref=e321]
+                    - columnheader "Team Name caret-up caret-down" [ref=e323] [cursor=pointer]:
+                      - generic [ref=e324]:
+                        - generic [ref=e325]: Team Name
+                        - generic [ref=e327]:
+                          - img "caret-up" [ref=e328]:
+                            - img [ref=e329]
+                          - img "caret-down" [ref=e331]:
+                            - img [ref=e332]
+                    - columnheader "Event caret-up caret-down" [ref=e334] [cursor=pointer]:
+                      - generic [ref=e335]:
+                        - generic [ref=e336]: Event
+                        - generic [ref=e338]:
+                          - img "caret-up" [ref=e339]:
+                            - img [ref=e340]
+                          - img "caret-down" [ref=e342]:
+                            - img [ref=e343]
+                    - columnheader "Event Date caret-up caret-down" [ref=e345] [cursor=pointer]:
+                      - generic [ref=e346]:
+                        - generic [ref=e347]: Event Date
+                        - generic [ref=e349]:
+                          - img "caret-up" [ref=e350]:
+                            - img [ref=e351]
+                          - img "caret-down" [ref=e353]:
+                            - img [ref=e354]
+                    - columnheader "Product caret-up caret-down" [ref=e356] [cursor=pointer]:
+                      - generic [ref=e357]:
+                        - generic [ref=e358]: Product
+                        - generic [ref=e360]:
+                          - img "caret-up" [ref=e361]:
+                            - img [ref=e362]
+                          - img "caret-down" [ref=e364]:
+                            - img [ref=e365]
+                    - columnheader "Price Paid caret-up caret-down" [ref=e367] [cursor=pointer]:
+                      - generic [ref=e368]:
+                        - generic [ref=e369]: Price Paid
+                        - generic [ref=e371]:
+                          - img "caret-up" [ref=e372]:
+                            - img [ref=e373]
+                          - img "caret-down" [ref=e375]:
+                            - img [ref=e376]
+                    - columnheader "Status caret-up caret-down" [ref=e378] [cursor=pointer]:
+                      - generic [ref=e379]:
+                        - generic [ref=e380]: Status
+                        - generic [ref=e382]:
+                          - img "caret-up" [ref=e383]:
+                            - img [ref=e384]
+                          - img "caret-down" [ref=e386]:
+                            - img [ref=e387]
+                    - columnheader "Zenfolio Link" [ref=e389]
+                    - columnheader "Actions" [ref=e390]
+              - table [ref=e392]:
+                - rowgroup [ref=e406]:
+                  - row "10051 - 02/23/2026 16U Team Texas Blue Forney (TX) @ Royse City (TX) - Boys - JV - Soccer 02/24/2026 Spotlight Gallery - High Resolution $66.60 0/1 Uploaded link" [ref=e407]:
+                    - cell [ref=e408]:
+                      - checkbox [ref=e411] [cursor=pointer]
+                    - cell "10051" [ref=e413]
+                    - cell "-" [ref=e414]
+                    - cell "02/23/2026" [ref=e415]
+                    - cell "16U Team Texas Blue" [ref=e416]
+                    - cell "Forney (TX) @ Royse City (TX) - Boys - JV - Soccer" [ref=e417]:
+                      - link "Forney (TX) @ Royse City (TX) - Boys - JV - Soccer" [ref=e418] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4644
+                    - cell "02/24/2026" [ref=e419]
+                    - cell "Spotlight Gallery - High Resolution" [ref=e420]
+                    - cell "$66.60" [ref=e421]
+                    - cell "0/1 Uploaded" [ref=e422]:
+                      - paragraph [ref=e424] [cursor=pointer]: 0/1 Uploaded
+                    - cell "link" [ref=e425]:
+                      - generic [ref=e426] [cursor=pointer]:
+                        - link "link" [ref=e427]:
+                          - /url: https://www.zenfolio.com/phlox/e/p813275810
+                        - img [ref=e428]
+                    - cell [ref=e431]:
+                      - generic [ref=e432]:
+                        - img [ref=e434] [cursor=pointer]
+                        - img [ref=e437] [cursor=pointer]
+                  - row "10438 Yousef Bustami 03/03/2026 Cy Ranch Cy Ranch @ Bridgeland - Boys - 9 - Soccer 03/03/2026 Spotlight Gallery - Standard Resolution $63.00 0/1 Uploaded link" [ref=e440]:
+                    - cell [ref=e441]:
+                      - checkbox [ref=e444] [cursor=pointer]
+                    - cell "10438" [ref=e446]
+                    - cell "Yousef Bustami" [ref=e447]
+                    - cell "03/03/2026" [ref=e448]
+                    - cell "Cy Ranch" [ref=e449]
+                    - cell "Cy Ranch @ Bridgeland - Boys - 9 - Soccer" [ref=e450]:
+                      - link "Cy Ranch @ Bridgeland - Boys - 9 - Soccer" [ref=e451] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4653
+                    - cell "03/03/2026" [ref=e452]
+                    - cell "Spotlight Gallery - Standard Resolution" [ref=e453]
+                    - cell "$63.00" [ref=e454]
+                    - cell "0/1 Uploaded" [ref=e455]:
+                      - paragraph [ref=e457] [cursor=pointer]: 0/1 Uploaded
+                    - cell "link" [ref=e458]:
+                      - generic [ref=e459] [cursor=pointer]:
+                        - link "link" [ref=e460]:
+                          - /url: https://www.zenfolio.com/phlox/e/p853567950
+                        - img [ref=e461]
+                    - cell [ref=e464]:
+                      - generic [ref=e465]:
+                        - img [ref=e467] [cursor=pointer]
+                        - img [ref=e470] [cursor=pointer]
+                  - row "10426 Ryan Mujica 02/28/2026 Cy Ranch Langham Creek @ Cy Ranch - Boys - Varsity - Soccer 03/06/2026 Spotlight Gallery - Standard Resolution $63.00 0/1 Uploaded link" [ref=e473]:
+                    - cell [ref=e474]:
+                      - checkbox [ref=e477] [cursor=pointer]
+                    - cell "10426" [ref=e479]
+                    - cell "Ryan Mujica" [ref=e480]
+                    - cell "02/28/2026" [ref=e481]
+                    - cell "Cy Ranch" [ref=e482]
+                    - cell "Langham Creek @ Cy Ranch - Boys - Varsity - Soccer" [ref=e483]:
+                      - link "Langham Creek @ Cy Ranch - Boys - Varsity - Soccer" [ref=e484] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4646
+                    - cell "03/06/2026" [ref=e485]
+                    - cell "Spotlight Gallery - Standard Resolution" [ref=e486]
+                    - cell "$63.00" [ref=e487]
+                    - cell "0/1 Uploaded" [ref=e488]:
+                      - paragraph [ref=e490] [cursor=pointer]: 0/1 Uploaded
+                    - cell "link" [ref=e491]:
+                      - generic [ref=e492] [cursor=pointer]:
+                        - link "link" [ref=e493]:
+                          - /url: https://www.zenfolio.com/phlox/e/p555657079
+                        - img [ref=e494]
+                    - cell [ref=e497]:
+                      - generic [ref=e498]:
+                        - img [ref=e500] [cursor=pointer]
+                        - img [ref=e503] [cursor=pointer]
+                  - row "10424 Alec Gutierrez 02/28/2026 Cy Ranch Langham Creek @ Cy Ranch - Boys - Varsity - Soccer 03/06/2026 Spotlight Gallery - Standard Resolution $63.00 0/1 Uploaded link" [ref=e506]:
+                    - cell [ref=e507]:
+                      - checkbox [ref=e510] [cursor=pointer]
+                    - cell "10424" [ref=e512]
+                    - cell "Alec Gutierrez" [ref=e513]
+                    - cell "02/28/2026" [ref=e514]
+                    - cell "Cy Ranch" [ref=e515]
+                    - cell "Langham Creek @ Cy Ranch - Boys - Varsity - Soccer" [ref=e516]:
+                      - link "Langham Creek @ Cy Ranch - Boys - Varsity - Soccer" [ref=e517] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4646
+                    - cell "03/06/2026" [ref=e518]
+                    - cell "Spotlight Gallery - Standard Resolution" [ref=e519]
+                    - cell "$63.00" [ref=e520]
+                    - cell "0/1 Uploaded" [ref=e521]:
+                      - paragraph [ref=e523] [cursor=pointer]: 0/1 Uploaded
+                    - cell "link" [ref=e524]:
+                      - generic [ref=e525] [cursor=pointer]:
+                        - link "link" [ref=e526]:
+                          - /url: https://www.zenfolio.com/phlox/e/p768919257
+                        - img [ref=e527]
+                    - cell [ref=e530]:
+                      - generic [ref=e531]:
+                        - img [ref=e533] [cursor=pointer]
+                        - img [ref=e536] [cursor=pointer]
+                  - row "10052 William Vossler 02/24/2026 Cypress United Episcopal Texas @ Cypress United - Boys - JV - Lacrosse 03/25/2026 Spotlight Gallery - High Resolution $66.60 0/1 Uploaded link" [ref=e539]:
+                    - cell [ref=e540]:
+                      - checkbox [ref=e543] [cursor=pointer]
+                    - cell "10052" [ref=e545]
+                    - cell "William Vossler" [ref=e546]
+                    - cell "02/24/2026" [ref=e547]
+                    - cell "Cypress United" [ref=e548]
+                    - cell "Episcopal Texas @ Cypress United - Boys - JV - Lacrosse" [ref=e549]:
+                      - link "Episcopal Texas @ Cypress United - Boys - JV - Lacrosse" [ref=e550] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4638
+                    - cell "03/25/2026" [ref=e551]
+                    - cell "Spotlight Gallery - High Resolution" [ref=e552]
+                    - cell "$66.60" [ref=e553]
+                    - cell "0/1 Uploaded" [ref=e554]:
+                      - paragraph [ref=e556] [cursor=pointer]: 0/1 Uploaded
+                    - cell "link" [ref=e557]:
+                      - generic [ref=e558] [cursor=pointer]:
+                        - link "link" [ref=e559]:
+                          - /url: https://www.zenfolio.com/phlox/e/p670558217
+                        - img [ref=e560]
+                    - cell [ref=e563]:
+                      - generic [ref=e564]:
+                        - img [ref=e566] [cursor=pointer]
+                        - img [ref=e569] [cursor=pointer]
+                  - row "10052 William Vossler 02/24/2026 Cypress United Dripping Springs @ Cypress United - Boys - JV - Lacrosse 03/29/2026 Spotlight Gallery - High Resolution $66.60 0/1 Uploaded -" [ref=e572]:
+                    - cell [ref=e573]:
+                      - checkbox [ref=e576] [cursor=pointer]
+                    - cell "10052" [ref=e578]
+                    - cell "William Vossler" [ref=e579]
+                    - cell "02/24/2026" [ref=e580]
+                    - cell "Cypress United" [ref=e581]
+                    - cell "Dripping Springs @ Cypress United - Boys - JV - Lacrosse" [ref=e582]:
+                      - link "Dripping Springs @ Cypress United - Boys - JV - Lacrosse" [ref=e583] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4639
+                    - cell "03/29/2026" [ref=e584]
+                    - cell "Spotlight Gallery - High Resolution" [ref=e585]
+                    - cell "$66.60" [ref=e586]
+                    - cell "0/1 Uploaded" [ref=e587]:
+                      - paragraph [ref=e589] [cursor=pointer]: 0/1 Uploaded
+                    - cell "-" [ref=e590]:
+                      - paragraph [ref=e591]: "-"
+                    - cell [ref=e592]:
+                      - generic [ref=e593]:
+                        - img [ref=e595] [cursor=pointer]
+                        - img [ref=e598] [cursor=pointer]
+                  - row "10052 William Vossler 02/24/2026 Cypress United SB Memorial @ Cypress United - Boys - JV - Lacrosse 04/02/2026 Spotlight Gallery - High Resolution $66.60 0/1 Uploaded link" [ref=e601]:
+                    - cell [ref=e602]:
+                      - checkbox [ref=e605] [cursor=pointer]
+                    - cell "10052" [ref=e607]
+                    - cell "William Vossler" [ref=e608]
+                    - cell "02/24/2026" [ref=e609]
+                    - cell "Cypress United" [ref=e610]
+                    - cell "SB Memorial @ Cypress United - Boys - JV - Lacrosse" [ref=e611]:
+                      - link "SB Memorial @ Cypress United - Boys - JV - Lacrosse" [ref=e612] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4640
+                    - cell "04/02/2026" [ref=e613]
+                    - cell "Spotlight Gallery - High Resolution" [ref=e614]
+                    - cell "$66.60" [ref=e615]
+                    - cell "0/1 Uploaded" [ref=e616]:
+                      - paragraph [ref=e618] [cursor=pointer]: 0/1 Uploaded
+                    - cell "link" [ref=e619]:
+                      - generic [ref=e620] [cursor=pointer]:
+                        - link "link" [ref=e621]:
+                          - /url: https://www.zenfolio.com/phlox/e/p669833772
+                        - img [ref=e622]
+                    - cell [ref=e625]:
+                      - generic [ref=e626]:
+                        - img [ref=e628] [cursor=pointer]
+                        - img [ref=e631] [cursor=pointer]
+                  - row "10051 - 02/23/2026 16U Team Texas Blue SB Memorial @ Cypress United - Boys - Varsity - Lacrosse 04/02/2026 Spotlight Gallery - High Resolution $66.60 0/1 Uploaded -" [ref=e634]:
+                    - cell [ref=e635]:
+                      - checkbox [ref=e638] [cursor=pointer]
+                    - cell "10051" [ref=e640]
+                    - cell "-" [ref=e641]
+                    - cell "02/23/2026" [ref=e642]
+                    - cell "16U Team Texas Blue" [ref=e643]
+                    - cell "SB Memorial @ Cypress United - Boys - Varsity - Lacrosse" [ref=e644]:
+                      - link "SB Memorial @ Cypress United - Boys - Varsity - Lacrosse" [ref=e645] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4635
+                    - cell "04/02/2026" [ref=e646]
+                    - cell "Spotlight Gallery - High Resolution" [ref=e647]
+                    - cell "$66.60" [ref=e648]
+                    - cell "0/1 Uploaded" [ref=e649]:
+                      - paragraph [ref=e651] [cursor=pointer]: 0/1 Uploaded
+                    - cell "-" [ref=e652]:
+                      - paragraph [ref=e653]: "-"
+                    - cell [ref=e654]:
+                      - generic [ref=e655]:
+                        - img [ref=e657] [cursor=pointer]
+                        - img [ref=e660] [cursor=pointer]
+                  - row "10052 William Vossler 02/24/2026 Cypress United Katy @ Cypress United - Boys - JV - Lacrosse 04/14/2026 Spotlight Gallery - High Resolution $66.60 0/1 Uploaded -" [ref=e663]:
+                    - cell [ref=e664]:
+                      - checkbox [ref=e667] [cursor=pointer]
+                    - cell "10052" [ref=e669]
+                    - cell "William Vossler" [ref=e670]
+                    - cell "02/24/2026" [ref=e671]
+                    - cell "Cypress United" [ref=e672]
+                    - cell "Katy @ Cypress United - Boys - JV - Lacrosse" [ref=e673]:
+                      - link "Katy @ Cypress United - Boys - JV - Lacrosse" [ref=e674] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4641
+                    - cell "04/14/2026" [ref=e675]
+                    - cell "Spotlight Gallery - High Resolution" [ref=e676]
+                    - cell "$66.60" [ref=e677]
+                    - cell "0/1 Uploaded" [ref=e678]:
+                      - paragraph [ref=e680] [cursor=pointer]: 0/1 Uploaded
+                    - cell "-" [ref=e681]:
+                      - paragraph [ref=e682]: "-"
+                    - cell [ref=e683]:
+                      - generic [ref=e684]:
+                        - img [ref=e686] [cursor=pointer]
+                        - img [ref=e689] [cursor=pointer]
+                  - row "10445 Namrata K 04/17/2026 A+ Academy(TX) A+ Academy(TX) @ Abbott School(TX) - Boys - 8A - Bowling 04/17/2026 Spotlight Gallery - Standard Resolution $63.00 0/1 Uploaded -" [ref=e692]:
+                    - cell [ref=e693]:
+                      - checkbox [ref=e696] [cursor=pointer]
+                    - cell "10445" [ref=e698]
+                    - cell "Namrata K" [ref=e699]
+                    - cell "04/17/2026" [ref=e700]
+                    - cell "A+ Academy(TX)" [ref=e701]
+                    - cell "A+ Academy(TX) @ Abbott School(TX) - Boys - 8A - Bowling" [ref=e702]:
+                      - link "A+ Academy(TX) @ Abbott School(TX) - Boys - 8A - Bowling" [ref=e703] [cursor=pointer]:
+                        - /url: https://phlox-admin.netlify.app/events/edit-event/4666
+                    - cell "04/17/2026" [ref=e704]
+                    - cell "Spotlight Gallery - Standard Resolution" [ref=e705]
+                    - cell "$63.00" [ref=e706]
+                    - cell "0/1 Uploaded" [ref=e707]:
+                      - paragraph [ref=e709] [cursor=pointer]: 0/1 Uploaded
+                    - cell "-" [ref=e710]:
+                      - paragraph [ref=e711]: "-"
+                    - cell [ref=e712]:
+                      - generic [ref=e713]:
+                        - img [ref=e715] [cursor=pointer]
+                        - img [ref=e718] [cursor=pointer]
+            - list [ref=e721]:
+              - listitem [ref=e722]: 1-10 of 317
+              - listitem "Previous Page" [ref=e723]:
+                - button "left" [disabled] [ref=e724]:
+                  - img "left" [ref=e725]:
+                    - img [ref=e726]
+              - listitem "Next 5 Pages" [ref=e728] [cursor=pointer]:
+                - generic [ref=e730]:
+                  - img "double-right" [ref=e731]:
+                    - img [ref=e732]
+                  - generic [ref=e734]: •••
+              - listitem "Next Page" [ref=e735] [cursor=pointer]:
+                - button "right" [ref=e736]:
+                  - img "right" [ref=e737]:
+                    - img [ref=e738]
+              - listitem [ref=e740]:
+                - generic [ref=e741] [cursor=pointer]:
+                  - generic [ref=e742]:
+                    - combobox [ref=e744]
+                    - generic [ref=e745]: 10 / page
+                  - generic:
+                    - img:
+                      - img
+```
+
+# Test source
+
+```ts
+  49  | }
+  50  | 
+  51  | // Open the Add Event form and wait for it to render.
+  52  | async function gotoAddEvent(page) {
+  53  |   await page.goto(ADD_EVENT_URL, { waitUntil: 'domcontentloaded' });
+  54  |   await expect(page.getByRole('button', { name: 'Save and Publish' })).toBeVisible({
+  55  |     timeout: 25000,
+  56  |   });
+  57  |   // The form's selects hydrate after the page chrome; give them a moment.
+  58  |   await page.waitForTimeout(1500);
+  59  | }
+  60  | 
+  61  | // Pick an option from the Ant Design <select> sitting in the form item whose
+  62  | // label contains `label`. Picks the Nth *visible* option (default the first).
+  63  | // The options load from the backend and the virtual list can render them hidden
+  64  | // for a beat, so we filter to visible and wait.
+  65  | async function pickAntOption(page, label, index = 0) {
+  66  |   const item = page.locator('.ant-form-item', { hasText: label }).first();
+  67  |   await item.locator('.ant-select').first().click();
+  68  |   const option = page
+  69  |     .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+  70  |     .filter({ visible: true })
+  71  |     .nth(index);
+  72  |   await option.waitFor({ state: 'visible', timeout: 15000 });
+  73  |   const text = (await option.innerText()).trim();
+  74  |   await option.click();
+  75  |   await page.waitForTimeout(400);
+  76  |   return text;
+  77  | }
+  78  | 
+  79  | // Fill every field required to publish an event: Visiting/Home Team, Sports,
+  80  | // Level, Date and a Time slot. (Title is read-only — it auto-builds from these.)
+  81  | // Returns the auto-generated title so callers can assert on it.
+  82  | async function fillRequiredEventFields(page) {
+  83  |   await pickAntOption(page, 'Visiting Team', 0);
+  84  |   await pickAntOption(page, 'Home Team', 1); // different from visiting
+  85  |   await pickAntOption(page, 'Sports', 0);
+  86  |   await pickAntOption(page, 'Level', 0);
+  87  | 
+  88  |   // Date: open the calendar and pick the last enabled day in view.
+  89  |   await page.locator('#basic_date').click();
+  90  |   await page.waitForTimeout(800);
+  91  |   await page
+  92  |     .locator('.ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner')
+  93  |     .last()
+  94  |     .click();
+  95  |   await page.waitForTimeout(500);
+  96  | 
+  97  |   // Time: range picker — choose a start hour/minute; the end auto-fills.
+  98  |   await page.locator('#basic_times').click();
+  99  |   await page.waitForTimeout(700);
+  100 |   const col = page.locator('.ant-picker-time-panel-column');
+  101 |   await col.nth(0).locator('.ant-picker-time-panel-cell-inner').nth(9).click();
+  102 |   await page.waitForTimeout(300);
+  103 |   await col.nth(1).locator('.ant-picker-time-panel-cell-inner').nth(0).click();
+  104 |   await page.waitForTimeout(300);
+  105 |   const ok = page.locator('.ant-picker-ok button');
+  106 |   if (await ok.isVisible().catch(() => false)) await ok.click();
+  107 |   await page.waitForTimeout(400);
+  108 | 
+  109 |   return (await page.locator('#eventTitle').inputValue()).trim();
+  110 | }
+  111 | 
+  112 | // --- Orders (Prepaid Orders) ---
+  113 | 
+  114 | // Open the Orders list. It's keyed off the Export button, which always renders.
+  115 | async function gotoOrders(page) {
+  116 |   await gotoWithRetry(page, ORDERS_URL, page.getByRole('button', { name: 'Export' }));
+  117 |   // Wait for the table chrome and let the filter controls wire up before use.
+  118 |   await page
+  119 |     .getByRole('columnheader', { name: 'Order Id', exact: false })
+  120 |     .first()
+  121 |     .waitFor({ state: 'visible', timeout: 25000 });
+  122 |   await page.waitForTimeout(2500);
+  123 | }
+  124 | 
+  125 | // Set the Orders "Order date" range to the widest span the picker offers (first
+  126 | // visible day → last visible day). The Orders list stays empty until a date
+  127 | // range is applied, so this surfaces the seeded orders.
+  128 | async function applyOrderDateRange(page) {
+  129 |   await page.getByPlaceholder('Order start date').click();
+  130 |   await page.waitForTimeout(1000);
+  131 |   const cells = page.locator(
+  132 |     '.ant-picker-dropdown:not(.ant-picker-dropdown-hidden) .ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner'
+  133 |   );
+  134 |   await cells.first().click();
+  135 |   await page.waitForTimeout(400);
+  136 |   await cells.last().click();
+  137 |   await page.waitForTimeout(1500);
+  138 | }
+  139 | 
+  140 | // Open an Ant Select filter by the placeholder/label it shows and return a
+  141 | // locator for its (visible) options. Retries the open — the first click can
+  142 | // misfire while the list is still settling on the flaky backend.
+  143 | async function openSelectFilter(page, label) {
+  144 |   const select = page.locator('.ant-select').filter({ hasText: label }).first();
+  145 |   const options = page
+  146 |     .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+  147 |     .filter({ visible: true });
+  148 |   for (let i = 0; i < 4; i++) {
+> 149 |     await select.click();
+      |                  ^ Error: locator.click: Test timeout of 120000ms exceeded.
+  150 |     const opened = await options
+  151 |       .first()
+  152 |       .waitFor({ state: 'visible', timeout: 5000 })
+  153 |       .then(() => true)
+  154 |       .catch(() => false);
+  155 |     if (opened) return options;
+  156 |     await page.keyboard.press('Escape').catch(() => {});
+  157 |     await page.waitForTimeout(800);
+  158 |   }
+  159 |   return options; // caller's assertion will surface a clear failure if still empty
+  160 | }
+  161 | 
+  162 | // --- Users ---
+  163 | 
+  164 | // Open the Users list and wait for the count line.
+  165 | async function gotoUsers(page) {
+  166 |   await gotoWithRetry(page, USERS_URL, page.getByRole('button', { name: 'Add' }));
+  167 |   await expect(page.getByRole('heading', { name: /Showing \d+ Users/ })).toBeVisible({
+  168 |     timeout: 25000,
+  169 |   });
+  170 | }
+  171 | 
+  172 | // Open the Add User form.
+  173 | async function gotoAddUser(page) {
+  174 |   await gotoWithRetry(page, ADD_USER_URL, page.getByRole('button', { name: 'Save' }));
+  175 |   await page.waitForTimeout(1500);
+  176 | }
+  177 | 
+  178 | // A unique letters-only string (the Last Name field forbids spaces and numbers).
+  179 | function uniqueAlpha(len = 8) {
+  180 |   const a = 'abcdefghijklmnopqrstuvwxyz';
+  181 |   let s = '';
+  182 |   let x = Date.now();
+  183 |   for (let i = 0; i < len; i++) {
+  184 |     s += a[x % 26];
+  185 |     x = Math.floor(x / 26);
+  186 |   }
+  187 |   return s;
+  188 | }
+  189 | 
+  190 | // Fill the required Add-user fields (assumes the Add User form is open).
+  191 | async function fillUserForm(page, { lastName, phone, email }) {
+  192 |   await page.locator('#firstName').fill('QAauto');
+  193 |   await page.locator('#lastName').fill(lastName);
+  194 |   await page.locator('#phone').fill(phone);
+  195 |   await page.locator('#email').fill(email);
+  196 |   await pickAntOption(page, 'Level', 0);
+  197 |   await pickAntOption(page, 'Compensation', 0);
+  198 |   await page.locator('#rate').fill('10');
+  199 | }
+  200 | 
+  201 | // Create a user with unique phone + email (the API rejects duplicates) and Save.
+  202 | // Returns the field values so callers can find the row or reuse the phone/email.
+  203 | async function createUser(page) {
+  204 |   await gotoAddUser(page);
+  205 |   const lastName = 'Qa' + uniqueAlpha(6);
+  206 |   const phone = '9' + String(Date.now()).slice(-9);
+  207 |   const email = 'qa' + Date.now() + '@example.com';
+  208 |   await fillUserForm(page, { lastName, phone, email });
+  209 |   await Promise.all([
+  210 |     page.waitForResponse(
+  211 |       (r) => r.url().includes('/api/users') && r.request().method() === 'POST',
+  212 |       { timeout: 60000 } // tolerate a slow backend under full-suite load
+  213 |     ),
+  214 |     page.getByRole('button', { name: 'Save' }).click(),
+  215 |   ]);
+  216 |   await page.waitForTimeout(1500);
+  217 |   return { firstName: 'QAauto', lastName, phone, email };
+  218 | }
+  219 | 
+  220 | // --- Organizations ---
+  221 | 
+  222 | // Open the Organizations list and wait for the count line.
+  223 | async function gotoOrgs(page) {
+  224 |   await gotoWithRetry(page, ORGANIZATIONS_URL, page.getByRole('button', { name: 'Add' }));
+  225 |   await expect(page.getByRole('heading', { name: /Showing \d+ Organizations/ })).toBeVisible({
+  226 |     timeout: 25000,
+  227 |   });
+  228 | }
+  229 | 
+  230 | // Open the Add Organization form.
+  231 | async function gotoAddOrg(page) {
+  232 |   await gotoWithRetry(page, ADD_ORG_URL, page.getByRole('button', { name: 'Save' }));
+  233 |   await page.waitForTimeout(1500);
+  234 | }
+  235 | 
+  236 | // Create an organization (Type=Team) with a unique name + short name and Save.
+  237 | // New orgs sort to the top of the list (newest first). Returns the values.
+  238 | async function createOrg(page) {
+  239 |   await gotoAddOrg(page);
+  240 |   const shortName = 'QAO' + uniqueAlpha(6);
+  241 |   const name = 'QAOrg ' + shortName;
+  242 |   await page.getByText('Team', { exact: true }).first().click(); // org type
+  243 |   await page.locator('#name').fill(name);
+  244 |   await page.locator('#shortName').fill(shortName);
+  245 |   await Promise.all([
+  246 |     page.waitForResponse(
+  247 |       (r) => r.url().includes('/api/organizations') && r.request().method() === 'POST',
+  248 |       { timeout: 60000 } // tolerate a slow backend under full-suite load
+  249 |     ),
+```

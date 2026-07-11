@@ -1,0 +1,249 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/reports.spec.js >> Downloading the Event profitability report produces a file
+- Location: tests/admin/reports.spec.js:45:1
+
+# Error details
+
+```
+TimeoutError: page.waitForEvent: Timeout 30000ms exceeded while waiting for event "download"
+=========================== logs ===========================
+waiting for event "download"
+============================================================
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - complementary [ref=e5]:
+      - generic [ref=e6]:
+        - img "left" [ref=e9]:
+          - img [ref=e10]
+        - img "Vype Logo" [ref=e13]
+        - list [ref=e16]:
+          - listitem [ref=e17]:
+            - link "Events" [ref=e18] [cursor=pointer]:
+              - /url: /events?sortDirection=ascend&sortColumn=startTime
+              - img [ref=e20]
+              - paragraph [ref=e23]: Events
+          - listitem [ref=e24]:
+            - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+              - /url: /bundles
+              - img [ref=e27]
+              - paragraph [ref=e31]: Spotlight Bundles
+          - listitem [ref=e32]:
+            - link "Orders" [ref=e33] [cursor=pointer]:
+              - /url: /orders
+              - img [ref=e35]
+              - paragraph [ref=e38]: Orders
+          - listitem [ref=e39]:
+            - link "Users" [ref=e40] [cursor=pointer]:
+              - /url: /users
+              - img [ref=e42]
+              - paragraph [ref=e45]: Users
+          - listitem [ref=e46]:
+            - link "Organizations" [ref=e47] [cursor=pointer]:
+              - /url: /organizations
+              - img [ref=e49]
+              - paragraph [ref=e52]: Organizations
+          - listitem [ref=e53]:
+            - link "Products" [ref=e54] [cursor=pointer]:
+              - /url: /products
+              - img [ref=e56]
+              - paragraph [ref=e59]: Products
+          - listitem [ref=e60]:
+            - link "Coupons" [ref=e61] [cursor=pointer]:
+              - /url: /coupons
+              - img [ref=e63]
+              - paragraph [ref=e66]: Coupons
+          - listitem [ref=e67]:
+            - link "Gift Cards" [ref=e68] [cursor=pointer]:
+              - /url: /giftcards
+              - img [ref=e70]
+              - paragraph [ref=e73]: Gift Cards
+          - listitem [ref=e74]:
+            - link "Categories" [ref=e75] [cursor=pointer]:
+              - /url: /categories
+              - img [ref=e77]
+              - paragraph [ref=e80]: Categories
+          - listitem [ref=e81]:
+            - link "Levels" [ref=e82] [cursor=pointer]:
+              - /url: /levels
+              - img [ref=e84]
+              - paragraph [ref=e87]: Levels
+          - listitem [ref=e88]:
+            - link "School Districts" [ref=e89] [cursor=pointer]:
+              - /url: /school-districts
+              - img [ref=e91]
+              - paragraph [ref=e94]: School Districts
+          - listitem [ref=e95]:
+            - link "Zenfolio" [ref=e96] [cursor=pointer]:
+              - /url: /browse-and-buy
+              - img [ref=e98]
+              - paragraph [ref=e101]: Zenfolio
+          - listitem [ref=e102]:
+            - link "Payouts" [ref=e103] [cursor=pointer]:
+              - /url: /payout?sortDirection=ascend&sortColumn=payee
+              - img [ref=e105]
+              - paragraph [ref=e108]: Payouts
+          - listitem [ref=e109]:
+            - link "Reports" [ref=e110] [cursor=pointer]:
+              - /url: /reports
+              - img [ref=e112]
+              - paragraph [ref=e133]: Reports
+    - generic [ref=e134]:
+      - generic [ref=e135]:
+        - generic [ref=e137] [cursor=pointer]:
+          - paragraph [ref=e138]: UAT
+          - img [ref=e139]
+        - generic [ref=e141]:
+          - generic [ref=e142]:
+            - heading "Dhaval Kukadia" [level=6] [ref=e143]
+            - paragraph [ref=e144]: Admin, Photographer
+          - img "user" [ref=e147]:
+            - img [ref=e148]
+          - generic [ref=e150] [cursor=pointer]:
+            - paragraph [ref=e151]: Logout
+            - img [ref=e153]
+      - main [ref=e156]:
+        - generic [ref=e158]:
+          - generic [ref=e159]:
+            - generic [ref=e160]:
+              - generic [ref=e161]:
+                - generic [ref=e162]: Home
+                - text: /
+              - generic [ref=e164]: Reports
+            - generic "Reports" [ref=e167]
+          - table [ref=e177]:
+            - rowgroup [ref=e181]:
+              - row "Name Actions" [ref=e182]:
+                - columnheader "Name" [ref=e183]
+                - columnheader "Actions" [ref=e184]
+            - rowgroup [ref=e185]:
+              - row "Event profitability Download" [ref=e186]:
+                - cell "Event profitability" [ref=e187]
+                - cell "Download" [ref=e188]:
+                  - paragraph [ref=e190] [cursor=pointer]: Download
+              - row "Customer Information - Orders Download" [ref=e191]:
+                - cell "Customer Information - Orders" [ref=e192]
+                - cell "Download" [ref=e193]:
+                  - paragraph [ref=e195] [cursor=pointer]: Download
+  - dialog "Event profitability report" [ref=e197]:
+    - document:
+      - generic [ref=e198]:
+        - heading "Event profitability report" [level=3] [ref=e202]
+        - generic [ref=e203]:
+          - paragraph [ref=e204]: Date range
+          - generic [ref=e205]:
+            - textbox "Start date" [ref=e207]: 06-28-2026
+            - generic [ref=e208]: ⇀
+            - textbox "End date" [ref=e210]: 08-08-2026
+            - generic:
+              - img "calendar":
+                - img
+            - img "close-circle" [ref=e212] [cursor=pointer]:
+              - img [ref=e213]
+        - generic [ref=e215]:
+          - button "Cancel" [ref=e216] [cursor=pointer]:
+            - generic [ref=e217]: Cancel
+          - button "loading Download" [disabled] [ref=e218]:
+            - generic:
+              - img "loading":
+                - img
+            - generic: Download
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | const { gotoReports } = require('./helpers');
+  3  | 
+  4  | // Reports lists downloadable reports; each Download opens a modal where you pick
+  5  | // a date range, then it exports a file.
+  6  | 
+  7  | // Open a report's download modal, retrying the click (it can misfire before the
+  8  | // row's handler is ready while the list is still settling).
+  9  | async function openReportModal(page, reportName) {
+  10 |   await page.waitForTimeout(1500);
+  11 |   const row = page.locator('tr.ant-table-row').filter({ hasText: reportName }).first();
+  12 |   await expect(row).toBeVisible({ timeout: 15000 });
+  13 |   const modal = page.locator('.ant-modal-content');
+  14 |   await expect(async () => {
+  15 |     if (!(await modal.isVisible().catch(() => false))) {
+  16 |       await row.getByText('Download').click();
+  17 |     }
+  18 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  19 |   }).toPass({ timeout: 20000 });
+  20 |   return modal;
+  21 | }
+  22 | 
+  23 | test('Reports list page loads with its reports', async ({ page }) => {
+  24 |   await gotoReports(page);
+  25 | 
+  26 |   for (const col of ['Name', 'Actions']) {
+  27 |     await expect(page.getByRole('columnheader', { name: col, exact: false }).first()).toBeVisible();
+  28 |   }
+  29 |   await expect(page.getByText('Event profitability')).toBeVisible();
+  30 |   await expect(page.getByText('Customer Information - Orders')).toBeVisible();
+  31 |   await expect(page.getByText('Download')).toHaveCount(2);
+  32 | });
+  33 | 
+  34 | test('Download opens the report date-range dialog', async ({ page }) => {
+  35 |   await gotoReports(page);
+  36 | 
+  37 |   const modal = await openReportModal(page, 'Event profitability');
+  38 |   await expect(modal.getByRole('heading', { name: /Event profitability report/i })).toBeVisible();
+  39 |   await expect(modal.getByPlaceholder('Start date')).toBeVisible();
+  40 |   await expect(modal.getByPlaceholder('End date')).toBeVisible();
+  41 |   await expect(modal.getByRole('button', { name: 'Download' })).toBeVisible();
+  42 |   await expect(modal.getByRole('button', { name: 'Cancel' })).toBeVisible();
+  43 | });
+  44 | 
+  45 | test('Downloading the Event profitability report produces a file', async ({ page }) => {
+  46 |   await gotoReports(page);
+  47 | 
+  48 |   const modal = await openReportModal(page, 'Event profitability');
+  49 | 
+  50 |   // Pick a date range (first → last enabled day in view).
+  51 |   await modal.getByPlaceholder('Start date').click();
+  52 |   await page.waitForTimeout(800);
+  53 |   const cells = page.locator(
+  54 |     '.ant-picker-dropdown:not(.ant-picker-dropdown-hidden) .ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner'
+  55 |   );
+  56 |   await cells.first().click();
+  57 |   await page.waitForTimeout(400);
+  58 |   await cells.last().click();
+  59 |   await page.waitForTimeout(800);
+  60 | 
+  61 |   const [download] = await Promise.all([
+> 62 |     page.waitForEvent('download', { timeout: 30000 }),
+     |          ^ TimeoutError: page.waitForEvent: Timeout 30000ms exceeded while waiting for event "download"
+  63 |     modal.getByRole('button', { name: 'Download' }).click(),
+  64 |   ]);
+  65 |   expect(download.suggestedFilename()).toMatch(/profitability.*\.(xlsx|csv)/i);
+  66 | });
+  67 | 
+  68 | test('The Customer Information report opens its download dialog', async ({ page }) => {
+  69 |   await gotoReports(page);
+  70 | 
+  71 |   const modal = await openReportModal(page, 'Customer Information');
+  72 |   await expect(modal.getByPlaceholder('Start date')).toBeVisible();
+  73 |   await expect(modal.getByRole('button', { name: 'Download' })).toBeVisible();
+  74 | });
+  75 | 
+  76 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  77 | test.afterEach(async ({ page }) => {
+  78 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  79 |   if (ms) await page.waitForTimeout(ms);
+  80 | });
+  81 | 
+```
