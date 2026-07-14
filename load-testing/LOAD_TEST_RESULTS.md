@@ -42,6 +42,138 @@ Plan: [vype-bundles.jmx](vype-bundles.jmx) · body captured from a real create (
 
 Plan: [vype-orders.jmx](vype-orders.jmx).
 
+## 1d. Re-test — Bundles fix (PR #923, deploy-preview-923)
+
+The bundle-create 502-under-load was fixed. Re-ran `vype-bundles.jmx` against
+`deploy-preview-923--phlox-admin.netlify.app` (host now overridable via `-Jhost`):
+
+| Concurrent VUs | Error % | Avg | p95 | p99 | Codes |
+|---|---|---|---|---|---|
+| 1 (smoke) | 0% | 1440 ms | — | — | 200 |
+| 10 | 0% | 757 ms | 1099 ms | 1099 ms | 200×10 |
+| 50 | **0%** | 707 ms | 993 ms | 1160 ms | **200×50** (was 16% 502) |
+| 100 | 0% | 947 ms | 2005 ms | 3135 ms | 200×100 |
+| **200** | **0%** | 793 ms | 1082 ms | 2881 ms | **200×200** |
+
+**Verdict: FIXED and verified at the 200-VU target.** Previously 16% `502` at 50 VU
+(UAT); now 0% errors through 200 concurrent, with low flat latency (~0.8 s avg).
+
+## 1e. Regression re-test on PR #923 — Events & Orders (all three flows)
+
+To confirm PR #923 fixed **only** the bundle bug and did not regress the other two
+flows, all three were re-run around the PR build (2026-07-08):
+
+| Flow | Endpoint | Target | Peak VU | Error % | Avg | Notes |
+|---|---|---|---|---|---|---|
+| Create Event | `/api/events/create-one` | **deploy-preview-923** (admin) | 200 | **0%** | ~0.74 s | PR build, direct |
+| Add Bundle | `/api/seasons/create-one` | **deploy-preview-923** (admin) | 200 | **0%** | ~0.79 s | the fixed endpoint |
+| Place Order (pre-pay) | `/api/checkout/store_billing_info` | UAT frontend (shared backend) | 50 | **0%** | ~1.28 s | see note ‡ |
+
+Events, preview-923, `/api/events/create-one`:
+
+| Concurrent VUs | Error % | Avg | p95 | p99 | Codes |
+|---|---|---|---|---|---|
+| 1 | 0% | 1215 ms | — | — | 200 |
+| 10 | 0% | 552 ms | 714 ms | 714 ms | 200×10 |
+| 50 | 0% | 722 ms | 935 ms | 1077 ms | 200×50 |
+| 100 | 0% | 713 ms | 985 ms | 1080 ms | 200×100 |
+| 200 | 0% | 740 ms | 1002 ms | 1479 ms | 200×200 |
+
+Orders, UAT frontend, `/api/checkout/store_billing_info` (real orders created):
+
+| Concurrent VUs | Error % | Avg | p95 | p99 | Codes |
+|---|---|---|---|---|---|
+| 1 | 0% | 3029 ms | — | — | 200 |
+| 10 | 0% | 1101 ms | 1565 ms | 1565 ms | 200×10 |
+| 50 | 0% | 1281 ms | 2586 ms | 2803 ms | 200×50 |
+
+**Verdict: only Bundles was broken, and only Bundles was fixed — nothing regressed.**
+Events holds 0% through 200 VU on the PR build; Orders holds 0% at the baseline 50 VU.
+
+**‡ Two caveats (unchanged from the original baseline method):**
+- **Orders is a frontend route, not in this admin PR.** `deploy-preview-923` is an
+  admin-only build; the admin host 302-redirects `/api/checkout/store_billing_info`
+  (SPA fallback). PR #923 does not touch the order path, so Orders was re-run against
+  the frontend that shares the same backend — a control, not a PR-build test. Kept to
+  50 VU because each request creates a real order (+ notification).
+- **Events measures the HTTP layer.** The lightweight baseline body is rejected with a
+  validation error (`Invalid Input`) at **HTTP 200**, so JMeter's 2xx assertion passes;
+  this is the same body/method as the original baseline, so the comparison is
+  apples-to-apples, but it exercises the request/gateway path rather than a full
+  event write. A full-create body needs team/category IDs not derivable from the API.
+
+## 1f. Staging re-test — all three flows (`phlox-admin.netlify.app`)
+
+Re-ran the full 3-flow suite on **staging** (where PR #923 is merged), 2026-07-08.
+Admin flows on `phlox-admin.netlify.app` (staging token); Orders on
+`phlox-frontend.netlify.app` (frontend token, real orders created).
+
+| Flow | Endpoint | Target | Peak VU | Error % | Avg | p95 |
+|---|---|---|---|---|---|---|
+| Add Bundle | `/api/seasons/create-one` | staging admin | 200 | **0%** | 3688 ms | 8448 ms |
+| Create Event | `/api/events/create-one` | staging admin | 200 | **0%** | 873 ms | 1692 ms |
+| Place Order (pre-pay) | `/api/checkout/store_billing_info` | staging frontend | 50 | **0%** | 891 ms | 1258 ms |
+
+Bundles, staging, by level:
+
+| VUs | Error % | Avg | p95 | p99 | Max | Codes |
+|---|---|---|---|---|---|---|
+| 10 | 0% | 669 ms | 944 ms | 944 ms | 944 ms | 200×10 |
+| 50 | 0% | 813 ms | 1317 ms | 1433 ms | 1433 ms | 200×50 |
+| 100 | 0% | 828 ms | 1181 ms | 1736 ms | 1736 ms | 200×100 |
+| **200** | **0%** | **3688 ms** | **8448 ms** | 11368 ms | 12270 ms | 200×200 |
+
+Events, staging, by level:
+
+| VUs | Error % | Avg | p95 | p99 | Codes |
+|---|---|---|---|---|---|
+| 10 | 0% | 654 ms | 979 ms | 979 ms | 200×10 |
+| 50 | 0% | 997 ms | 2046 ms | 2605 ms | 200×50 |
+| 100 | 0% | 857 ms | 1375 ms | 2523 ms | 200×100 |
+| 200 | 0% | 873 ms | 1692 ms | 2161 ms | 200×200 |
+
+Orders, staging frontend, by level:
+
+| VUs | Error % | Avg | p95 | p99 | Codes |
+|---|---|---|---|---|---|
+| 1 | 0% | 2928 ms | — | — | 200 |
+| 10 | 0% | 791 ms | 1101 ms | 1101 ms | 200×10 |
+| 50 | 0% | 891 ms | 1258 ms | 1365 ms | 200×50 |
+
+**Verdict (staging): all three flows hold 0% errors, including Bundles at 200 VU** —
+the 502 bug is gone on staging too. One watch-item: **Bundles latency degrades sharply
+at 200 VU** (avg 3.7 s, p95 8.4 s, max 12.3 s) vs ~0.8 s on the isolated preview. No
+failures, but it's the heaviest endpoint and slows most under peak on the shared staging
+env with production-scale data. Events stays flat (~0.87 s) and Orders is healthy.
+Same caveats as §1e apply (Events is an HTTP-layer measurement; Orders creates real
+orders so kept to 50 VU).
+
+## 1g. UAT re-test — PAS-691 priority verification (`uat-phlox-admin.netlify.app`)
+
+Verified the PAS-691 fix on **UAT** for the 13 Jul 2026 deployment, 2026-07-13.
+Concurrent POST from a local client; unique payload per request (real records).
+
+| Flow | Endpoint | Peak VU | Error % | Avg | p95 |
+|---|---|---|---|---|---|
+| Add Bundle | `/api/seasons/create-one` | 100 | **0%** | 2660 ms | 3690 ms |
+| Create Event (control) | `/api/events/create-one` | 50 | **0%** | 1340 ms | 1470 ms |
+| Order Billing (control) | `/api/checkout/store_billing_info` | 50 | **0%** | 4480 ms | 4930 ms |
+
+Bundle create, UAT, by level (the original bug hit 16% 502 at 50 VU):
+
+| VUs | Error % | Avg | p95 | Max | Codes |
+|---|---|---|---|---|---|
+| 1 | 0% | 2040 ms | — | 2040 ms | 200 |
+| 10 | 0% | 2860 ms | 3680 ms | 3680 ms | 200×10 |
+| 50 | **0%** | 4130 ms | 5790 ms | 6940 ms | **200×50** (was 16% 502) |
+| 100 | 0% | 2660 ms | 3690 ms | 3930 ms | 200×100 |
+
+**Verdict (UAT): PAS-691 FIXED.** 161/161 bundle creates returned HTTP 200; the 502
+signature did not reproduce. Event Create and Order Billing held 0% under the same
+50-VU load (matching the ticket's comparison). Watch-item: bundle create latency still
+climbs to ~4–6 s under 50 concurrent — degrades gracefully (no errors), not a blocker.
+Report artifact: `claude.ai/code/artifact/dfe58c22`.
+
 ## 2. Findings
 
 ### 🟢 Orders (pre-payment) is robust

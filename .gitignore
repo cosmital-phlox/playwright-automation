@@ -15,7 +15,10 @@ playwright/.auth/
 # Load-test run outputs (regenerated every run — keep the .jmx plans + docs, not results)
 jmeter.log
 load-testing/*.jtl
+load-testing/**/*.jtl
 load-testing/report-*/
+load-testing/pv923/
+load-testing/staging/
 
 # OS junk
 .DS_Store

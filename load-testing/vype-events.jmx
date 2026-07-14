@@ -9,7 +9,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="HOST" elementType="Argument">
             <stringProp name="Argument.name">HOST</stringProp>
-            <stringProp name="Argument.value">uat-phlox-admin.netlify.app</stringProp>
+            <stringProp name="Argument.value">${__P(host,uat-phlox-admin.netlify.app)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
