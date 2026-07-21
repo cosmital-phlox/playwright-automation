@@ -38,6 +38,19 @@ test.describe('Event detail — Sales Analysis, Tracker, Gallery', () => {
     // the deliverable gallery link id (e/p<digits>) is shown on the view page
     await expect(page.getByText(/e\/p\d+/i).first()).toBeVisible();
   });
+
+  // PAS-692 (admin side): an Admin sees the full payout + compensation detail.
+  // The staff-scoped restriction (PS-02/PS-03) needs a non-admin login — the
+  // Add User form has no password field (email-invite), so it can't be created
+  // here; it requires a real staff account. Tracked in NEW_FEATURES_TEST_CASES.md §8.
+  test('PS-01 admin sees full payout + compensation detail', async ({ page }) => {
+    await expect(page.getByText(/Payout breakdown/i).first()).toBeVisible();
+    await expect(page.getByText(/Total payout/i).first()).toBeVisible();
+    // platform fee line + per-staff compensation and rate
+    await expect(page.getByText(/Vypesideline|Platform/i).first()).toBeVisible();
+    await expect(page.getByText('Compensation', { exact: false }).first()).toBeVisible();
+    await expect(page.getByText('Rate', { exact: false }).first()).toBeVisible();
+  });
 });
 
 // --- PAS-703 Media Day Status filter + Clear All ---

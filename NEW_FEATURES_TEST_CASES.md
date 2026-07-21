@@ -120,7 +120,7 @@ Media Day staff confirmation-status tracking, resend flow, payout-eligibility.
 
 ## 8 · Staff-scoped payout/comp visibility (PAS-692) — [non-admin]
 
-> Requires logging in as a **staff/non-admin** user. Cannot be verified as Admin (sees full data). Route to the app-repo `test:rbac` suite or manual QA.
+> **PS-01 (admin side) is automated & passing.** PS-02/PS-03 (staff-scoped) are **blocked**: they need a real staff login. Admin-created users get no password in the UI (the Add User form is email-invite only — no password field), so a loginable staff user can't be provisioned here. Needs an existing staff/Photographer account's credentials, or the app-repo `test:rbac` suite.
 
 | ID | Title | Pri | Steps | Expected |
 |---|---|---|---|---|
@@ -167,9 +167,10 @@ Automated and **passing on UAT** (12 tests):
 - §2 Quick-create (QC-01/QC-05) — **verified**: SOW form → "Create Media Day" modal (Title/School-Org/Location/Date/Gender/Levels/Sports) + "Link"; Media Day form → SOW field with "Create new" (QC-03).
 - §6 SOW contract-file upload (SOWF-01/02) — **verified fixed**: uploaded file shows a styled filename, no raw URL.
 - §5 Zenfolio rename (ZN-01) — **`test.fixme` (NOT applied on UAT)**; ZN-01b characterizes the current "Browse & Buy" title.
+- §8 PS-01 — **admin sees full payout/compensation detail** (Payout breakdown, Total payout, platform fee, Compensation, Rate).
 
 Not automated here:
-- §8 (PAS-692) staff-scoped visibility + staff-login enforcement — need **role-scoped non-admin credentials** (route to app-repo `test:rbac` or manual QA).
+- §8 PS-02/PS-03 staff-scoped visibility — need **real staff credentials** (Add User has no password field → can't provision a loginable staff user; route to app-repo `test:rbac` or manual QA).
 - §9 org duplicate-NCES import — covered by the standalone bug ticket + repro (creating orgs each run is avoided in the committed suite).
 - Deeper QC/SC flows (actually creating via quick-create, resend confirmation) — left manual to avoid test-data creation; entry points are automated.
 
