@@ -29,6 +29,7 @@
 |---|---|---|---|---|
 | `GET /api/seasons/get-all` | 0.99s | **2.02s** | PAS-667 | server ~ok but **total 2s** — heavy response payload |
 | `GET /api/orders/get-all` | 0.98s | 1.06s | PAS-668/708 | just under; keep an eye |
+| `GET /api/v2/roles` | 1.01s | 1.14s | — | **Roles list** — at the SLA line (0.86s at page=100); not in prior scope. Permission builder is client-side (no API). |
 
 ## 🟢 Within SLA (representative)
 
