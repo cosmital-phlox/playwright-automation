@@ -85,7 +85,7 @@ export default defineConfig({
     {
       name: 'chromium',
       // Admin specs live under tests/admin and run via the `admin` project only.
-      testIgnore: /(admin|staging)\//,
+      testIgnore: /(admin|staging|staff)\//,
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/user.json',
@@ -95,7 +95,7 @@ export default defineConfig({
 
     {
       name: 'firefox',
-      testIgnore: /(admin|staging)\//,
+      testIgnore: /(admin|staging|staff)\//,
       use: {
         ...devices['Desktop Firefox'],
         storageState: 'playwright/.auth/user.json',
@@ -137,9 +137,26 @@ export default defineConfig({
       dependencies: ['staging-setup'],
     },
 
+    // --- Staff (non-admin) on UAT admin — per-role enforcement / PAS-692 ---
+    // Logs in a limited staff user (STAFF_PASSWORD env) → staff.json.
+    {
+      name: 'staff-setup',
+      testMatch: /staff\.setup\.js/,
+    },
+    {
+      name: 'staff',
+      testMatch: /staff\/.*\.spec\.js/,
+      testIgnore: /staff\.setup\.js/,
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/staff.json',
+      },
+      dependencies: ['staff-setup'],
+    },
+
     {
       name: 'webkit',
-      testIgnore: /(admin|staging)\//,
+      testIgnore: /(admin|staging|staff)\//,
       use: {
         ...devices['Desktop Safari'],
         storageState: 'playwright/.auth/user.json',

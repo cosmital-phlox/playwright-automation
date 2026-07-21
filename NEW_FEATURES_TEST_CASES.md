@@ -118,9 +118,17 @@ Media Day staff confirmation-status tracking, resend flow, payout-eligibility.
 
 ---
 
-## 8 · Staff-scoped payout/comp visibility (PAS-692) — [non-admin]
+## 8 · Staff-scoped payout/comp visibility (PAS-692)
 
-> **PS-01 (admin side) is automated & passing.** PS-02/PS-03 (staff-scoped) are **blocked**: they need a real staff login. Admin-created users get no password in the UI (the Add User form is email-invite only — no password field), so a loginable staff user can't be provisioned here. Needs an existing staff/Photographer account's credentials, or the app-repo `test:rbac` suite.
+> **Now fully automated** using a real non-admin staff login (limited "staff/photographer"-role user, no wildcard). PS-01 runs in the `admin` project; PS-02/PS-03 in the new `staff` project (`tests/staff/`, session `playwright/.auth/staff.json` via `staff-setup`, `STAFF_PASSWORD` env).
+
+| ID | Title | Result on UAT |
+|---|---|---|
+| PS-01 | Admin sees full payout/comp (incl. platform fee "Vypesideline", Total payout) | ✅ verified (admin project) |
+| PS-02 | Staff can open the event + Sales Analysis | ✅ verified (staff project) |
+| PS-03 | Staff does **not** see the platform fee / platform-level payout | ✅ verified — "Vypesideline" line hidden from staff |
+
+**Observed gap (flag to product):** the staff user could still see **another staff member's compensation** (Paras Joshi's $25 Rate/comp) on an event the staff user is **not** assigned to. Platform fee/totals are correctly hidden, but per-staff comp may not be fully "self-scoped" — worth confirming against the PAS-692 intent.
 
 | ID | Title | Pri | Steps | Expected |
 |---|---|---|---|---|
@@ -169,8 +177,9 @@ Automated and **passing on UAT** (12 tests):
 - §5 Zenfolio rename (ZN-01) — **`test.fixme` (NOT applied on UAT)**; ZN-01b characterizes the current "Browse & Buy" title.
 - §8 PS-01 — **admin sees full payout/compensation detail** (Payout breakdown, Total payout, platform fee, Compensation, Rate).
 
+- §8 PS-02/PS-03 — **staff-scoped payout visibility** (new `staff` project): staff can't see the platform fee/totals.
+
 Not automated here:
-- §8 PS-02/PS-03 staff-scoped visibility — need **real staff credentials** (Add User has no password field → can't provision a loginable staff user; route to app-repo `test:rbac` or manual QA).
 - §9 org duplicate-NCES import — covered by the standalone bug ticket + repro (creating orgs each run is avoided in the committed suite).
 - Deeper QC/SC flows (actually creating via quick-create, resend confirmation) — left manual to avoid test-data creation; entry points are automated.
 
