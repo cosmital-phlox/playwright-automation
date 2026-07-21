@@ -69,3 +69,76 @@ test.describe('Browse & Buy -> Zenfolio rename (PAS-705)', () => {
     await expect(page).toHaveTitle(/Browse & Buy/i);
   });
 });
+
+// --- PAS-701 "Edit Vype Media Day" rename ---
+// A stable Media Day fixture (created from a SOW). edit route: /events/edit-media-day/:id
+const MEDIA_DAY_ID = 4823;
+
+test.describe('Media Day edit — rename (PAS-701) + staff confirmation (PAS-633)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(`${BASE}/events/edit-media-day/${MEDIA_DAY_ID}`, { waitUntil: 'domcontentloaded' });
+    await expect(page.getByText('Basic', { exact: true }).first()).toBeVisible({ timeout: 30000 });
+    await page.waitForTimeout(1500);
+  });
+
+  test('MDR-01 edit page/breadcrumb reads "Edit Vype Media Day"', async ({ page }) => {
+    await expect(page.getByText(/Edit Vype Media Day/i).first()).toBeVisible();
+    // Event Type is the VYPE Media Day type
+    await expect(page.getByText(/VYPE Media Day/i).first()).toBeVisible();
+  });
+
+  test('SC-01 Staff section shows a Confirmation status per staff', async ({ page }) => {
+    await expect(page.getByText(/Staff \(/i).first()).toBeVisible();
+    await expect(page.getByText('Confirmation', { exact: false }).first()).toBeVisible();
+    // a confirmation status badge is present (Email Sent / Pending / Confirmed / Rejected)
+    await expect(
+      page.getByText(/email sent|pending|confirmed|rejected/i).first()
+    ).toBeVisible();
+  });
+
+  test('QC-03 Media Day form can link or create a SOW (quick-create entry)', async ({ page }) => {
+    // The Media Day form links an existing SOW or offers "Create new".
+    await expect(page.getByText(/Statement of Work/i).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /Create new/i }).first()).toBeVisible();
+  });
+});
+
+// --- PAS-680 quick-create modal + PAS-707 SOW contract-file upload (on /events/add-sow) ---
+test.describe('SOW form — quick-create (PAS-680) + file upload (PAS-707)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(`${BASE}/events/add-sow`, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#title')).toBeVisible({ timeout: 30000 });
+    await page.waitForTimeout(1200);
+  });
+
+  test('QC-01/QC-05 "Create Media Day" opens a quick-create modal; Cancel closes it', async ({ page }) => {
+    await page.getByRole('button', { name: /Create Media Day/i }).first().click();
+    const modal = page.locator('.ant-modal-content, [role=dialog]').filter({ hasText: 'Create Media Day' }).first();
+    await expect(modal).toBeVisible({ timeout: 10000 });
+    // basic-details fields, no navigation away from the SOW form
+    for (const f of ['Title', 'School / Organization', 'Location', 'Date', 'Gender', 'Level', 'Sport']) {
+      await expect(modal.getByText(f, { exact: false }).first()).toBeVisible();
+    }
+    await modal.getByRole('button', { name: /Cancel/i }).click();
+    await expect(page.locator('.ant-modal-content, [role=dialog]').filter({ hasText: 'Create Media Day' })).toHaveCount(0);
+    await expect(page).toHaveURL(/add-sow/); // still on the SOW form
+  });
+
+  test('QC-03 "Link" existing SOW/Media Day control is present', async ({ page }) => {
+    await expect(page.getByRole('button', { name: /^Link$/i }).first()).toBeVisible();
+  });
+
+  test('SOWF-01/02 contract-file upload shows a styled filename, not a raw URL', async ({ page }) => {
+    await page.locator('input[type=file]').first().setInputFiles({
+      name: 'contract.pdf',
+      mimeType: 'application/pdf',
+      buffer: Buffer.from('%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n'),
+    });
+    await page.waitForTimeout(3000);
+    // filename shows styled
+    await expect(page.getByText(/contract\.pdf/i).first()).toBeVisible();
+    // and NOT rendered as a raw file URL (the PAS-707 bug)
+    const body = await page.locator('body').innerText();
+    expect(body).not.toMatch(/https?:\/\/\S+\.pdf/i);
+  });
+});

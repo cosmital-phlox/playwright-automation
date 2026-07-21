@@ -157,7 +157,22 @@ Media Day staff confirmation-status tracking, resend flow, payout-eligibility.
 
 ---
 
-## Notes
-- Verified live during authoring: PAS-703 (Status filter + Clear All) **present**; PAS-686 (Sales Analysis) **present**; PAS-705 (Zenfolio rename) **not applied on UAT**; event detail Tracker/Gallery **present**.
-- §8 (PAS-692) and staff-login enforcement need role-scoped credentials — flag to the team.
-- Automatable as Admin: §1, §3, §4, §5, §6, §9, §10 (and §2, §7 where the UI is drivable). §8 is not.
+## Automation status (`tests/admin/new-features.spec.js`)
+
+Automated and **passing on UAT** (12 tests):
+- §1 Sales Analysis (SA-01) + §10 event detail (EV-02/03/04) — verified present.
+- §3 Media Day Status filter + Clear All (MDF-01) — verified present.
+- §4 "Edit Vype Media Day" rename (MDR-01) — **verified** (breadcrumb + VYPE Media Day type).
+- §7 Staff confirmation (SC-01) — **verified** (Staff section has a Confirmation column with status badge, e.g. "Email Sent").
+- §2 Quick-create (QC-01/QC-05) — **verified**: SOW form → "Create Media Day" modal (Title/School-Org/Location/Date/Gender/Levels/Sports) + "Link"; Media Day form → SOW field with "Create new" (QC-03).
+- §6 SOW contract-file upload (SOWF-01/02) — **verified fixed**: uploaded file shows a styled filename, no raw URL.
+- §5 Zenfolio rename (ZN-01) — **`test.fixme` (NOT applied on UAT)**; ZN-01b characterizes the current "Browse & Buy" title.
+
+Not automated here:
+- §8 (PAS-692) staff-scoped visibility + staff-login enforcement — need **role-scoped non-admin credentials** (route to app-repo `test:rbac` or manual QA).
+- §9 org duplicate-NCES import — covered by the standalone bug ticket + repro (creating orgs each run is avoided in the committed suite).
+- Deeper QC/SC flows (actually creating via quick-create, resend confirmation) — left manual to avoid test-data creation; entry points are automated.
+
+## Findings
+- 🔴 **PAS-705 not applied on UAT** — module page still titled "Browse & Buy" (should be "Zenfolio").
+- 🟠 **Org import allows duplicate NCES** silently (separate bug ticket).
