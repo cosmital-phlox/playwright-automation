@@ -1,0 +1,153 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/cart.spec.js >> Remove the only item empties the cart
+- Location: tests/frontend/cart.spec.js:59:1
+
+# Error details
+
+```
+Error: expect(locator).toBeEnabled() failed
+
+Locator:  getByRole('button', { name: 'Add to Cart' })
+Expected: enabled
+Received: disabled
+Timeout:  15000ms
+
+Call log:
+  - Expect "toBeEnabled" with timeout 15000ms
+  - waiting for getByRole('button', { name: 'Add to Cart' })
+    34 × locator resolved to <button disabled data-v-f5abb12d="" data-v-15b58e9f="" class="button addToCart">…</button>
+       - unexpected value "disabled"
+
+```
+
+```yaml
+- button "Add to Cart" [disabled]
+```
+
+# Test source
+
+```ts
+  1   | const { test, expect } = require('@playwright/test');
+  2   | const { openFirstEvent, openEventByIndex } = require('./helpers');
+  3   | 
+  4   | const CART_URL = 'https://uat-phlox-frontend.netlify.app/cart';
+  5   | 
+  6   | test('Add a single product to cart', async ({ page }) => {
+  7   |   // Already logged in via saved session (see auth.setup.js).
+  8   |   // Opens the first event, reloading if the events list is empty/slow.
+  9   |   await openFirstEvent(page);
+  10  | 
+  11  |   // Select a product under "Choose Product" — this enables the Add to Cart button.
+  12  |   await page.getByText('Spotlight Gallery - Standard Resolution').click();
+  13  | 
+  14  |   // The button is disabled until a product is selected.
+  15  |   const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+  16  |   await expect(addToCart).toBeEnabled();
+  17  |   await addToCart.click();
+  18  | 
+  19  |   // A confirmation toast appears after adding.
+  20  |   await expect(page.getByText('1 product added to cart', { exact: true })).toBeVisible();
+  21  | 
+  22  |   // Open the cart and confirm the product is there.
+  23  |   await page.goto('https://uat-phlox-frontend.netlify.app/cart');
+  24  |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+  25  |   await expect(
+  26  |     page.getByRole('heading', { name: 'Spotlight Gallery - Standard Resolution' }).first()
+  27  |   ).toBeVisible();
+  28  | });
+  29  | 
+  30  | // Negative: the "Add to Cart" button stays disabled until a product is chosen.
+  31  | test('Add to Cart is disabled before selecting a product', async ({ page }) => {
+  32  |   await openFirstEvent(page);
+  33  |   // Wait for the product section to render (the event-detail page loads slowly),
+  34  |   // then assert the button is present but disabled before any selection.
+  35  |   await expect(
+  36  |     page.getByText('Spotlight Gallery - Standard Resolution')
+  37  |   ).toBeVisible({ timeout: 20000 });
+  38  |   await expect(page.getByRole('button', { name: 'Add to Cart' })).toBeDisabled();
+  39  | });
+  40  | 
+  41  | // Adds a product and lands on the cart with its line item visible.
+  42  | async function addProductAndOpenCart(page, productName = 'Spotlight Gallery - Standard Resolution') {
+  43  |   await openFirstEvent(page);
+  44  |   await page.getByText(productName).click();
+  45  |   const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+> 46  |   await expect(addToCart).toBeEnabled();
+      |                           ^ Error: expect(locator).toBeEnabled() failed
+  47  |   await addToCart.click();
+  48  |   await page.goto('https://uat-phlox-frontend.netlify.app/cart');
+  49  |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+  50  |   await expect(page.getByRole('heading', { name: productName }).first()).toBeVisible();
+  51  | }
+  52  | 
+  53  | test('Cart badge shows a count after adding a product', async ({ page }) => {
+  54  |   await addProductAndOpenCart(page);
+  55  |   // The nav cart link shows a positive item count, e.g. "Cart 1".
+  56  |   await expect(page.getByRole('link', { name: /Cart\s*[1-9]/ }).first()).toBeVisible();
+  57  | });
+  58  | 
+  59  | test('Remove the only item empties the cart', async ({ page }) => {
+  60  |   await addProductAndOpenCart(page);
+  61  | 
+  62  |   // Remove the line item (the cart-item remove control is an h4.removeProduct).
+  63  |   await page.locator('h4.removeProduct').first().click();
+  64  | 
+  65  |   // The cart now shows the empty state.
+  66  |   await expect(page.getByText('Your cart is empty !')).toBeVisible();
+  67  |   await expect(page.getByRole('button', { name: 'Go to Events' })).toBeVisible();
+  68  | });
+  69  | 
+  70  | test('Add a High Resolution product to cart', async ({ page }) => {
+  71  |   await addProductAndOpenCart(page, 'Spotlight Gallery - High Resolution');
+  72  |   // The high-resolution product is the one in the cart.
+  73  |   await expect(
+  74  |     page.getByRole('heading', { name: 'Spotlight Gallery - High Resolution' }).first()
+  75  |   ).toBeVisible();
+  76  | });
+  77  | 
+  78  | // Empties the cart by removing every line item (cart persists per account).
+  79  | async function emptyCart(page) {
+  80  |   await page.goto(CART_URL);
+  81  |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible({ timeout: 20000 });
+  82  |   for (let i = 0; i < 15 && (await page.locator('h4.removeProduct').count()) > 0; i++) {
+  83  |     await page.locator('h4.removeProduct').first().click();
+  84  |     await page.waitForTimeout(1200);
+  85  |   }
+  86  |   await expect(page.getByText('Your cart is empty !')).toBeVisible({ timeout: 10000 });
+  87  | }
+  88  | 
+  89  | test('Cart reflects multiple products', async ({ page }) => {
+  90  |   // Start from an empty cart so the count is deterministic.
+  91  |   await emptyCart(page);
+  92  | 
+  93  |   // Add the same product from two different events -> two distinct line items.
+  94  |   for (const idx of [0, 1]) {
+  95  |     await openEventByIndex(page, idx);
+  96  |     await page.getByText('Spotlight Gallery - Standard Resolution').click();
+  97  |     const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+  98  |     await expect(addToCart).toBeEnabled();
+  99  |     await addToCart.click();
+  100 |     await expect(page.getByText('1 product added to cart', { exact: true })).toBeVisible();
+  101 |   }
+  102 | 
+  103 |   // The cart shows two items and the nav badge reads 2.
+  104 |   await page.goto(CART_URL);
+  105 |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+  106 |   await expect(page.locator('h4.removeProduct')).toHaveCount(2);
+  107 |   await expect(page.getByRole('link', { name: /Cart\s*2/ }).first()).toBeVisible();
+  108 | });
+  109 | 
+  110 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  111 | test.afterEach(async ({ page }) => {
+  112 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  113 |   if (ms) await page.waitForTimeout(ms);
+  114 | });
+  115 | 
+```

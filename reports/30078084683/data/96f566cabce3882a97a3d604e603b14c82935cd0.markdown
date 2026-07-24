@@ -1,0 +1,624 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/organizations.spec.js >> Pagination navigates to the next page
+- Location: tests/admin/organizations.spec.js:209:1
+
+# Error details
+
+```
+Error: expect(received).not.toBe(expected) // Object.is equality
+
+Expected: not "QAOrg QAOvrnugx"
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - img "left" [ref=e9]:
+        - img [ref=e10]
+      - img "Vype Logo" [ref=e13]
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Events" [ref=e18] [cursor=pointer]:
+            - /url: /events?sortDirection=ascend&sortColumn=startTime
+            - img [ref=e20]
+            - paragraph [ref=e23]: Events
+        - listitem [ref=e24]:
+          - link "Spotlight Bundles" [ref=e25] [cursor=pointer]:
+            - /url: /bundles
+            - img [ref=e27]
+            - paragraph [ref=e31]: Spotlight Bundles
+        - listitem [ref=e32]:
+          - link "Orders" [ref=e33] [cursor=pointer]:
+            - /url: /orders
+            - img [ref=e35]
+            - paragraph [ref=e38]: Orders
+        - listitem [ref=e39]:
+          - link "Users" [ref=e40] [cursor=pointer]:
+            - /url: /users
+            - img [ref=e42]
+            - paragraph [ref=e45]: Users
+        - listitem [ref=e46]:
+          - link "Organizations" [ref=e47] [cursor=pointer]:
+            - /url: /organizations
+            - img [ref=e49]
+            - paragraph [ref=e52]: Organizations
+        - listitem [ref=e53]:
+          - link "School Districts" [ref=e54] [cursor=pointer]:
+            - /url: /school-districts
+            - img [ref=e56]
+            - paragraph [ref=e59]: School Districts
+        - listitem [ref=e60]:
+          - link "Products" [ref=e61] [cursor=pointer]:
+            - /url: /products
+            - img [ref=e63]
+            - paragraph [ref=e66]: Products
+        - listitem [ref=e67]:
+          - link "Coupons" [ref=e68] [cursor=pointer]:
+            - /url: /coupons
+            - img [ref=e70]
+            - paragraph [ref=e73]: Coupons
+        - listitem [ref=e74]:
+          - link "Categories" [ref=e75] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e77]
+            - paragraph [ref=e80]: Categories
+        - listitem [ref=e81]:
+          - link "Levels" [ref=e82] [cursor=pointer]:
+            - /url: /levels
+            - img [ref=e84]
+            - paragraph [ref=e87]: Levels
+        - listitem [ref=e88]:
+          - link "Browse and Buy" [ref=e89] [cursor=pointer]:
+            - /url: /browse-and-buy
+            - img [ref=e91]
+            - paragraph [ref=e94]: Browse and Buy
+        - listitem [ref=e95]:
+          - link "Payouts" [ref=e96] [cursor=pointer]:
+            - /url: /payout?sortDirection=ascend&sortColumn=payee
+            - img [ref=e98]
+            - paragraph [ref=e101]: Payouts
+        - listitem [ref=e102]:
+          - link "Gift Cards" [ref=e103] [cursor=pointer]:
+            - /url: /giftcards
+            - img [ref=e105]
+            - paragraph [ref=e108]: Gift Cards
+        - listitem [ref=e109]:
+          - link "Reports" [ref=e110] [cursor=pointer]:
+            - /url: /reports
+            - img [ref=e112]
+            - paragraph [ref=e133]: Reports
+        - listitem [ref=e134]:
+          - link "Roles" [ref=e135] [cursor=pointer]:
+            - /url: /roles
+            - img [ref=e137]
+            - paragraph [ref=e140]: Roles
+  - generic [ref=e141]:
+    - generic [ref=e142]:
+      - generic [ref=e144] [cursor=pointer]:
+        - paragraph [ref=e145]: UAT
+        - img [ref=e146]
+      - generic [ref=e148]:
+        - generic [ref=e149]:
+          - heading "Dhavall Kukadia" [level=6] [ref=e150]
+          - paragraph [ref=e151]: Admin, Photographer
+        - img "user" [ref=e154]:
+          - img [ref=e155]
+        - generic [ref=e157] [cursor=pointer]:
+          - paragraph [ref=e158]: Logout
+          - img [ref=e160]
+    - main [ref=e163]:
+      - generic [ref=e165]:
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - generic [ref=e168]:
+              - generic [ref=e169]: Home
+              - text: /
+            - generic [ref=e171]: Organizations
+          - generic [ref=e172]:
+            - generic "Organizations" [ref=e174]
+            - generic [ref=e175]:
+              - button "Import" [ref=e176] [cursor=pointer]:
+                - generic [ref=e177]: Import
+              - button "Export" [ref=e178] [cursor=pointer]:
+                - generic [ref=e179]: Export
+              - button "Add" [ref=e180] [cursor=pointer]:
+                - generic [ref=e181]: Add
+        - generic [ref=e185]:
+          - generic [ref=e187]:
+            - textbox "🔍 Search" [ref=e189]
+            - generic [ref=e191] [cursor=pointer]:
+              - generic [ref=e192]:
+                - combobox [ref=e194]
+                - generic: Type
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e195] [cursor=pointer]:
+              - generic [ref=e196]:
+                - combobox [ref=e198]
+                - generic: City
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e199] [cursor=pointer]:
+              - generic [ref=e200]:
+                - combobox [ref=e202]
+                - generic: School District
+              - generic:
+                - img:
+                  - img
+          - generic [ref=e203]:
+            - heading "Showing 3008 Organizations" [level=6] [ref=e204]
+            - button "Clear All" [ref=e205] [cursor=pointer]:
+              - generic [ref=e206]: Clear All
+          - generic [ref=e209]:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - table:
+                      - rowgroup:
+                        - row "Name caret-up caret-down Short name caret-up caret-down Parent Type City caret-up caret-down State caret-up caret-down Zip Code caret-up caret-down District caret-up caret-down Actions":
+                          - columnheader "Name caret-up caret-down":
+                            - generic:
+                              - generic: Name
+                              - generic:
+                                - generic:
+                                  - img "caret-up":
+                                    - img
+                                  - img "caret-down":
+                                    - img
+                          - columnheader "Short name caret-up caret-down":
+                            - generic:
+                              - generic: Short name
+                              - generic:
+                                - generic:
+                                  - img "caret-up":
+                                    - img
+                                  - img "caret-down":
+                                    - img
+                          - columnheader "Parent"
+                          - columnheader "Type"
+                          - columnheader "City caret-up caret-down":
+                            - generic:
+                              - generic: City
+                              - generic:
+                                - generic:
+                                  - img "caret-up":
+                                    - img
+                                  - img "caret-down":
+                                    - img
+                          - columnheader "State caret-up caret-down":
+                            - generic:
+                              - generic: State
+                              - generic:
+                                - generic:
+                                  - img "caret-up":
+                                    - img
+                                  - img "caret-down":
+                                    - img
+                          - columnheader "Zip Code caret-up caret-down":
+                            - generic:
+                              - generic: Zip Code
+                              - generic:
+                                - generic:
+                                  - img "caret-up":
+                                    - img
+                                  - img "caret-down":
+                                    - img
+                          - columnheader "District caret-up caret-down":
+                            - generic:
+                              - generic: District
+                              - generic:
+                                - generic:
+                                  - img "caret-up":
+                                    - img
+                                  - img "caret-down":
+                                    - img
+                          - columnheader "Actions"
+                  - generic:
+                    - table:
+                      - rowgroup:
+                        - row "QAOrg QAOvrnugx QAOvrnugx - Team - - - —":
+                          - cell "QAOrg QAOvrnugx"
+                          - cell "QAOvrnugx"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOfwqsgx QAOfwqsgx - Team - - - —":
+                          - cell "QAOrg QAOfwqsgx"
+                          - cell "QAOfwqsgx"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAObruqgx QAObruqgx - Team - - - —":
+                          - cell "QAOrg QAObruqgx"
+                          - cell "QAObruqgx"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOunzogx QAOunzogx - Team - - - —":
+                          - cell "QAOrg QAOunzogx"
+                          - cell "QAOunzogx"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOzsmlgx QAOzsmlgx - Team - - - —":
+                          - cell "QAOrg QAOzsmlgx"
+                          - cell "QAOzsmlgx"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOyofpfs QAOyofpfs - Team - - - —":
+                          - cell "QAOrg QAOyofpfs"
+                          - cell "QAOyofpfs"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOwbdlfs QAOwbdlfs - Team - - - —":
+                          - cell "QAOrg QAOwbdlfs"
+                          - cell "QAOwbdlfs"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOafojfs QAOafojfs - Team - - - —":
+                          - cell "QAOrg QAOafojfs"
+                          - cell "QAOafojfs"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOpgshfs QAOpgshfs - Team - - - —":
+                          - cell "QAOrg QAOpgshfs"
+                          - cell "QAOpgshfs"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+                        - row "QAOrg QAOdgwffs QAOdgwffs - Team - - - —":
+                          - cell "QAOrg QAOdgwffs"
+                          - cell "QAOdgwffs"
+                          - cell "-"
+                          - cell "Team"
+                          - cell "-"
+                          - cell "-"
+                          - cell "-"
+                          - cell "—":
+                            - generic: —
+                          - cell:
+                            - generic:
+                              - generic:
+                                - img
+                              - img
+                              - img
+              - list:
+                - listitem: 11-20 of 3008
+                - listitem "Previous Page":
+                  - button "left":
+                    - img "left":
+                      - img
+                - listitem "Next 5 Pages":
+                  - generic:
+                    - generic:
+                      - img "double-right":
+                        - img
+                      - generic: •••
+                - listitem "Next Page":
+                  - button "right" [active]:
+                    - img "right":
+                      - img
+                - listitem:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - combobox
+                      - generic: 10 / page
+                    - generic:
+                      - img:
+                        - img
+```
+
+# Test source
+
+```ts
+  118 | 
+  119 | test('Edit opens the organization edit form', async ({ page }) => {
+  120 |   await gotoOrgs(page);
+  121 |   await openFirstOrgEdit(page);
+  122 |   await expect(page.locator('#name')).toHaveValue(/\S/, { timeout: 25000 });
+  123 | });
+  124 | 
+  125 | test('Editing an organization saves the change (persists)', async ({ page }) => {
+  126 |   await createOrg(page); // newest -> first row
+  127 | 
+  128 |   await gotoOrgs(page);
+  129 |   await openFirstOrgEdit(page);
+  130 |   await expect(page.locator('#name')).toHaveValue(/\S/, { timeout: 25000 });
+  131 | 
+  132 |   const newName = 'QAEdited ' + uniqueAlpha(6);
+  133 |   await page.locator('#name').fill(newName);
+  134 |   await Promise.all([
+  135 |     page.waitForResponse(
+  136 |       (r) => r.url().includes('/api/organizations') && r.request().method() === 'POST',
+  137 |       { timeout: 30000 }
+  138 |     ),
+  139 |     page.getByRole('button', { name: 'Save' }).click(),
+  140 |   ]);
+  141 |   await expect(page).toHaveURL(/\/organizations(\?|$)/, { timeout: 25000 });
+  142 | 
+  143 |   // The edited org (still newest) shows the new name in the first row.
+  144 |   await gotoOrgs(page);
+  145 |   await expect(page.locator('tr.ant-table-row').first()).toContainText(newName, { timeout: 20000 });
+  146 | });
+  147 | 
+  148 | test('Delete an organization (with confirmation)', async ({ page }) => {
+  149 |   await createOrg(page); // create a throwaway org (first row) so delete is safe
+  150 | 
+  151 |   await gotoOrgs(page);
+  152 |   const row = page.locator('tr.ant-table-row').first();
+  153 |   await expect(row).toBeVisible({ timeout: 20000 });
+  154 | 
+  155 |   // Open the delete confirmation (retry if the first click misfires).
+  156 |   await expect(async () => {
+  157 |     if (!(await page.locator('.ant-modal-content').isVisible().catch(() => false))) {
+  158 |       await row.locator('td').last().locator('svg').nth(1).click();
+  159 |     }
+  160 |     await expect(page.locator('.ant-modal-content')).toBeVisible({ timeout: 4000 });
+  161 |   }).toPass({ timeout: 20000 });
+  162 | 
+  163 |   const modal = page.locator('.ant-modal-content');
+  164 |   await expect(modal.getByText('Delete Organization')).toBeVisible();
+  165 |   await expect(modal.getByText(/Are you sure/i)).toBeVisible();
+  166 | 
+  167 |   const [resp] = await Promise.all([
+  168 |     page.waitForResponse(
+  169 |       (r) => r.url().includes('/delete-one') && r.request().method() === 'DELETE',
+  170 |       { timeout: 25000 }
+  171 |     ),
+  172 |     modal.getByRole('button', { name: 'Delete' }).click(),
+  173 |   ]);
+  174 |   expect(resp.ok()).toBeTruthy();
+  175 | });
+  176 | 
+  177 | // ---------------------------------------------------------------------------
+  178 | // Export / filters reset / pagination / sorting
+  179 | // ---------------------------------------------------------------------------
+  180 | 
+  181 | test('Export downloads an organizations file', async ({ page }) => {
+  182 |   await gotoOrgs(page);
+  183 |   await page.waitForTimeout(2000); // let the list settle before exporting
+  184 | 
+  185 |   // Generating a CSV for thousands of orgs is slow and the first click can fail
+  186 |   // to kick off the download, so retry the click until a download starts.
+  187 |   let download = null;
+  188 |   for (let i = 0; i < 3 && !download; i++) {
+  189 |     const dlPromise = page.waitForEvent('download', { timeout: 25000 }).catch(() => null);
+  190 |     await page.getByRole('button', { name: 'Export' }).click();
+  191 |     download = await dlPromise;
+  192 |   }
+  193 |   expect(download, 'Export should trigger a download').toBeTruthy();
+  194 |   expect(download.suggestedFilename()).toMatch(/Organizations.*\.csv/i);
+  195 | });
+  196 | 
+  197 | test('Clear All resets the Type filter', async ({ page }) => {
+  198 |   await gotoOrgs(page);
+  199 | 
+  200 |   const options = await openSelectFilter(page, 'Type');
+  201 |   await options.filter({ hasText: 'Venue' }).first().click();
+  202 |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Venue' })).toBeVisible();
+  203 | 
+  204 |   await page.getByText('Clear All').click();
+  205 |   await expect(page.locator('.ant-select-selection-item', { hasText: 'Venue' })).toHaveCount(0);
+  206 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  207 | });
+  208 | 
+  209 | test('Pagination navigates to the next page', async ({ page }) => {
+  210 |   await gotoOrgs(page);
+  211 | 
+  212 |   const firstBefore = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  213 |   await page.locator('li.ant-pagination-next').click();
+  214 | 
+  215 |   await expect(page.locator('li.ant-pagination-item-active')).toHaveText('2', { timeout: 15000 });
+  216 |   await expect(page.locator('tr.ant-table-row').first()).toBeVisible();
+  217 |   const firstAfter = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+> 218 |   expect(firstAfter).not.toBe(firstBefore);
+      |                          ^ Error: expect(received).not.toBe(expected) // Object.is equality
+  219 | });
+  220 | 
+  221 | test('Sorting by Name reorders the list', async ({ page }) => {
+  222 |   await gotoOrgs(page);
+  223 | 
+  224 |   const nameHeader = page.getByRole('columnheader', { name: 'Name', exact: false }).first();
+  225 |   await nameHeader.click(); // first sort direction
+  226 |   await expect(nameHeader).toHaveClass(/ant-table-column-sort/, { timeout: 10000 });
+  227 |   await page.waitForTimeout(1500);
+  228 |   const firstAsc = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  229 | 
+  230 |   await nameHeader.click(); // toggle direction
+  231 |   await page.waitForTimeout(1500);
+  232 |   const firstDesc = (await page.locator('tr.ant-table-row').first().locator('td').first().innerText()).trim();
+  233 | 
+  234 |   // The top row differs between ascending and descending — the list reordered.
+  235 |   expect(firstAsc).not.toBe(firstDesc);
+  236 | });
+  237 | 
+  238 | // ---------------------------------------------------------------------------
+  239 | // Import / City filter / validation
+  240 | // ---------------------------------------------------------------------------
+  241 | 
+  242 | test('Import opens the CSV upload dialog', async ({ page }) => {
+  243 |   await gotoOrgs(page);
+  244 |   await page.waitForTimeout(2000);
+  245 | 
+  246 |   const modal = page.locator('.ant-modal-content');
+  247 |   // Retry the click — the first one can misfire while the list is still settling.
+  248 |   await expect(async () => {
+  249 |     if (!(await modal.isVisible().catch(() => false))) {
+  250 |       await page.getByRole('button', { name: 'Import' }).click();
+  251 |     }
+  252 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  253 |   }).toPass({ timeout: 20000 });
+  254 | 
+  255 |   await expect(modal.getByRole('heading', { name: 'Import organizations' })).toBeVisible();
+  256 |   await expect(modal.getByText(/Click or drag file/i).first()).toBeVisible();
+  257 |   await expect(modal.getByText(/\.csv/i).first()).toBeVisible();
+  258 |   await expect(modal.getByRole('button', { name: 'Import' })).toBeVisible();
+  259 |   await expect(modal.getByRole('button', { name: 'Cancel' })).toBeVisible();
+  260 | });
+  261 | 
+  262 | test('Import downloads its CSV template', async ({ page }) => {
+  263 |   await gotoOrgs(page);
+  264 |   await page.waitForTimeout(2000);
+  265 | 
+  266 |   const modal = page.locator('.ant-modal-content');
+  267 |   await expect(async () => {
+  268 |     if (!(await modal.isVisible().catch(() => false))) {
+  269 |       await page.getByRole('button', { name: 'Import' }).click();
+  270 |     }
+  271 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  272 |   }).toPass({ timeout: 20000 });
+  273 | 
+  274 |   const [download] = await Promise.all([
+  275 |     page.waitForEvent('download', { timeout: 20000 }),
+  276 |     modal.getByText(/CSV Template/i).click(),
+  277 |   ]);
+  278 |   expect(download.suggestedFilename()).toMatch(/\.csv$/i);
+  279 | });
+  280 | 
+  281 | test('Uploading a CSV parses and validates the rows', async ({ page }) => {
+  282 |   await gotoOrgs(page);
+  283 |   await page.waitForTimeout(2000);
+  284 | 
+  285 |   const modal = page.locator('.ant-modal-content');
+  286 |   await expect(async () => {
+  287 |     if (!(await modal.isVisible().catch(() => false))) {
+  288 |       await page.getByRole('button', { name: 'Import' }).click();
+  289 |     }
+  290 |     await expect(modal).toBeVisible({ timeout: 4000 });
+  291 |   }).toPass({ timeout: 20000 });
+  292 | 
+  293 |   // Ant Upload accepts the file via the OS file chooser, not the hidden input.
+  294 |   const [fileChooser] = await Promise.all([
+  295 |     page.waitForEvent('filechooser'),
+  296 |     modal.getByText(/Click or drag file/i).click(),
+  297 |   ]);
+  298 |   await fileChooser.setFiles(require('path').join(__dirname, 'fixtures', 'organizations-import.csv'));
+  299 | 
+  300 |   // The system parses the file and reports row counts + the uploaded filename.
+  301 |   // (The sample row is intentionally incomplete, so it parses as invalid and
+  302 |   // nothing is actually imported — no data pollution.)
+  303 |   await expect(modal.getByText(/organizations-import\.csv/i)).toBeVisible({ timeout: 15000 });
+  304 |   await expect(modal.getByText(/Total Row/i)).toBeVisible();
+  305 |   await expect(modal.getByText(/Invalid Row/i)).toBeVisible();
+  306 | });
+  307 | 
+  308 | test('City filter narrows the list', async ({ page }) => {
+  309 |   await gotoOrgs(page);
+  310 | 
+  311 |   const options = await openSelectFilter(page, 'City');
+  312 |   const first = options.first();
+  313 |   await expect(first).toBeVisible({ timeout: 15000 });
+  314 |   const city = (await first.innerText()).trim();
+  315 |   await first.click();
+  316 | 
+  317 |   // The chosen city is applied as the filter value. (A given city may legitimately
+  318 |   // have zero organizations, so we assert the filter, not a row count.)
+```
