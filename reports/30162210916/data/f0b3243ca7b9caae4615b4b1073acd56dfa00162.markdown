@@ -1,0 +1,139 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/checkout.spec.js >> Billing details shows validation errors when empty
+- Location: tests/frontend/checkout.spec.js:34:1
+
+# Error details
+
+```
+Error: expect(locator).toBeEnabled() failed
+
+Locator:  getByRole('button', { name: 'Add to Cart' })
+Expected: enabled
+Received: disabled
+Timeout:  15000ms
+
+Call log:
+  - Expect "toBeEnabled" with timeout 15000ms
+  - waiting for getByRole('button', { name: 'Add to Cart' })
+    34 × locator resolved to <button disabled data-v-f5abb12d="" data-v-15b58e9f="" class="button addToCart">…</button>
+       - unexpected value "disabled"
+
+```
+
+```yaml
+- button "Add to Cart" [disabled]
+```
+
+# Test source
+
+```ts
+  1   | const { test, expect } = require('@playwright/test');
+  2   | const { openFirstEvent, selectComboByIndex, reachBillingWithTeam } = require('./helpers');
+  3   | 
+  4   | // Reaching a team-bearing event (skipping polluted leading events) plus the
+  5   | // billing flow can exceed the default 120s — give this file more headroom.
+  6   | test.describe.configure({ timeout: 180000 });
+  7   | 
+  8   | test('Fill billing details and proceed to checkout', async ({ page }) => {
+  9   |   // Already logged in via saved session (see auth.setup.js).
+  10  |   // Add a product and reach the billing page on an event that has teams.
+  11  |   await reachBillingWithTeam(page);
+  12  | 
+  13  |   // --- Billing Details (field names are distinct from the player section) ---
+  14  |   await page.getByRole('textbox', { name: 'First Name', exact: true }).fill('John');
+  15  |   await page.getByRole('textbox', { name: 'Last Name', exact: true }).fill('Doe');
+  16  |   await page.getByRole('textbox', { name: 'E.g. 67061 Eugenia Streets' }).fill('123 Main Street');
+  17  |   await page.getByRole('textbox', { name: 'Town/City' }).fill('Austin');
+  18  |   await selectComboByIndex(page, 'State *');
+  19  |   await page.getByRole('textbox', { name: 'E.g. 50613' }).fill('78701');
+  20  |   await page.getByRole('textbox', { name: 'Your 10 digit phone number' }).fill('1234567890');
+  21  |   await page.getByRole('textbox', { name: 'Your email address' }).fill('raj.pal@hnrtech.com');
+  22  | 
+  23  |   // --- Player Details ---
+  24  |   await page.getByRole('textbox', { name: 'First name of player' }).fill('Mike');
+  25  |   await page.getByRole('textbox', { name: 'Last Name of player' }).fill('Smith');
+  26  |   await selectComboByIndex(page, 'What is the name of your team ? *');
+  27  |   await selectComboByIndex(page, 'Graduation year *');
+  28  | 
+  29  |   // Form is complete: the "Proceed to Payment" button should be ready.
+  30  |   // (We stop here rather than submitting, to avoid creating a real order.)
+  31  |   await expect(page.getByRole('button', { name: 'Proceed to Payment' })).toBeEnabled();
+  32  | });
+  33  | 
+  34  | test('Billing details shows validation errors when empty', async ({ page }) => {
+  35  |   // Already logged in via saved session (see auth.setup.js).
+  36  |   // Add a product and reach the billing page without filling anything.
+  37  |   await openFirstEvent(page);
+  38  | 
+  39  |   await page.getByText('Spotlight Gallery - Standard Resolution').click();
+  40  |   const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+> 41  |   await expect(addToCart).toBeEnabled();
+      |                           ^ Error: expect(locator).toBeEnabled() failed
+  42  |   await addToCart.click();
+  43  | 
+  44  |   await page.goto('https://uat-phlox-frontend.netlify.app/cart');
+  45  |   await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+  46  |   await expect(
+  47  |     page.getByRole('heading', { name: 'Spotlight Gallery - Standard Resolution' }).first()
+  48  |   ).toBeVisible();
+  49  | 
+  50  |   await page.getByRole('button', { name: 'Proceed to Checkout' }).click();
+  51  |   await expect(page).toHaveURL(/billingDetails/);
+  52  | 
+  53  |   // Submit with empty fields to trigger validation.
+  54  |   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
+  55  | 
+  56  |   // Required-field errors appear (using unique messages so billing vs. player
+  57  |   // "first name" errors don't both match the same text).
+  58  |   await expect(page.getByText('Street address is required')).toBeVisible();
+  59  |   await expect(page.getByText('Town/City is required')).toBeVisible();
+  60  |   await expect(page.getByText('Zip code is required')).toBeVisible();
+  61  |   await expect(page.getByText('Phone number is required')).toBeVisible();
+  62  |   await expect(page.getByText('team name is required')).toBeVisible();
+  63  |   await expect(page.getByText('graduation year is required')).toBeVisible();
+  64  | 
+  65  |   // Validation blocked submission — we're still on the billing page.
+  66  |   await expect(page).toHaveURL(/billingDetails/);
+  67  | });
+  68  | 
+  69  | // Negative: malformed email / phone are rejected with format-specific errors.
+  70  | test('Billing details rejects invalid email and phone formats', async ({ page }) => {
+  71  |   await reachBillingWithTeam(page);
+  72  | 
+  73  |   // Fill everything validly EXCEPT a malformed email and a too-short phone.
+  74  |   await page.getByRole('textbox', { name: 'First Name', exact: true }).fill('John');
+  75  |   await page.getByRole('textbox', { name: 'Last Name', exact: true }).fill('Doe');
+  76  |   await page.getByRole('textbox', { name: 'E.g. 67061 Eugenia Streets' }).fill('123 Main Street');
+  77  |   await page.getByRole('textbox', { name: 'Town/City' }).fill('Austin');
+  78  |   await selectComboByIndex(page, 'State *');
+  79  |   await page.getByRole('textbox', { name: 'E.g. 50613' }).fill('abc'); // bad zip
+  80  |   await page.getByRole('textbox', { name: 'Your 10 digit phone number' }).fill('abc12');
+  81  |   await page.getByRole('textbox', { name: 'Your email address' }).fill('notanemail');
+  82  |   await page.getByRole('textbox', { name: 'First name of player' }).fill('Mike');
+  83  |   await page.getByRole('textbox', { name: 'Last Name of player' }).fill('Smith');
+  84  |   await selectComboByIndex(page, 'What is the name of your team ? *');
+  85  |   await selectComboByIndex(page, 'Graduation year *');
+  86  | 
+  87  |   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
+  88  | 
+  89  |   // Format-specific errors and submission is blocked.
+  90  |   await expect(page.getByText(/this must be a valid email/i)).toBeVisible();
+  91  |   await expect(page.getByText(/Phone number is too short/i)).toBeVisible();
+  92  |   await expect(page.getByText(/Zip code should be 5 digits/i)).toBeVisible();
+  93  |   await expect(page).toHaveURL(/billingDetails/);
+  94  | });
+  95  | 
+  96  | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  97  | test.afterEach(async ({ page }) => {
+  98  |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  99  |   if (ms) await page.waitForTimeout(ms);
+  100 | });
+  101 | 
+```
