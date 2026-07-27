@@ -1,6 +1,6 @@
 name: Scheduled UI Tests
 
-# Runs the full Playwright suite (customer frontend + admin panel) twice daily
+# Runs the full Playwright suite (customer frontend + admin panel + staff role) twice daily
 # at 11:30 AM IST (06:00 UTC) and 7:00 PM IST (13:30 UTC), publishes a single
 # merged HTML report to GitHub Pages, and posts the result to Slack. Can also be
 # triggered manually from the Actions tab.
@@ -36,6 +36,8 @@ jobs:
             project: chromium
           - suite: admin
             project: admin
+          - suite: staff
+            project: staff
     env:
       CI: 'true'
       # Tested PW_WORKERS=2: it cut ~7 min but the shared backend rate-limited
@@ -47,6 +49,10 @@ jobs:
       # override via repo secrets if these are set.
       ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      # Staff (non-admin) login for the `staff` project — per-role enforcement
+      # checks (PAS-692). staff.setup.js logs in with these to build staff.json.
+      STAFF_EMAIL: ${{ secrets.STAFF_EMAIL }}
+      STAFF_PASSWORD: ${{ secrets.STAFF_PASSWORD }}
       FRONTEND_STORAGE_STATE: ${{ secrets.FRONTEND_STORAGE_STATE }}
     steps:
       - name: Checkout
