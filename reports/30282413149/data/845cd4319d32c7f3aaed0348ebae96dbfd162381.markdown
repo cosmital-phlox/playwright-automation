@@ -1,0 +1,457 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/account.spec.js >> My Orders lists placed orders
+- Location: tests/frontend/account.spec.js:24:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole('heading', { name: 'My Orders' })
+Expected: visible
+Timeout: 20000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 20000ms
+  - waiting for getByRole('heading', { name: 'My Orders' })
+
+```
+
+```yaml
+- navigation:
+  - link "ratio image":
+    - /url: /
+    - img "ratio image"
+  - link "Future Events":
+    - /url: /events-bundles?search_type=Future+events
+  - link "Spotlight Bundles":
+    - /url: /bundles
+  - link "Past Events":
+    - /url: /events-bundles?search_type=Past+events
+  - link "FAQ":
+    - /url: https://phloxphoto.com/faqs/
+  - link "Contact Us":
+    - /url: https://phloxphoto.com/contact-us/
+  - text: About
+  - link "Cart":
+    - /url: /cart
+  - text: Login
+- banner:
+  - region "Gallery":
+    - list:
+      - listitem:
+        - img
+        - paragraph: DDN_7177
+        - paragraph
+    - button "Navigate to previous slide":
+      - img "arrowLeft"
+    - button "Navigate to next slide":
+      - img "arrowRight"
+    - text: Item 4 of 6
+  - heading "Quick Links" [level=1]
+  - list:
+    - listitem:
+      - link "Future Events":
+        - /url: /events-bundles?search_type=Future+events
+        - heading "Future Events" [level=3]
+      - paragraph: Check out where our photographers are scheduled this week
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - heading "Spotlight Bundles" [level=3]
+      - paragraph: Order your discounted multi-game photo passes
+    - listitem:
+      - link "Past Events":
+        - /url: /events-bundles?search_type=Past+events
+        - heading "Past Events" [level=3]
+      - paragraph: Find your photos from past events here
+    - listitem:
+      - link "FAQ":
+        - /url: https://phloxphoto.com/faqs/
+      - paragraph: Let us help you!
+    - listitem:
+      - link "Contact Us":
+        - /url: https://phloxphoto.com/contact-us/
+      - paragraph: Real people ready to help
+    - listitem:
+      - link "Special Events":
+        - /url: https://phloxphoto.com/specialevents/
+      - paragraph: Look for your photos here!
+  - heading "In Action, In Life" [level=1]
+  - heading "Your personal photographers for every moment" [level=3]
+  - text: A Houston-area team of independent and freelance photographers specializing in technical and creative sports, personal and commercial / brand imagery for personal and professional storytelling.
+  - link "Know more":
+    - /url: https://phloxphoto.com/about/
+- alert: Vype | Home
+- heading "Upcoming Events" [level=1]
+- img
+- link "Zachary Christian (LA) @ Zapata (TX) Girls - Softball - Varsity Aug 01, 2026 @ 9:00 am - 11:00 am CST Zapata High School View Event Details":
+  - /url: /eventDetail/5084
+  - img
+  - heading "Zachary Christian (LA) @ Zapata (TX)" [level=4]
+  - text: Girls - Softball - Varsity Aug 01, 2026 @ 9:00 am - 11:00 am CST Zapata High School View Event Details
+- link "Zavalla (TX) @ Zapata (TX) Girls - Softball - Varsity Aug 02, 2026 @ 10:00 am - 12:00 pm CST Zapata High School View Event Details":
+  - /url: /eventDetail/5085
+  - img
+  - heading "Zavalla (TX) @ Zapata (TX)" [level=4]
+  - text: Girls - Softball - Varsity Aug 02, 2026 @ 10:00 am - 12:00 pm CST Zapata High School View Event Details
+- link "14U Team Texas @ 16U Team Texas Red 7 on 7 Football - 7 Aug 08, 2026 @ 9:00 am - 11:00 am CST On Location - TBD View Event Details":
+  - /url: /eventDetail/4997
+  - img
+  - heading "14U Team Texas @ 16U Team Texas Red" [level=4]
+  - text: 7 on 7 Football - 7 Aug 08, 2026 @ 9:00 am - 11:00 am CST On Location - TBD View Event Details
+- link "Cy Woods @ Cy Falls Boys - Baseball - 7 Aug 24, 2026 @ 8:30 pm - 10:30 pm CST Texas City High School View Event Details":
+  - /url: /eventDetail/4765
+  - img
+  - heading "Cy Woods @ Cy Falls" [level=4]
+  - text: Boys - Baseball - 7 Aug 24, 2026 @ 8:30 pm - 10:30 pm CST Texas City High School View Event Details
+- link "Tomball @ Tomball Memorial Boys - Football - Varsity Sep 14, 2026 @ 7:00 am - 8:00 pm CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4771
+  - img
+  - heading "Tomball @ Tomball Memorial" [level=4]
+  - text: Boys - Football - Varsity Sep 14, 2026 @ 7:00 am - 8:00 pm CST Seven Lakes High School View Event Details
+- link "Tomball @ Tomball Memorial Boys - Football - Varsity Sep 14, 2026 @ 7:00 pm - 9:00 pm CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4770
+  - img
+  - heading "Tomball @ Tomball Memorial" [level=4]
+  - text: Boys - Football - Varsity Sep 14, 2026 @ 7:00 pm - 9:00 pm CST Seven Lakes High School View Event Details
+- link "Katy @ Seven Lakes Boys - Football - Varsity Oct 12, 2026 @ 11:30 am - 1:30 pm CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4772
+  - img
+  - heading "Katy @ Seven Lakes" [level=4]
+  - text: Boys - Football - Varsity Oct 12, 2026 @ 11:30 am - 1:30 pm CST Seven Lakes High School View Event Details
+- link "Katy @ Seven Lakes Boys - Football - Varsity Oct 12, 2026 @ 11:30 pm - 1:30 am CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4769
+  - img
+  - heading "Katy @ Seven Lakes" [level=4]
+  - text: Boys - Football - Varsity Oct 12, 2026 @ 11:30 pm - 1:30 am CST Seven Lakes High School View Event Details
+- link "Zachary Christian (LA) @ Zapata (TX) Girls - Softball - Varsity Jan 08, 2027 @ 9:00 am - 11:00 am CST Zapata High School View Event Details":
+  - /url: /eventDetail/5142
+  - img
+  - heading "Zachary Christian (LA) @ Zapata (TX)" [level=4]
+  - text: Girls - Softball - Varsity Jan 08, 2027 @ 9:00 am - 11:00 am CST Zapata High School View Event Details
+- button "View All Events":
+  - link "View All Events":
+    - /url: /events-bundles
+- img
+- heading "Top three reasons to love us!" [level=1]
+- heading "Experience" [level=3]
+- paragraph: The EXPERIENCE we provide our clients is as important as the final images we deliver. It’s our mission to help everyone in front of our lenses feel confident, authentic, and comfortable.
+- heading "Community" [level=3]
+- paragraph: We are all members of the community we serve, and we have fundraising programs that help support our local booster clubs. Our network of professional photographers all share one common trait; they are passionate about the categories they shoot and the people that they serve.
+- heading "Professionalism" [level=3]
+- paragraph: We have a proven system that ensures we deliver exceptional high quality and dynamic images with very fast turnaround.
+- img
+- heading "Additional Photo Services" [level=1]
+- paragraph: Our talented team of photographers offer photo services in a variety of categories. Check out our galleries and request more information for your own shoot below.
+- img
+- heading "Graduating Seniors & Families" [level=4]
+- link "Learn More":
+  - /url: https://phloxphoto.com/senior-portraits/
+- img
+- heading "Headshots" [level=4]
+- link "Learn More":
+  - /url: https://phloxphoto.com/headshots-professional-talent-submission/
+- img
+- heading "Studio Photography" [level=4]
+- link "Learn More":
+  - /url: https://phloxphoto.com/phlox-studios/
+- img
+- heading "Our Team" [level=1]
+- paragraph: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed. All Phlox photographers outfitted with the latest in digital photography technology and expertise, to ensure your photos are clean, professional and tell your story strategically and creatively.
+- figure:
+  - img
+- text: Paras Joshii
+- figure:
+  - img
+- text: Dhavall Kukadia DK
+- figure:
+  - img
+- text: Kelly Mooney Marketing Consultant
+- link:
+  - /url: https://phloxphoto.com/portfolio/kelly-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Ray Shoaf DFW Wrestling, Wrestling Texas founder
+- link:
+  - /url: https://phloxphoto.com/portfolio/ray-shoaf/?portfolioCats=40
+- figure:
+  - img
+- text: Carissa Mooney Cy-Fair HS Lead, Wrestling
+- link:
+  - /url: https://phloxphoto.com/portfolio/carissa-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Carmen Agnew Cy Ranch Lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/carmen-agnew/?portfolioCats=40
+- figure:
+  - img
+- text: Dustin Nguyen College Station HS Lead, life-long sports reporter
+- link:
+  - /url: https://phloxphoto.com/portfolio/dustin-nguyen/?portfolioCats=40
+- figure:
+  - img
+- text: Farrah Sheeren Bridgeland Lead, USAW Team Texas
+- link:
+  - /url: https://phloxphoto.com/portfolio/farrah-sheeren/?portfolioCats=40
+- figure:
+  - img
+- text: JoAnn Nowak Cy Woods Lead, Media Days, Senior Portraits
+- link:
+  - /url: https://phloxphoto.com/portfolio/jo-ann-nowak/?portfolioCats=40
+- figure:
+  - img
+- text: Ralph Parrott Sugarland, Fort Bend, Prairie View A&M
+- link:
+  - /url: https://phloxphoto.com/portfolio/ralph-parrott/?portfolioCats=40
+- figure:
+  - img
+- text: Tom Dendy Founder, Mentor, Collaborative Creator
+- link:
+  - /url: https://phloxphoto.com/portfolio/tom-dendy/?portfolioCats=40
+- figure:
+  - img
+- text: Rob August Studio Manager, Fashion Portrait lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/robert-august/?portfolioCats=40
+- figure:
+  - img
+- text: Dana Strange Cy-Fair HS Lead, Studio, Events, Headshots
+- link:
+  - /url: https://phloxphoto.com/portfolio/dana-strange/?portfolioCats=40
+- figure:
+  - img
+- text: Riley Rayome Student Photographer/Wrestling
+- figure:
+  - img
+- text: Aryn Reinking Graphic Designer
+- figure:
+  - img
+- text: Jessica Rikard Digital Media Strategist
+- figure:
+  - img
+- text: Alex Adame
+- figure:
+  - img
+- text: Jim Redman North Dallas
+- figure:
+  - img
+- text: rating rest
+- figure:
+  - img
+- text: QAauto Qatkvcqy
+- figure:
+  - img
+- text: net rate
+- figure:
+  - img
+- text: Paras Joshii
+- figure:
+  - img
+- text: Dhavall Kukadia DK
+- figure:
+  - img
+- text: Kelly Mooney Marketing Consultant
+- link:
+  - /url: https://phloxphoto.com/portfolio/kelly-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Ray Shoaf DFW Wrestling, Wrestling Texas founder
+- link:
+  - /url: https://phloxphoto.com/portfolio/ray-shoaf/?portfolioCats=40
+- figure:
+  - img
+- text: Carissa Mooney Cy-Fair HS Lead, Wrestling
+- link:
+  - /url: https://phloxphoto.com/portfolio/carissa-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Carmen Agnew Cy Ranch Lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/carmen-agnew/?portfolioCats=40
+- figure:
+  - img
+- text: Dustin Nguyen College Station HS Lead, life-long sports reporter
+- link:
+  - /url: https://phloxphoto.com/portfolio/dustin-nguyen/?portfolioCats=40
+- figure:
+  - img
+- text: Farrah Sheeren Bridgeland Lead, USAW Team Texas
+- link:
+  - /url: https://phloxphoto.com/portfolio/farrah-sheeren/?portfolioCats=40
+- figure:
+  - img
+- text: JoAnn Nowak Cy Woods Lead, Media Days, Senior Portraits
+- link:
+  - /url: https://phloxphoto.com/portfolio/jo-ann-nowak/?portfolioCats=40
+- figure:
+  - img
+- text: Ralph Parrott Sugarland, Fort Bend, Prairie View A&M
+- link:
+  - /url: https://phloxphoto.com/portfolio/ralph-parrott/?portfolioCats=40
+- figure:
+  - img
+- text: Tom Dendy Founder, Mentor, Collaborative Creator
+- link:
+  - /url: https://phloxphoto.com/portfolio/tom-dendy/?portfolioCats=40
+- figure:
+  - img
+- text: Rob August Studio Manager, Fashion Portrait lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/robert-august/?portfolioCats=40
+- figure:
+  - img
+- text: Dana Strange Cy-Fair HS Lead, Studio, Events, Headshots
+- link:
+  - /url: https://phloxphoto.com/portfolio/dana-strange/?portfolioCats=40
+- figure:
+  - img
+- text: Riley Rayome Student Photographer/Wrestling
+- figure:
+  - img
+- text: Aryn Reinking Graphic Designer
+- figure:
+  - img
+- text: Jessica Rikard Digital Media Strategist
+- figure:
+  - img
+- text: Alex Adame
+- figure:
+  - img
+- text: Jim Redman North Dallas
+- figure:
+  - img
+- text: rating rest
+- figure:
+  - img
+- text: QAauto Qatkvcqy
+- figure:
+  - img
+- text: net rate
+- button "View All Photographers"
+- heading "Client Reviews" [level=1]
+- region "Gallery":
+  - list:
+    - listitem:
+      - paragraph: Love Phlox! Tom and his team never disappoint with their awesome action shots of my son on the field. We've also done a couple of photoshoots, which came out beautifully. The new studio in Cypress is stocked with new tech lighting, dressing rooms with lighted makeup mirrors, and plenty of space! Highly recommend!!
+      - heading "Amber Fields" [level=3]
+    - listitem:
+      - paragraph: Jo Ann Nowak is a professional. She has always delivered my son's sports photos on time and with the utmost professionalism. Thank you Phlox for great service.
+      - heading "La Tasha" [level=3]
+    - listitem:
+      - paragraph: Phlox has done an amazing job of capturing my child during athletic games. They capture action shots and sideline/dugout shots that truly capture the moment. When purchasing, I knew that I was getting the standard resolution downloads, and I couldn’t be happier with the quality and timeliness of delivery. Jo Ann Nowak and Carmen Agnew are two of the photographers from Phlox that I highly recommend.
+      - heading "Shelby Burroughs" [level=3]
+  - button "Navigate to previous slide":
+    - img "arrowLeft"
+  - button "Navigate to next slide":
+    - img "arrowRight"
+- img
+- contentinfo:
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events-bundles
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+    - listitem:
+      - link "Find Your Photos":
+        - /url: https://phloxphotos.com/sports
+    - listitem:
+      - link "Services":
+        - /url: https://phloxphoto.com/phlox-productions/
+    - listitem:
+      - link "About":
+        - /url: https://phloxphoto.com/about/
+  - list:
+    - listitem:
+      - link "Photographers":
+        - /url: https://phloxphoto.com/about/
+    - listitem:
+      - link "Contact us":
+        - /url: https://phloxphoto.com/contact-us/
+    - listitem: Terms & Conditions
+    - listitem:
+      - link "Policy":
+        - /url: https://phloxphoto.com/fulfillment-policy/
+  - link "Footer logo Logo":
+    - /url: "#"
+    - img "Footer logo"
+    - text: Logo
+  - paragraph: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed.
+  - link "Facebook":
+    - /url: https://www.facebook.com/phlox.photos/
+  - link "Twitter":
+    - /url: https://twitter.com/phloxphotos
+  - link "Instagram":
+    - /url: https://www.instagram.com/phlox.photo
+  - img "copyright": ©
+  - text: 2026 VYPE Sideline Photography. All rights reserved.
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | 
+  3  | // The account dropdown (top-right, class .user-details) opens on click and
+  4  | // contains My Spotlights, My Orders, and Logout.
+  5  | test('Logout from the account menu', async ({ page }) => {
+  6  |   // Already logged in via saved session (see auth.setup.js).
+  7  |   await page.goto('https://uat-phlox-frontend.netlify.app/events-bundles');
+  8  |   const account = page.locator('.navbar-item.has-dropdown.user-details');
+  9  |   await expect(account).toBeVisible({ timeout: 20000 });
+  10 |   await page.waitForLoadState('networkidle').catch(() => {});
+  11 | 
+  12 |   // Open the account dropdown and click Logout.
+  13 |   await account.locator('a.navbar-link').click();
+  14 |   await account.getByText('Logout', { exact: true }).click();
+  15 | 
+  16 |   // After logout the account dropdown is gone and Login is offered again
+  17 |   // (target the visible Login — there's a hidden mobile-menu duplicate).
+  18 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toHaveCount(0);
+  19 |   await expect(page.getByText('Login').filter({ visible: true }).first()).toBeVisible({
+  20 |     timeout: 10000,
+  21 |   });
+  22 | });
+  23 | 
+  24 | test('My Orders lists placed orders', async ({ page }) => {
+  25 |   await page.goto('https://uat-phlox-frontend.netlify.app/orders');
+> 26 |   await expect(page.getByRole('heading', { name: 'My Orders' })).toBeVisible({ timeout: 20000 });
+     |                                                                  ^ Error: expect(locator).toBeVisible() failed
+  27 |   // At least one order row (order number + a Receipts action) is shown.
+  28 |   await expect(page.getByText(/#\d+/).first()).toBeVisible();
+  29 |   await expect(page.getByText(/Receipts/i).first()).toBeVisible();
+  30 | });
+  31 | 
+  32 | // Simulated session expiry: clearing the auth cookies logs the user out.
+  33 | test('Clearing the session logs the user out', async ({ page }) => {
+  34 |   await page.goto('https://uat-phlox-frontend.netlify.app/events-bundles');
+  35 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toBeVisible({ timeout: 20000 });
+  36 | 
+  37 |   await page.context().clearCookies();
+  38 |   await page.reload();
+  39 | 
+  40 |   // The account dropdown is gone and Login is shown again.
+  41 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toHaveCount(0);
+  42 |   await expect(page.getByText('Login').filter({ visible: true }).first()).toBeVisible({
+  43 |     timeout: 15000,
+  44 |   });
+  45 | });
+  46 | 
+  47 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  48 | test.afterEach(async ({ page }) => {
+  49 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  50 |   if (ms) await page.waitForTimeout(ms);
+  51 | });
+  52 | 
+```
