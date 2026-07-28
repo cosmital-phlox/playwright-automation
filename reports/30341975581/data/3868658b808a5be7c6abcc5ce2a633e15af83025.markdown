@@ -1,0 +1,613 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/events.spec.js >> Searching for a non-existent event shows no results
+- Location: tests/admin/events.spec.js:130:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText(/Showing \d+ Events/)
+Expected: visible
+Timeout: 25000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 25000ms
+  - waiting for getByText(/Showing \d+ Events/)
+
+```
+
+```yaml
+- complementary:
+  - img "left"
+  - img "Vype Logo"
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events?sortDirection=ascend&sortColumn=startTime
+        - img
+        - paragraph: Events
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - img
+        - paragraph: Spotlight Bundles
+    - listitem:
+      - link "Orders":
+        - /url: /orders
+        - img
+        - paragraph: Orders
+    - listitem:
+      - link "Users":
+        - /url: /users
+        - img
+        - paragraph: Users
+    - listitem:
+      - link "Organizations":
+        - /url: /organizations
+        - img
+        - paragraph: Organizations
+    - listitem:
+      - link "School Districts":
+        - /url: /school-districts
+        - img
+        - paragraph: School Districts
+    - listitem:
+      - link "Products":
+        - /url: /products
+        - img
+        - paragraph: Products
+    - listitem:
+      - link "Coupons":
+        - /url: /coupons
+        - img
+        - paragraph: Coupons
+    - listitem:
+      - link "Categories":
+        - /url: /categories
+        - img
+        - paragraph: Categories
+    - listitem:
+      - link "Levels":
+        - /url: /levels
+        - img
+        - paragraph: Levels
+    - listitem:
+      - link "Browse and Buy":
+        - /url: /browse-and-buy
+        - img
+        - paragraph: Browse and Buy
+    - listitem:
+      - link "Payouts":
+        - /url: /payout?sortDirection=ascend&sortColumn=payee
+        - img
+        - paragraph: Payouts
+    - listitem:
+      - link "Gift Cards":
+        - /url: /giftcards
+        - img
+        - paragraph: Gift Cards
+    - listitem:
+      - link "Reports":
+        - /url: /reports
+        - img
+        - paragraph: Reports
+    - listitem:
+      - link "Roles":
+        - /url: /roles
+        - img
+        - paragraph: Roles
+- paragraph: UAT
+- img
+- heading "Dhavall Kukadia" [level=6]
+- paragraph: Admin, Photographer
+- img "user"
+- paragraph: Logout
+- img
+- main:
+  - tablist:
+    - tab "Vype Sideline" [selected]
+    - tab "Vype Media Days"
+    - tab "Statement of Work"
+    - button "Import"
+    - button "Add"
+  - tabpanel "Vype Sideline"
+  - textbox "🔍 Search"
+  - combobox
+  - text: Teams
+  - combobox
+  - text: Levels
+  - combobox
+  - text: Staff
+  - combobox
+  - text: Category
+  - combobox
+  - text: Type
+  - combobox
+  - text: Fulfillment
+  - combobox
+  - text: Status
+  - textbox "Start date"
+  - text: ⇀
+  - textbox "End date"
+  - img "calendar"
+  - heading "Showing 80 Vype Sideline" [level=6]
+  - img "reload"
+  - img "setting"
+  - table:
+    - rowgroup:
+      - 'row "down Title caret-up caret-down Location Event Date & Time caret-up caret-down Category caret-up caret-down Level # of pre-orders received Team orders # of photographers assigned Preorders $ Fulfillment Status Status Zenfolio Gallery Link Shot card Weblink Actions"':
+        - columnheader "down":
+          - checkbox
+          - img "down"
+        - columnheader "Title caret-up caret-down":
+          - text: Title
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Location"
+        - columnheader "Event Date & Time caret-up caret-down":
+          - text: Event Date & Time
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Category caret-up caret-down":
+          - text: Category
+          - img "caret-up"
+          - img "caret-down"
+        - columnheader "Level"
+        - columnheader "# of pre-orders received"
+        - columnheader "Team orders"
+        - columnheader "# of photographers assigned"
+        - columnheader "Preorders $"
+        - columnheader "Fulfillment Status"
+        - columnheader "Status"
+        - columnheader "Zenfolio Gallery Link"
+        - columnheader "Shot card"
+        - columnheader "Weblink"
+        - columnheader "Actions"
+  - table:
+    - rowgroup:
+      - row "Zachary Christian (LA) @ Zapata (TX) - Girls - Varsity - Softball Zapata High School 08/01/2026 9:00 AM Softball Varsity 7 0 1 $441.00 Unfulfilled Published link view link":
+        - cell:
+          - checkbox
+        - cell "Zachary Christian (LA) @ Zapata (TX) - Girls - Varsity - Softball"
+        - cell "Zapata High School"
+        - cell "08/01/2026 9:00 AM"
+        - cell "Softball"
+        - cell "Varsity"
+        - cell "7"
+        - cell "0"
+        - cell "1"
+        - cell "$441.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "link":
+          - link "link":
+            - /url: https://www.zenfolio.com/phlox/e/f532776596
+          - img
+        - cell "view"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/5084
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "Zavalla (TX) @ Zapata (TX) - Girls - Varsity - Softball Zapata High School 08/02/2026 10:00 AM Softball Varsity 1 0 1 $63.00 Unfulfilled Published link view link":
+        - cell:
+          - checkbox
+        - cell "Zavalla (TX) @ Zapata (TX) - Girls - Varsity - Softball"
+        - cell "Zapata High School"
+        - cell "08/02/2026 10:00 AM"
+        - cell "Softball"
+        - cell "Varsity"
+        - cell "1"
+        - cell "0"
+        - cell "1"
+        - cell "$63.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "link":
+          - link "link":
+            - /url: https://www.zenfolio.com/phlox/e/f348633390
+          - img
+        - cell "view"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/5085
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "QA Media Day gxgomy On Location - TBD 08/06/2026 9:00 AM 7 on 7 Football 7 0 0 2 $0.00 Unfulfilled Published link - link":
+        - cell:
+          - checkbox
+        - cell "QA Media Day gxgomy"
+        - cell "On Location - TBD"
+        - cell "08/06/2026 9:00 AM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "0"
+        - cell "0"
+        - cell "2"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "link":
+          - link "link":
+            - /url: https://www.zenfolio.com/phlox/e/f101772068
+          - img
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4980
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "14U Team Texas @ 16U Team Texas Red - 7 - 7 on 7 Football On Location - TBD 08/08/2026 9:00 AM 7 on 7 Football 7 3 0 1 $187.40 Unfulfilled Published - view link":
+        - cell:
+          - checkbox
+        - cell "14U Team Texas @ 16U Team Texas Red - 7 - 7 on 7 Football"
+        - cell "On Location - TBD"
+        - cell "08/08/2026 9:00 AM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "3"
+        - cell "0"
+        - cell "1"
+        - cell "$187.40"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "-":
+          - paragraph: "-"
+        - cell "view"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4997
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "QA Media Day pntsjy On Location - TBD 08/15/2026 9:00 AM 7 on 7 Football 7 0 0 1 $0.00 Unfulfilled Published link - link":
+        - cell:
+          - checkbox
+        - cell "QA Media Day pntsjy"
+        - cell "On Location - TBD"
+        - cell "08/15/2026 9:00 AM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "0"
+        - cell "0"
+        - cell "1"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "link":
+          - link "link":
+            - /url: https://www.zenfolio.com/phlox/e/f753497512
+          - img
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4974
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "QA Media Day njufhy On Location - TBD 08/16/2026 9:00 AM 7 on 7 Football 7 0 0 1 $0.00 Unfulfilled Published link - link":
+        - cell:
+          - checkbox
+        - cell "QA Media Day njufhy"
+        - cell "On Location - TBD"
+        - cell "08/16/2026 9:00 AM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "0"
+        - cell "0"
+        - cell "1"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "link":
+          - link "link":
+            - /url: https://www.zenfolio.com/phlox/e/f386856662
+          - img
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4969
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "Cy Woods @ Cy Falls - Boys - 9B - Baseball Freedom Park Field 08/24/2026 6:30 PM Baseball 9B 0 0 1 $0.00 Unfulfilled Published - - link":
+        - cell:
+          - checkbox
+        - cell "Cy Woods @ Cy Falls - Boys - 9B - Baseball"
+        - cell "Freedom Park Field"
+        - cell "08/24/2026 6:30 PM"
+        - cell "Baseball"
+        - cell "9B"
+        - cell "0"
+        - cell "0"
+        - cell "1"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "-":
+          - paragraph: "-"
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4766
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "Cy Woods @ Cy Falls - Boys - 7 - Baseball Texas City High School 08/24/2026 8:30 PM Baseball 7 3 0 1 $222.00 Unfulfilled Published - view link":
+        - cell:
+          - checkbox
+        - cell "Cy Woods @ Cy Falls - Boys - 7 - Baseball"
+        - cell "Texas City High School"
+        - cell "08/24/2026 8:30 PM"
+        - cell "Baseball"
+        - cell "7"
+        - cell "3"
+        - cell "0"
+        - cell "1"
+        - cell "$222.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "-":
+          - paragraph: "-"
+        - cell "view"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4765
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "QA Media Day ngmehy On Location - TBD 08/27/2026 9:00 AM 7 on 7 Football 7 0 0 1 $0.00 Unfulfilled Published link - link":
+        - cell:
+          - checkbox
+        - cell "QA Media Day ngmehy"
+        - cell "On Location - TBD"
+        - cell "08/27/2026 9:00 AM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "0"
+        - cell "0"
+        - cell "1"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "link":
+          - link "link":
+            - /url: https://www.zenfolio.com/phlox/e/f977565717
+          - img
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4968
+          - img
+        - cell:
+          - img
+          - img
+          - img
+      - row "QA Media Day hxvmly Edited On Location - TBD 08/29/2026 9:00 AM 7 on 7 Football 7 0 0 1 $0.00 Unfulfilled Published - - link":
+        - cell:
+          - checkbox
+        - cell "QA Media Day hxvmly Edited"
+        - cell "On Location - TBD"
+        - cell "08/29/2026 9:00 AM"
+        - cell "7 on 7 Football"
+        - cell "7"
+        - cell "0"
+        - cell "0"
+        - cell "1"
+        - cell "$0.00"
+        - cell "Unfulfilled"
+        - cell "Published"
+        - cell "-":
+          - paragraph: "-"
+        - cell "-":
+          - paragraph: "-"
+        - cell "link":
+          - link "link":
+            - /url: https://uat-phlox-frontend.netlify.app/eventDetail/4976
+          - img
+        - cell:
+          - img
+          - img
+          - img
+  - list:
+    - listitem: 1-10 of 80
+    - listitem "Previous Page":
+      - button "left" [disabled]:
+        - img "left"
+    - listitem "Next 5 Pages":
+      - img "double-right"
+      - text: •••
+    - listitem "Next Page":
+      - button "right":
+        - img "right"
+    - listitem:
+      - combobox
+      - text: 10 / page
+```
+
+# Test source
+
+```ts
+  1   | const { expect } = require('@playwright/test');
+  2   | 
+  3   | const ADMIN_BASE = 'https://uat-phlox-admin.netlify.app';
+  4   | const EVENTS_URL = `${ADMIN_BASE}/events`;
+  5   | const ADD_EVENT_URL = `${ADMIN_BASE}/events/add-event`;
+  6   | const BUNDLES_URL = `${ADMIN_BASE}/bundles`;
+  7   | const ADD_BUNDLE_URL = `${ADMIN_BASE}/bundles/add-bundle`;
+  8   | const ORDERS_URL = `${ADMIN_BASE}/orders`;
+  9   | const USERS_URL = `${ADMIN_BASE}/users`;
+  10  | const ADD_USER_URL = `${ADMIN_BASE}/users/add-user`;
+  11  | const ORGANIZATIONS_URL = `${ADMIN_BASE}/organizations`;
+  12  | const ADD_ORG_URL = `${ADMIN_BASE}/organizations/add-organization`;
+  13  | const PRODUCTS_URL = `${ADMIN_BASE}/products`;
+  14  | const ADD_PRODUCT_URL = `${ADMIN_BASE}/products/add-product`;
+  15  | const COUPONS_URL = `${ADMIN_BASE}/coupons`;
+  16  | const ADD_COUPON_URL = `${ADMIN_BASE}/coupons/add-coupon`;
+  17  | const GIFTCARDS_URL = `${ADMIN_BASE}/giftcards`;
+  18  | const ADD_GIFTCARD_URL = `${ADMIN_BASE}/giftcards/add-giftcard`;
+  19  | const CATEGORIES_URL = `${ADMIN_BASE}/categories`;
+  20  | const ADD_CATEGORY_URL = `${ADMIN_BASE}/categories/add-category/`;
+  21  | const LEVELS_URL = `${ADMIN_BASE}/levels`;
+  22  | const SCHOOL_DISTRICTS_URL = `${ADMIN_BASE}/school-districts`;
+  23  | const ADD_SCHOOL_DISTRICT_URL = `${ADMIN_BASE}/school-districts/add`;
+  24  | const ZENFOLIO_URL = `${ADMIN_BASE}/browse-and-buy`;
+  25  | const PAYOUTS_URL = `${ADMIN_BASE}/payout`;
+  26  | const REPORTS_URL = `${ADMIN_BASE}/reports`;
+  27  | 
+  28  | // Navigate to `url` and wait for `ready` (a locator), reloading on the flaky
+  29  | // backend if the page comes up empty/slow. Throws after `attempts` reloads.
+  30  | async function gotoWithRetry(page, url, ready, { attempts = 3, timeout = 20000 } = {}) {
+  31  |   for (let i = 0; i < attempts; i++) {
+  32  |     try {
+  33  |       // goto is inside the try so a slow-load timeout reloads instead of failing.
+  34  |       await page.goto(url, { waitUntil: 'domcontentloaded' });
+  35  |       await ready.waitFor({ state: 'visible', timeout });
+  36  |       return;
+  37  |     } catch (err) {
+  38  |       if (i === attempts - 1) throw err;
+  39  |     }
+  40  |   }
+  41  | }
+  42  | 
+  43  | // Open the Events list and wait for the page chrome to be ready.
+  44  | // (The "Events" page title isn't a real heading element, so we key off the
+  45  | // Add button, which always renders.)
+  46  | async function gotoEvents(page) {
+  47  |   await gotoWithRetry(page, EVENTS_URL, page.getByRole('button', { name: 'Add' }));
+> 48  |   await expect(page.getByText(/Showing \d+ Events/)).toBeVisible({ timeout: 25000 });
+      |                                                      ^ Error: expect(locator).toBeVisible() failed
+  49  | }
+  50  | 
+  51  | // Open the Add Event form and wait for it to render.
+  52  | async function gotoAddEvent(page) {
+  53  |   await page.goto(ADD_EVENT_URL, { waitUntil: 'domcontentloaded' });
+  54  |   await expect(page.getByRole('button', { name: 'Save and Publish' })).toBeVisible({
+  55  |     timeout: 25000,
+  56  |   });
+  57  |   // The form's selects hydrate after the page chrome; give them a moment.
+  58  |   await page.waitForTimeout(1500);
+  59  | }
+  60  | 
+  61  | // Pick an option from the Ant Design <select> sitting in the form item whose
+  62  | // label contains `label`. Picks the Nth *visible* option (default the first).
+  63  | // The options load from the backend and the virtual list can render them hidden
+  64  | // for a beat, so we filter to visible and wait.
+  65  | async function pickAntOption(page, label, index = 0) {
+  66  |   const item = page.locator('.ant-form-item', { hasText: label }).first();
+  67  |   await item.locator('.ant-select').first().click();
+  68  |   const option = page
+  69  |     .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+  70  |     .filter({ visible: true })
+  71  |     .nth(index);
+  72  |   await option.waitFor({ state: 'visible', timeout: 15000 });
+  73  |   const text = (await option.innerText()).trim();
+  74  |   await option.click();
+  75  |   await page.waitForTimeout(400);
+  76  |   return text;
+  77  | }
+  78  | 
+  79  | // Fill every field required to publish an event: Visiting/Home Team, Sports,
+  80  | // Level, Date and a Time slot. (Title is read-only — it auto-builds from these.)
+  81  | // Returns the auto-generated title so callers can assert on it.
+  82  | async function fillRequiredEventFields(page) {
+  83  |   await pickAntOption(page, 'Visiting Team', 0);
+  84  |   await pickAntOption(page, 'Home Team', 1); // different from visiting
+  85  |   await pickAntOption(page, 'Sports', 0);
+  86  |   await pickAntOption(page, 'Level', 0);
+  87  | 
+  88  |   // Date: open the calendar and pick the last enabled day in view.
+  89  |   await page.locator('#basic_date').click();
+  90  |   await page.waitForTimeout(800);
+  91  |   await page
+  92  |     .locator('.ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner')
+  93  |     .last()
+  94  |     .click();
+  95  |   await page.waitForTimeout(500);
+  96  | 
+  97  |   // Time: range picker — choose a start hour/minute; the end auto-fills.
+  98  |   await page.locator('#basic_times').click();
+  99  |   await page.waitForTimeout(700);
+  100 |   const col = page.locator('.ant-picker-time-panel-column');
+  101 |   await col.nth(0).locator('.ant-picker-time-panel-cell-inner').nth(9).click();
+  102 |   await page.waitForTimeout(300);
+  103 |   await col.nth(1).locator('.ant-picker-time-panel-cell-inner').nth(0).click();
+  104 |   await page.waitForTimeout(300);
+  105 |   const ok = page.locator('.ant-picker-ok button');
+  106 |   if (await ok.isVisible().catch(() => false)) await ok.click();
+  107 |   await page.waitForTimeout(400);
+  108 | 
+  109 |   return (await page.locator('#eventTitle').inputValue()).trim();
+  110 | }
+  111 | 
+  112 | // --- Orders (Prepaid Orders) ---
+  113 | 
+  114 | // Open the Orders list. It's keyed off the Export button, which always renders.
+  115 | async function gotoOrders(page) {
+  116 |   await gotoWithRetry(page, ORDERS_URL, page.getByRole('button', { name: 'Export' }));
+  117 |   // Wait for the table chrome and let the filter controls wire up before use.
+  118 |   await page
+  119 |     .getByRole('columnheader', { name: 'Order Id', exact: false })
+  120 |     .first()
+  121 |     .waitFor({ state: 'visible', timeout: 25000 });
+  122 |   await page.waitForTimeout(2500);
+  123 | }
+  124 | 
+  125 | // Set the Orders "Order date" range to the widest span the picker offers (first
+  126 | // visible day → last visible day). The Orders list stays empty until a date
+  127 | // range is applied, so this surfaces the seeded orders.
+  128 | async function applyOrderDateRange(page) {
+  129 |   await page.getByPlaceholder('Order start date').click();
+  130 |   await page.waitForTimeout(1000);
+  131 |   const cells = page.locator(
+  132 |     '.ant-picker-dropdown:not(.ant-picker-dropdown-hidden) .ant-picker-cell:not(.ant-picker-cell-disabled) .ant-picker-cell-inner'
+  133 |   );
+  134 |   await cells.first().click();
+  135 |   await page.waitForTimeout(400);
+  136 |   await cells.last().click();
+  137 |   await page.waitForTimeout(1500);
+  138 | }
+  139 | 
+  140 | // Open an Ant Select filter by the placeholder/label it shows and return a
+  141 | // locator for its (visible) options. Retries the open — the first click can
+  142 | // misfire while the list is still settling on the flaky backend.
+  143 | async function openSelectFilter(page, label) {
+  144 |   const select = page.locator('.ant-select').filter({ hasText: label }).first();
+  145 |   const options = page
+  146 |     .locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option')
+  147 |     .filter({ visible: true });
+  148 |   for (let i = 0; i < 4; i++) {
+```
