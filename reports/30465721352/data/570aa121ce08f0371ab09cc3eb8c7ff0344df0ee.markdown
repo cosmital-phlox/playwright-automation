@@ -1,0 +1,107 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: admin/navigation.spec.js >> Sidebar links navigate to every admin module
+- Location: tests/admin/navigation.spec.js:21:1
+
+# Error details
+
+```
+Test timeout of 120000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 120000ms exceeded.
+Call log:
+  - waiting for getByRole('complementary').getByRole('link', { name: 'Orders', exact: true })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e7]:
+  - img "Vype Logo" [ref=e10]
+  - generic [ref=e12]:
+    - heading "Log in" [level=1] [ref=e13]
+    - generic [ref=e14]:
+      - generic "Email" [ref=e16]: Email *
+      - textbox "Email *" [ref=e20]:
+        - /placeholder: Enter Your Email
+    - generic [ref=e21]:
+      - generic "Password" [ref=e23]: Password *
+      - generic [ref=e27]:
+        - textbox "Password *" [ref=e28]:
+          - /placeholder: Enter Your Password
+        - img "eye-invisible" [ref=e30] [cursor=pointer]:
+          - img [ref=e31]
+    - generic [ref=e34]:
+      - generic [ref=e35] [cursor=pointer]:
+        - checkbox "Remember me" [checked] [ref=e37]
+        - generic [ref=e39]: Remember me
+      - button "Forgot your password?" [ref=e40] [cursor=pointer]:
+        - generic [ref=e41]: Forgot your password?
+    - button "Login" [ref=e42] [cursor=pointer]:
+      - generic [ref=e43]: Login
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | 
+  3  | // Each sidebar item and the route it should open.
+  4  | const SIDEBAR = [
+  5  |   ['Events', '/events'],
+  6  |   ['Spotlight Bundles', '/bundles'],
+  7  |   ['Orders', '/orders'],
+  8  |   ['Users', '/users'],
+  9  |   ['Organizations', '/organizations'],
+  10 |   ['Products', '/products'],
+  11 |   ['Coupons', '/coupons'],
+  12 |   ['Gift Cards', '/giftcards'],
+  13 |   ['Categories', '/categories'],
+  14 |   ['Levels', '/levels'],
+  15 |   ['School Districts', '/school-districts'],
+  16 |   ['Zenfolio', '/browse-and-buy'],
+  17 |   ['Payouts', '/payout'],
+  18 |   ['Reports', '/reports'],
+  19 | ];
+  20 | 
+  21 | test('Sidebar links navigate to every admin module', async ({ page }) => {
+  22 |   await page.goto('https://uat-phlox-admin.netlify.app/events', { waitUntil: 'domcontentloaded' });
+  23 |   const sidebar = page.getByRole('complementary');
+  24 |   await expect(sidebar.getByRole('link', { name: 'Events', exact: true })).toBeVisible({ timeout: 25000 });
+  25 | 
+  26 |   for (const [label, path] of SIDEBAR) {
+  27 |     const re = new RegExp(`${path}(\\?|$)`);
+  28 |     // Sidebar navigation is slow (~3s) and under load the app can bounce to "/".
+  29 |     // Click and wait for the URL to settle; if it didn't reach the target, click
+  30 |     // again (each attempt waits fully — no rapid mid-navigation re-clicking).
+  31 |     let reached = false;
+  32 |     for (let attempt = 0; attempt < 3 && !reached; attempt++) {
+> 33 |       await sidebar.getByRole('link', { name: label, exact: true }).click();
+     |                                                                     ^ Error: locator.click: Test timeout of 120000ms exceeded.
+  34 |       reached = await page
+  35 |         .waitForURL(re, { timeout: 15000 })
+  36 |         .then(() => true)
+  37 |         .catch(() => false);
+  38 |     }
+  39 |     expect(reached, `sidebar "${label}" should navigate to ${path}`).toBeTruthy();
+  40 |     // The sidebar persists across pages — confirm it's still there for the next click.
+  41 |     await expect(sidebar.getByRole('link', { name: label, exact: true })).toBeVisible();
+  42 |   }
+  43 | });
+  44 | 
+  45 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  46 | test.afterEach(async ({ page }) => {
+  47 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  48 |   if (ms) await page.waitForTimeout(ms);
+  49 | });
+  50 | 
+```
