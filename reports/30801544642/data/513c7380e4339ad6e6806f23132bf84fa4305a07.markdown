@@ -1,0 +1,287 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/coupon.spec.js >> Apply a coupon code and see the discount
+- Location: tests/frontend/coupon.spec.js:7:1
+
+# Error details
+
+```
+TimeoutError: locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByRole('link', { name: /View Event Details/ }).first() to be visible
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - navigation [ref=e6]:
+    - generic [ref=e7]:
+      - link "ratio image" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - img "ratio image" [ref=e10]
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - link "Future Events" [ref=e13] [cursor=pointer]:
+            - /url: /events-bundles?search_type=Future+events
+          - link "Spotlight Bundles" [ref=e15] [cursor=pointer]:
+            - /url: /bundles
+          - link "Past Events" [ref=e17] [cursor=pointer]:
+            - /url: /events-bundles?search_type=Past+events
+          - link "FAQ" [ref=e19] [cursor=pointer]:
+            - /url: https://phloxphoto.com/faqs/
+          - link "Contact Us" [ref=e21] [cursor=pointer]:
+            - /url: https://phloxphoto.com/contact-us/
+          - generic [ref=e24] [cursor=pointer]:
+            - generic [ref=e25]: About
+            - img [ref=e26]
+        - generic [ref=e29]:
+          - link "Cart" [ref=e30] [cursor=pointer]:
+            - /url: /cart
+            - img [ref=e32]
+            - text: Cart
+          - generic [ref=e36] [cursor=pointer]:
+            - generic [ref=e37]: raj.pal@hnrtech.com
+            - img [ref=e38]
+  - generic [ref=e40]:
+    - heading "All Events" [level=1] [ref=e42]:
+      - generic [ref=e43]: All Events
+    - generic [ref=e44]:
+      - list [ref=e46]:
+        - listitem [ref=e47]:
+          - generic [ref=e49] [cursor=pointer]: All
+        - listitem [ref=e50]:
+          - generic [ref=e52] [cursor=pointer]: Games
+        - listitem [ref=e53]:
+          - generic [ref=e55] [cursor=pointer]: Tournaments
+        - listitem [ref=e56]:
+          - generic [ref=e58] [cursor=pointer]: Spotlight Bundles
+      - generic [ref=e60]:
+        - alert [ref=e61]: All Events
+        - generic [ref=e62]:
+          - generic [ref=e65]:
+            - generic [ref=e67]:
+              - textbox "Search" [ref=e68]
+              - generic:
+                - img
+            - generic [ref=e70] [cursor=pointer]:
+              - generic [ref=e71]:
+                - combobox [ref=e73]
+                - generic: Team
+              - img [ref=e74]:
+                - img [ref=e75]
+            - generic [ref=e78] [cursor=pointer]:
+              - generic [ref=e79]:
+                - combobox [ref=e81]
+                - generic: Sport
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e83] [cursor=pointer]:
+              - generic [ref=e84]:
+                - combobox [ref=e86]
+                - generic: Level
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e88] [cursor=pointer]:
+              - generic [ref=e89]:
+                - combobox [ref=e91]
+                - generic "Future events" [ref=e92]
+              - generic:
+                - img:
+                  - img
+            - generic [ref=e93]:
+              - button [ref=e95] [cursor=pointer]:
+                - img [ref=e96]
+              - generic [ref=e100] [cursor=pointer]: Clear all
+          - img "Loading..." [ref=e102]
+  - img [ref=e104]
+  - img [ref=e111]
+  - contentinfo [ref=e117]:
+    - generic [ref=e119]:
+      - generic [ref=e121]:
+        - list [ref=e124]:
+          - listitem [ref=e125]:
+            - link "Events" [ref=e126] [cursor=pointer]:
+              - /url: /events-bundles
+          - listitem [ref=e127]:
+            - link "Spotlight Bundles" [ref=e128] [cursor=pointer]:
+              - /url: /bundles
+          - listitem [ref=e129]:
+            - link "Find Your Photos" [ref=e130] [cursor=pointer]:
+              - /url: https://phloxphotos.com/sports
+          - listitem [ref=e131]:
+            - link "Services" [ref=e132] [cursor=pointer]:
+              - /url: https://phloxphoto.com/phlox-productions/
+          - listitem [ref=e133]:
+            - link "About" [ref=e134] [cursor=pointer]:
+              - /url: https://phloxphoto.com/about/
+        - list [ref=e137]:
+          - listitem [ref=e138]:
+            - link "Photographers" [ref=e139] [cursor=pointer]:
+              - /url: https://phloxphoto.com/about/
+          - listitem [ref=e140]:
+            - link "Contact us" [ref=e141] [cursor=pointer]:
+              - /url: https://phloxphoto.com/contact-us/
+          - listitem [ref=e142]:
+            - generic [ref=e143] [cursor=pointer]: Terms & Conditions
+          - listitem [ref=e144]:
+            - link "Policy" [ref=e145] [cursor=pointer]:
+              - /url: https://phloxphoto.com/fulfillment-policy/
+      - generic [ref=e147]:
+        - link "Footer logo Logo" [ref=e148] [cursor=pointer]:
+          - /url: "#"
+          - img "Footer logo" [ref=e149]
+          - generic [ref=e150]: Logo
+        - paragraph [ref=e151]: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed.
+        - generic [ref=e152]:
+          - link "Facebook" [ref=e153] [cursor=pointer]:
+            - /url: https://www.facebook.com/phlox.photos/
+            - generic [ref=e154]:
+              - img [ref=e156]
+              - generic [ref=e158]: Facebook
+          - link "Twitter" [ref=e159] [cursor=pointer]:
+            - /url: https://twitter.com/phloxphotos
+            - generic [ref=e160]:
+              - img [ref=e162]
+              - generic [ref=e164]: Twitter
+          - link "Instagram" [ref=e165] [cursor=pointer]:
+            - /url: https://www.instagram.com/phlox.photo
+            - generic [ref=e166]:
+              - img [ref=e168]
+              - generic [ref=e170]: Instagram
+    - generic [ref=e174]:
+      - img "copyright" [ref=e175]: ©
+      - text: 2026 VYPE Sideline Photography. All rights reserved.
+```
+
+# Test source
+
+```ts
+  1   | const { expect } = require('@playwright/test');
+  2   | 
+  3   | const EVENTS_URL = 'https://uat-phlox-frontend.netlify.app/events-bundles';
+  4   | const CART_URL = 'https://uat-phlox-frontend.netlify.app/cart';
+  5   | 
+  6   | // The live backend intermittently returns "No Results" / loads the events
+  7   | // list slowly. Reload the events page until the first event link appears,
+  8   | // then open it. Throws if it never populates after `attempts` reloads.
+  9   | async function openFirstEvent(page, { attempts = 4, timeout = 15000 } = {}) {
+  10  |   const firstEvent = page.getByRole('link', { name: /View Event Details/ }).first();
+  11  | 
+  12  |   for (let i = 0; i < attempts; i++) {
+  13  |     // domcontentloaded (not full 'load') — the events page loads heavy 3rd-party
+  14  |     // scripts that can stall 'load'; we wait for our own elements below instead.
+  15  |     await page.goto(EVENTS_URL, { waitUntil: 'domcontentloaded' });
+  16  |     try {
+> 17  |       await firstEvent.waitFor({ state: 'visible', timeout });
+      |                        ^ TimeoutError: locator.waitFor: Timeout 15000ms exceeded.
+  18  |       await firstEvent.click();
+  19  |       await expect(page).toHaveURL(/eventDetail/);
+  20  |       return;
+  21  |     } catch (err) {
+  22  |       if (i === attempts - 1) throw err; // out of retries — let the test fail
+  23  |       // otherwise loop and reload the events page
+  24  |     }
+  25  |   }
+  26  | }
+  27  | 
+  28  | // Open the event at `index` in the list (reloading if the list is empty/slow).
+  29  | async function openEventByIndex(page, index, { attempts = 4, timeout = 15000 } = {}) {
+  30  |   const events = page.getByRole('link', { name: /View Event Details/ });
+  31  |   for (let i = 0; i < attempts; i++) {
+  32  |     await page.goto(EVENTS_URL, { waitUntil: 'domcontentloaded' });
+  33  |     try {
+  34  |       await events.first().waitFor({ state: 'visible', timeout });
+  35  |       const target = events.nth(index);
+  36  |       await target.waitFor({ state: 'visible', timeout: 5000 });
+  37  |       await target.click();
+  38  |       await expect(page).toHaveURL(/eventDetail/);
+  39  |       return;
+  40  |     } catch (err) {
+  41  |       if (i === attempts - 1) throw err;
+  42  |     }
+  43  |   }
+  44  | }
+  45  | 
+  46  | // Billing-form <select>s (State, Team, Graduation year) populate their options
+  47  | // asynchronously. Wait until enough options exist, then select by index, so
+  48  | // selectOption doesn't run against an empty/half-loaded dropdown.
+  49  | async function selectComboByIndex(page, name, index = 1) {
+  50  |   const combo = page.getByRole('combobox', { name });
+  51  |   await expect
+  52  |     .poll(async () => combo.locator('option').count(), { timeout: 15000 })
+  53  |     .toBeGreaterThan(index);
+  54  |   await combo.selectOption({ index });
+  55  | }
+  56  | 
+  57  | // Remove every line item from the cart (used to reset between event attempts).
+  58  | async function emptyCart(page) {
+  59  |   await page.goto(CART_URL, { waitUntil: 'domcontentloaded' });
+  60  |   await page
+  61  |     .getByRole('heading', { name: 'Your Cart' })
+  62  |     .waitFor({ state: 'visible', timeout: 20000 })
+  63  |     .catch(() => {});
+  64  |   for (let i = 0; i < 15 && (await page.locator('h4.removeProduct').count()) > 0; i++) {
+  65  |     await page.locator('h4.removeProduct').first().click();
+  66  |     await page.waitForTimeout(1200);
+  67  |   }
+  68  | }
+  69  | 
+  70  | // Remembers the last event index that had teams, so tests after the first don't
+  71  | // re-walk the polluted leading events (e.g. "Test event Demo 90" has no team).
+  72  | // Module-scoped: persists across tests within a worker (we run workers: 1).
+  73  | let lastGoodEventIndex = null;
+  74  | 
+  75  | // Reach the billing-details page on an event whose team dropdown actually has
+  76  | // teams. Sandbox data drifts — a published event/bundle can have no team, which
+  77  | // leaves the "What is the name of your team ?" <select> with only its placeholder
+  78  | // and breaks the checkout/payment flow. Try events in order (starting with the
+  79  | // last-known-good one), clearing the cart between misses, until one populates the
+  80  | // team list; leave the page on /billingDetails ready for the caller to fill.
+  81  | // Throws if none of the first `maxEvents` events qualify (a data problem worth
+  82  | // surfacing).
+  83  | async function reachBillingWithTeam(page, { maxEvents = 6 } = {}) {
+  84  |   // Try the cached good index first, then the rest in order.
+  85  |   const order = [];
+  86  |   if (lastGoodEventIndex != null) order.push(lastGoodEventIndex);
+  87  |   for (let i = 0; i < maxEvents; i++) if (i !== lastGoodEventIndex) order.push(i);
+  88  | 
+  89  |   for (const i of order) {
+  90  |     try {
+  91  |       await openEventByIndex(page, i);
+  92  |     } catch {
+  93  |       continue; // this index didn't open (e.g. out of range) — try the next
+  94  |     }
+  95  | 
+  96  |     // The standard product isn't on every event (some only offer High-Res) and
+  97  |     // the detail page renders its product list a few seconds after load — wait
+  98  |     // generously, and skip events that genuinely lack the standard product.
+  99  |     const product = page.getByText('Spotlight Gallery - Standard Resolution').first();
+  100 |     const hasProduct = await product
+  101 |       .waitFor({ state: 'visible', timeout: 20000 })
+  102 |       .then(() => true)
+  103 |       .catch(() => false);
+  104 |     if (!hasProduct) continue;
+  105 |     await product.click();
+  106 |     const addToCart = page.getByRole('button', { name: 'Add to Cart' });
+  107 |     if (!(await addToCart.isEnabled({ timeout: 15000 }).catch(() => false))) continue;
+  108 |     await addToCart.click();
+  109 | 
+  110 |     await page.goto(CART_URL, { waitUntil: 'domcontentloaded' });
+  111 |     await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible({ timeout: 25000 });
+  112 |     await page.getByRole('button', { name: 'Proceed to Checkout' }).click();
+  113 |     await expect(page).toHaveURL(/billingDetails/);
+  114 | 
+  115 |     // If the team dropdown stays at just the placeholder, this event is unusable
+  116 |     // — empty the cart and try the next one.
+  117 |     const team = page.getByRole('combobox', { name: 'What is the name of your team ? *' });
+```
