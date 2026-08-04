@@ -1,0 +1,132 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/spotlight.spec.js >> account dropdown -> spotlights -> contact support
+- Location: tests/frontend/spotlight.spec.js:3:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('Contact support').first()
+Expected: visible
+Timeout: 25000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 25000ms
+  - waiting for getByText('Contact support').first()
+
+```
+
+```yaml
+- navigation:
+  - link "ratio image":
+    - /url: /
+    - img "ratio image"
+  - link "Future Events":
+    - /url: /events-bundles?search_type=Future+events
+  - link "Spotlight Bundles":
+    - /url: /bundles
+  - link "Past Events":
+    - /url: /events-bundles?search_type=Past+events
+  - link "FAQ":
+    - /url: https://phloxphoto.com/faqs/
+  - link "Contact Us":
+    - /url: https://phloxphoto.com/contact-us/
+  - text: About
+  - link "Cart":
+    - /url: /cart
+  - text: raj.pal@hnrtech.com
+- alert
+- heading "My Spotlights" [level=1]
+- paragraph: No spotlights found. Explore events and add products to your cart.
+- link "Go to Events":
+  - /url: /events-bundles
+  - button "Go to Events"
+- img
+- img
+- contentinfo:
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events-bundles
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+    - listitem:
+      - link "Find Your Photos":
+        - /url: https://phloxphotos.com/sports
+    - listitem:
+      - link "Services":
+        - /url: https://phloxphoto.com/phlox-productions/
+    - listitem:
+      - link "About":
+        - /url: https://phloxphoto.com/about/
+  - list:
+    - listitem:
+      - link "Photographers":
+        - /url: https://phloxphoto.com/about/
+    - listitem:
+      - link "Contact us":
+        - /url: https://phloxphoto.com/contact-us/
+    - listitem: Terms & Conditions
+    - listitem:
+      - link "Policy":
+        - /url: https://phloxphoto.com/fulfillment-policy/
+  - link "Footer logo Logo":
+    - /url: "#"
+    - img "Footer logo"
+    - text: Logo
+  - paragraph: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed.
+  - link "Facebook":
+    - /url: https://www.facebook.com/phlox.photos/
+  - link "Twitter":
+    - /url: https://twitter.com/phloxphotos
+  - link "Instagram":
+    - /url: https://www.instagram.com/phlox.photo
+  - img "copyright": ©
+  - text: 2026 VYPE Sideline Photography. All rights reserved.
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | 
+  3  | test('account dropdown -> spotlights -> contact support', async ({ page }) => {
+  4  |   // Already logged in via saved session (see auth.setup.js).
+  5  |   // The account dropdown's "Spotlight" option leads here; navigate directly
+  6  |   // (the dropdown is a hover/mobile menu that doesn't automate reliably).
+  7  |   await page.goto('https://uat-phlox-frontend.netlify.app/spotlights');
+  8  | 
+  9  |   await expect(page.getByRole('heading', { name: 'My Spotlights' })).toBeVisible({ timeout: 20000 });
+  10 | 
+  11 |   // Spotlights load slowly — wait for the first "Contact support" action.
+  12 |   const contactSupport = page.getByText('Contact support').first();
+> 13 |   await expect(contactSupport).toBeVisible({ timeout: 25000 });
+     |                                ^ Error: expect(locator).toBeVisible() failed
+  14 | 
+  15 |   // "Contact support" opens the contact page in a new browser tab.
+  16 |   const [tab] = await Promise.all([
+  17 |     page.context().waitForEvent('page'),
+  18 |     contactSupport.click(),
+  19 |   ]);
+  20 |   await tab.waitForLoadState();
+  21 |   await expect(tab).toHaveURL(/phloxphoto\.com\/contact-us/);
+  22 |   await expect(tab.getByRole('button', { name: 'Send message' })).toBeVisible({ timeout: 20000 });
+  23 | });
+  24 | 
+  25 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  26 | test.afterEach(async ({ page }) => {
+  27 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  28 |   if (ms) await page.waitForTimeout(ms);
+  29 | });
+  30 | 
+```

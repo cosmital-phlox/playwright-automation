@@ -1,0 +1,1093 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: frontend/account.spec.js >> My Orders lists placed orders
+- Location: tests/frontend/account.spec.js:24:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole('heading', { name: 'My Orders' })
+Expected: visible
+Timeout: 20000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 20000ms
+  - waiting for getByRole('heading', { name: 'My Orders' })
+
+```
+
+```yaml
+- navigation:
+  - link "ratio image":
+    - /url: /
+    - img "ratio image"
+  - link "Future Events":
+    - /url: /events-bundles?search_type=Future+events
+  - link "Spotlight Bundles":
+    - /url: /bundles
+  - link "Past Events":
+    - /url: /events-bundles?search_type=Past+events
+  - link "FAQ":
+    - /url: https://phloxphoto.com/faqs/
+  - link "Contact Us":
+    - /url: https://phloxphoto.com/contact-us/
+  - text: About
+  - link "Cart":
+    - /url: /cart
+  - text: Login
+- banner:
+  - region "Gallery":
+    - list:
+      - listitem:
+        - img
+        - paragraph: FS6_4157
+        - paragraph
+    - button "Navigate to previous slide":
+      - img "arrowLeft"
+    - button "Navigate to next slide":
+      - img "arrowRight"
+    - text: Item 4 of 5
+  - heading "Quick Links" [level=1]
+  - list:
+    - listitem:
+      - link "Future Events":
+        - /url: /events-bundles?search_type=Future+events
+        - heading "Future Events" [level=3]
+      - paragraph: Check out where our photographers are scheduled this week
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+        - heading "Spotlight Bundles" [level=3]
+      - paragraph: Order your discounted multi-game photo passes
+    - listitem:
+      - link "Past Events":
+        - /url: /events-bundles?search_type=Past+events
+        - heading "Past Events" [level=3]
+      - paragraph: Find your photos from past events here
+    - listitem:
+      - link "FAQ":
+        - /url: https://phloxphoto.com/faqs/
+      - paragraph: Let us help you!
+    - listitem:
+      - link "Contact Us":
+        - /url: https://phloxphoto.com/contact-us/
+      - paragraph: Real people ready to help
+    - listitem:
+      - link "Special Events":
+        - /url: https://phloxphoto.com/specialevents/
+      - paragraph: Look for your photos here!
+  - heading "In Action, In Life" [level=1]
+  - heading "Your personal photographers for every moment" [level=3]
+  - text: A Houston-area team of independent and freelance photographers specializing in technical and creative sports, personal and commercial / brand imagery for personal and professional storytelling.
+  - link "Know more":
+    - /url: https://phloxphoto.com/about/
+- alert: Vype | Home
+- heading "Upcoming Events" [level=1]
+- img
+- link "14U Team Texas @ 16U Team Texas Red 7 on 7 Football - 7 Aug 08, 2026 @ 9:00 am - 11:00 am CST On Location - TBD View Event Details":
+  - /url: /eventDetail/4997
+  - img
+  - heading "14U Team Texas @ 16U Team Texas Red" [level=4]
+  - text: 7 on 7 Football - 7 Aug 08, 2026 @ 9:00 am - 11:00 am CST On Location - TBD View Event Details
+- link "Alief Kerr @ Anderson (TX) Boys - Equestrian - 9 Aug 13, 2026 @ 12:00 pm - 2:00 pm CST A test venue View Event Details":
+  - /url: /eventDetail/5221
+  - img
+  - heading "Alief Kerr @ Anderson (TX)" [level=4]
+  - text: Boys - Equestrian - 9 Aug 13, 2026 @ 12:00 pm - 2:00 pm CST A test venue View Event Details
+- link "Cy Woods @ Cy Falls Boys - Baseball - 7 Aug 24, 2026 @ 8:30 pm - 10:30 pm CST Texas City High School View Event Details":
+  - /url: /eventDetail/4765
+  - img
+  - heading "Cy Woods @ Cy Falls" [level=4]
+  - text: Boys - Baseball - 7 Aug 24, 2026 @ 8:30 pm - 10:30 pm CST Texas City High School View Event Details
+- link "14U Team Texas @ 16U Team Texas Red 7 on 7 Football - 7 Sep 05, 2026 @ 9:00 am - 11:00 am CST On Location - TBD View Event Details":
+  - /url: /eventDetail/5223
+  - img
+  - heading "14U Team Texas @ 16U Team Texas Red" [level=4]
+  - text: 7 on 7 Football - 7 Sep 05, 2026 @ 9:00 am - 11:00 am CST On Location - TBD View Event Details
+- link "Tomball @ Tomball Memorial Boys - Football - Varsity Sep 14, 2026 @ 7:00 am - 8:00 pm CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4771
+  - img
+  - heading "Tomball @ Tomball Memorial" [level=4]
+  - text: Boys - Football - Varsity Sep 14, 2026 @ 7:00 am - 8:00 pm CST Seven Lakes High School View Event Details
+- link "Tomball @ Tomball Memorial Boys - Football - Varsity Sep 14, 2026 @ 7:00 pm - 9:00 pm CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4770
+  - img
+  - heading "Tomball @ Tomball Memorial" [level=4]
+  - text: Boys - Football - Varsity Sep 14, 2026 @ 7:00 pm - 9:00 pm CST Seven Lakes High School View Event Details
+- link "Katy @ Seven Lakes Boys - Football - Varsity Oct 12, 2026 @ 11:30 am - 1:30 pm CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4772
+  - img
+  - heading "Katy @ Seven Lakes" [level=4]
+  - text: Boys - Football - Varsity Oct 12, 2026 @ 11:30 am - 1:30 pm CST Seven Lakes High School View Event Details
+- link "Katy @ Seven Lakes Boys - Football - Varsity Oct 12, 2026 @ 11:30 pm - 1:30 am CST Seven Lakes High School View Event Details":
+  - /url: /eventDetail/4769
+  - img
+  - heading "Katy @ Seven Lakes" [level=4]
+  - text: Boys - Football - Varsity Oct 12, 2026 @ 11:30 pm - 1:30 am CST Seven Lakes High School View Event Details
+- link "Zachary Christian (LA) @ Zapata (TX) Girls - Softball - Varsity Jan 08, 2027 @ 9:00 am - 11:00 am CST Zapata High School View Event Details":
+  - /url: /eventDetail/5142
+  - img
+  - heading "Zachary Christian (LA) @ Zapata (TX)" [level=4]
+  - text: Girls - Softball - Varsity Jan 08, 2027 @ 9:00 am - 11:00 am CST Zapata High School View Event Details
+- button "View All Events":
+  - link "View All Events":
+    - /url: /events-bundles
+- img
+- heading "Top three reasons to love us!" [level=1]
+- heading "Experience" [level=3]
+- paragraph: The EXPERIENCE we provide our clients is as important as the final images we deliver. It’s our mission to help everyone in front of our lenses feel confident, authentic, and comfortable.
+- heading "Community" [level=3]
+- paragraph: We are all members of the community we serve, and we have fundraising programs that help support our local booster clubs. Our network of professional photographers all share one common trait; they are passionate about the categories they shoot and the people that they serve.
+- heading "Professionalism" [level=3]
+- paragraph: We have a proven system that ensures we deliver exceptional high quality and dynamic images with very fast turnaround.
+- img
+- heading "Additional Photo Services" [level=1]
+- paragraph: Our talented team of photographers offer photo services in a variety of categories. Check out our galleries and request more information for your own shoot below.
+- img
+- heading "Graduating Seniors & Families" [level=4]
+- link "Learn More":
+  - /url: https://phloxphoto.com/senior-portraits/
+- img
+- heading "Headshots" [level=4]
+- link "Learn More":
+  - /url: https://phloxphoto.com/headshots-professional-talent-submission/
+- img
+- heading "Studio Photography" [level=4]
+- link "Learn More":
+  - /url: https://phloxphoto.com/phlox-studios/
+- img
+- heading "Our Team" [level=1]
+- paragraph: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed. All Phlox photographers outfitted with the latest in digital photography technology and expertise, to ensure your photos are clean, professional and tell your story strategically and creatively.
+- figure:
+  - img
+- text: Aayush Srivastav
+- figure:
+  - img
+- text: uuuuuuu Qaxjvjyo
+- figure:
+  - img
+- text: Dhaval Kukadia DK
+- figure:
+  - img
+- text: Kelly Mooney Marketing Consultant
+- link:
+  - /url: https://phloxphoto.com/portfolio/kelly-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Ray Shoaf DFW Wrestling, Wrestling Texas founder
+- link:
+  - /url: https://phloxphoto.com/portfolio/ray-shoaf/?portfolioCats=40
+- figure:
+  - img
+- text: Carissa Mooney Cy-Fair HS Lead, Wrestling
+- link:
+  - /url: https://phloxphoto.com/portfolio/carissa-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Carmen Agnew Cy Ranch Lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/carmen-agnew/?portfolioCats=40
+- figure:
+  - img
+- text: Dustin Nguyen College Station HS Lead, life-long sports reporter
+- link:
+  - /url: https://phloxphoto.com/portfolio/dustin-nguyen/?portfolioCats=40
+- figure:
+  - img
+- text: Farrah Sheeren Bridgeland Lead, USAW Team Texas
+- link:
+  - /url: https://phloxphoto.com/portfolio/farrah-sheeren/?portfolioCats=40
+- figure:
+  - img
+- text: JoAnn Nowak Cy Woods Lead, Media Days, Senior Portraits
+- link:
+  - /url: https://phloxphoto.com/portfolio/jo-ann-nowak/?portfolioCats=40
+- figure:
+  - img
+- text: Ralph Parrott Sugarland, Fort Bend, Prairie View A&M
+- link:
+  - /url: https://phloxphoto.com/portfolio/ralph-parrott/?portfolioCats=40
+- figure:
+  - img
+- text: Tom Dendy Founder, Mentor, Collaborative Creator
+- link:
+  - /url: https://phloxphoto.com/portfolio/tom-dendy/?portfolioCats=40
+- figure:
+  - img
+- text: Rob August Studio Manager, Fashion Portrait lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/robert-august/?portfolioCats=40
+- figure:
+  - img
+- text: Dana Strange Cy-Fair HS Lead, Studio, Events, Headshots
+- link:
+  - /url: https://phloxphoto.com/portfolio/dana-strange/?portfolioCats=40
+- figure:
+  - img
+- text: Riley Rayome Student Photographer/Wrestling
+- figure:
+  - img
+- text: Aryn Reinking Graphic Designer
+- figure:
+  - img
+- text: Jessica Rikard Digital Media Strategist
+- figure:
+  - img
+- text: Alex Adame
+- figure:
+  - img
+- text: Jim Redman North Dallas
+- figure:
+  - img
+- text: rating rest
+- figure:
+  - img
+- text: Brody Whitaker Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/brodywhitaker
+- figure:
+  - img
+- text: Eliza Finch Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: Leah Walsh Booked through end of quarter
+- link:
+  - /url: https://www.example.com/leahwalsh
+- figure:
+  - img
+- text: Sasha Lambert Portfolio available on request
+- figure:
+  - img
+- text: Nadia Keller
+- figure:
+  - img
+- text: Tessa Sren Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/tessasren
+- figure:
+  - img
+- text: Bianca Trujillo
+- link:
+  - /url: https://www.example.com/biancatrujillo
+- figure:
+  - img
+- text: Cora Alvarez Booked through end of quarter
+- figure:
+  - img
+- text: Rafael Finch
+- figure:
+  - img
+- text: Quinn De la Cruz Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: Yara Coleman Uses natural light only approach
+- link:
+  - /url: https://www.example.com/yaracoleman
+- figure:
+  - img
+- text: Zoe Salinas Rush jobs OK, +25% surcharge
+- link:
+  - /url: https://www.example.com/zoesalinas
+- figure:
+  - img
+- text: Franklin Ramsey
+- link:
+  - /url: https://www.example.com/franklinramsey
+- figure:
+  - img
+- text: Aisha Gallagher Rush jobs OK, +25% surcharge
+- link:
+  - /url: https://www.example.com/aishagallagher
+- figure:
+  - img
+- text: Caleb Duarte
+- link:
+  - /url: https://www.example.com/calebduarte
+- figure:
+  - img
+- text: Colin Vargas Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/colinvargas
+- figure:
+  - img
+- text: Rhea Nash Open to travel, mileage billed separately
+- figure:
+  - img
+- text: Ruby Ramsey Has own studio space downtown
+- figure:
+  - img
+- text: Kendra Ellis
+- link:
+  - /url: https://www.example.com/kendraellis
+- figure:
+  - img
+- text: Greta Escobar Portfolio available on request
+- link:
+  - /url: https://www.example.com/gretaescobar
+- figure:
+  - img
+- text: Miles Mercer Owns full lighting kit, travels regionally
+- link:
+  - /url: https://www.example.com/milesmercer
+- figure:
+  - img
+- text: Iris Rodriguez Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: Bennett Patel Booked through end of quarter
+- link:
+  - /url: https://www.example.com/bennettpatel
+- figure:
+  - img
+- text: Aisha Lindqvist
+- figure:
+  - img
+- text: Angela Pruitt Rush jobs OK, +25% surcharge
+- figure:
+  - img
+- text: Ethan Tate
+- link:
+  - /url: https://www.example.com/ethantate
+- figure:
+  - img
+- text: Chloe Xu Open to travel, mileage billed separately
+- figure:
+  - img
+- text: Roman Blackwell
+- link:
+  - /url: https://www.example.com/romanblackwell
+- figure:
+  - img
+- text: Cora Sinclair Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: "James St. Clair Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/jamesstclair
+- figure:
+  - img
+- text: "Nolan Van Dyke Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/nolanvandyke
+- figure:
+  - img
+- text: Miles Sinclair Fast turnaround, 24-48 hours
+- link:
+  - /url: https://www.example.com/milessinclair
+- figure:
+  - img
+- text: Camila Kirkland Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/camilakirkland
+- figure:
+  - img
+- text: Diego Kirkland Open to travel, mileage billed separately
+- link:
+  - /url: https://www.example.com/diegokirkland
+- figure:
+  - img
+- text: Luk Kowalski Open to travel, mileage billed separately
+- figure:
+  - img
+- text: Willa Xu
+- figure:
+  - img
+- text: Emory Walsh
+- link:
+  - /url: https://www.example.com/emorywalsh
+- figure:
+  - img
+- text: Aisha MacGregor Available weekends only
+- link:
+  - /url: https://www.example.com/aishamacgregor
+- figure:
+  - img
+- text: Priya Lawson Has own studio space downtown
+- figure:
+  - img
+- text: Emmett MacGregor Available weekends only
+- figure:
+  - img
+- text: Quinn Ortega Available weekends only
+- figure:
+  - img
+- text: Greta Escobar Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: QAauto Qatkvcqy
+- figure:
+  - img
+- text: Walter Donnelly Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: Peter Bennett Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/peterbennett
+- figure:
+  - img
+- text: Liam Jimenez
+- figure:
+  - img
+- text: Miles Duarte
+- link:
+  - /url: https://www.example.com/milesduarte
+- figure:
+  - img
+- text: Paige Brennan Open to travel, mileage billed separately
+- link:
+  - /url: https://www.example.com/paigebrennan
+- figure:
+  - img
+- text: Maria Ortega
+- figure:
+  - img
+- text: Maya Van Dyke Drone-certified (Part 107)
+- figure:
+  - img
+- text: Walter Pruitt
+- link:
+  - /url: https://www.example.com/walterpruitt
+- figure:
+  - img
+- text: Naomi Ellis Has own studio space downtown
+- link:
+  - /url: https://www.example.com/naomiellis
+- figure:
+  - img
+- text: Yara Keller Uses natural light only approach
+- link:
+  - /url: https://www.example.com/yarakeller
+- figure:
+  - img
+- text: Emory Xu
+- figure:
+  - img
+- text: Silas Novak Has own studio space downtown
+- link:
+  - /url: https://www.example.com/silasnovak
+- figure:
+  - img
+- text: Greta Dawson Booked through end of quarter
+- figure:
+  - img
+- text: Priya Griffith Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/priyagriffith
+- figure:
+  - img
+- text: Nria Nakamura Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: Jos Jordan Available weekends only
+- link:
+  - /url: https://www.example.com/josejordan
+- figure:
+  - img
+- text: Tessa Montoya
+- link:
+  - /url: https://www.example.com/tessamontoya
+- figure:
+  - img
+- text: Silas MacGregor Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: Andre Novak Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/andrenovak
+- figure:
+  - img
+- text: Chloe Carter
+- link:
+  - /url: https://www.example.com/chloecarter
+- figure:
+  - img
+- text: Liam Sutton
+- link:
+  - /url: https://www.example.com/liamsutton
+- figure:
+  - img
+- text: "Trevor O'Brien Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/trevorobrien
+- figure:
+  - img
+- text: Bennett Underwood
+- link:
+  - /url: https://www.example.com/bennettunderwood
+- figure:
+  - img
+- text: Zo Zimmerman
+- figure:
+  - img
+- text: Colin Duarte Drone-certified (Part 107)
+- figure:
+  - img
+- text: Lila Thornton Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/lilathornton
+- figure:
+  - img
+- text: Nina Donnelly Rush jobs OK, +25% surcharge
+- link:
+  - /url: https://www.example.com/ninadonnelly
+- figure:
+  - img
+- text: Brody MacGregor
+- link:
+  - /url: https://www.example.com/brodymacgregor
+- figure:
+  - img
+- text: Imani Zapata
+- link:
+  - /url: https://www.example.com/imanizapata
+- figure:
+  - img
+- text: Chloe Coleman
+- link:
+  - /url: https://www.example.com/chloecoleman
+- figure:
+  - img
+- text: "Simone Trujillo Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/simonetrujillo
+- figure:
+  - img
+- text: Ethan Quiroz Has own studio space downtown
+- link:
+  - /url: https://www.example.com/ethanquiroz
+- figure:
+  - img
+- text: Paras Joshi PJ
+- figure:
+  - img
+- text: net rate
+- figure:
+  - img
+- text: Aayush Srivastav
+- figure:
+  - img
+- text: uuuuuuu Qaxjvjyo
+- figure:
+  - img
+- text: Dhaval Kukadia DK
+- figure:
+  - img
+- text: Kelly Mooney Marketing Consultant
+- link:
+  - /url: https://phloxphoto.com/portfolio/kelly-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Ray Shoaf DFW Wrestling, Wrestling Texas founder
+- link:
+  - /url: https://phloxphoto.com/portfolio/ray-shoaf/?portfolioCats=40
+- figure:
+  - img
+- text: Carissa Mooney Cy-Fair HS Lead, Wrestling
+- link:
+  - /url: https://phloxphoto.com/portfolio/carissa-mooney/?portfolioCats=40
+- figure:
+  - img
+- text: Carmen Agnew Cy Ranch Lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/carmen-agnew/?portfolioCats=40
+- figure:
+  - img
+- text: Dustin Nguyen College Station HS Lead, life-long sports reporter
+- link:
+  - /url: https://phloxphoto.com/portfolio/dustin-nguyen/?portfolioCats=40
+- figure:
+  - img
+- text: Farrah Sheeren Bridgeland Lead, USAW Team Texas
+- link:
+  - /url: https://phloxphoto.com/portfolio/farrah-sheeren/?portfolioCats=40
+- figure:
+  - img
+- text: JoAnn Nowak Cy Woods Lead, Media Days, Senior Portraits
+- link:
+  - /url: https://phloxphoto.com/portfolio/jo-ann-nowak/?portfolioCats=40
+- figure:
+  - img
+- text: Ralph Parrott Sugarland, Fort Bend, Prairie View A&M
+- link:
+  - /url: https://phloxphoto.com/portfolio/ralph-parrott/?portfolioCats=40
+- figure:
+  - img
+- text: Tom Dendy Founder, Mentor, Collaborative Creator
+- link:
+  - /url: https://phloxphoto.com/portfolio/tom-dendy/?portfolioCats=40
+- figure:
+  - img
+- text: Rob August Studio Manager, Fashion Portrait lead
+- link:
+  - /url: https://phloxphoto.com/portfolio/robert-august/?portfolioCats=40
+- figure:
+  - img
+- text: Dana Strange Cy-Fair HS Lead, Studio, Events, Headshots
+- link:
+  - /url: https://phloxphoto.com/portfolio/dana-strange/?portfolioCats=40
+- figure:
+  - img
+- text: Riley Rayome Student Photographer/Wrestling
+- figure:
+  - img
+- text: Aryn Reinking Graphic Designer
+- figure:
+  - img
+- text: Jessica Rikard Digital Media Strategist
+- figure:
+  - img
+- text: Alex Adame
+- figure:
+  - img
+- text: Jim Redman North Dallas
+- figure:
+  - img
+- text: rating rest
+- figure:
+  - img
+- text: Brody Whitaker Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/brodywhitaker
+- figure:
+  - img
+- text: Eliza Finch Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: Leah Walsh Booked through end of quarter
+- link:
+  - /url: https://www.example.com/leahwalsh
+- figure:
+  - img
+- text: Sasha Lambert Portfolio available on request
+- figure:
+  - img
+- text: Nadia Keller
+- figure:
+  - img
+- text: Tessa Sren Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/tessasren
+- figure:
+  - img
+- text: Bianca Trujillo
+- link:
+  - /url: https://www.example.com/biancatrujillo
+- figure:
+  - img
+- text: Cora Alvarez Booked through end of quarter
+- figure:
+  - img
+- text: Rafael Finch
+- figure:
+  - img
+- text: Quinn De la Cruz Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: Yara Coleman Uses natural light only approach
+- link:
+  - /url: https://www.example.com/yaracoleman
+- figure:
+  - img
+- text: Zoe Salinas Rush jobs OK, +25% surcharge
+- link:
+  - /url: https://www.example.com/zoesalinas
+- figure:
+  - img
+- text: Franklin Ramsey
+- link:
+  - /url: https://www.example.com/franklinramsey
+- figure:
+  - img
+- text: Aisha Gallagher Rush jobs OK, +25% surcharge
+- link:
+  - /url: https://www.example.com/aishagallagher
+- figure:
+  - img
+- text: Caleb Duarte
+- link:
+  - /url: https://www.example.com/calebduarte
+- figure:
+  - img
+- text: Colin Vargas Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/colinvargas
+- figure:
+  - img
+- text: Rhea Nash Open to travel, mileage billed separately
+- figure:
+  - img
+- text: Ruby Ramsey Has own studio space downtown
+- figure:
+  - img
+- text: Kendra Ellis
+- link:
+  - /url: https://www.example.com/kendraellis
+- figure:
+  - img
+- text: Greta Escobar Portfolio available on request
+- link:
+  - /url: https://www.example.com/gretaescobar
+- figure:
+  - img
+- text: Miles Mercer Owns full lighting kit, travels regionally
+- link:
+  - /url: https://www.example.com/milesmercer
+- figure:
+  - img
+- text: Iris Rodriguez Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: Bennett Patel Booked through end of quarter
+- link:
+  - /url: https://www.example.com/bennettpatel
+- figure:
+  - img
+- text: Aisha Lindqvist
+- figure:
+  - img
+- text: Angela Pruitt Rush jobs OK, +25% surcharge
+- figure:
+  - img
+- text: Ethan Tate
+- link:
+  - /url: https://www.example.com/ethantate
+- figure:
+  - img
+- text: Chloe Xu Open to travel, mileage billed separately
+- figure:
+  - img
+- text: Roman Blackwell
+- link:
+  - /url: https://www.example.com/romanblackwell
+- figure:
+  - img
+- text: Cora Sinclair Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: "James St. Clair Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/jamesstclair
+- figure:
+  - img
+- text: "Nolan Van Dyke Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/nolanvandyke
+- figure:
+  - img
+- text: Miles Sinclair Fast turnaround, 24-48 hours
+- link:
+  - /url: https://www.example.com/milessinclair
+- figure:
+  - img
+- text: Camila Kirkland Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/camilakirkland
+- figure:
+  - img
+- text: Diego Kirkland Open to travel, mileage billed separately
+- link:
+  - /url: https://www.example.com/diegokirkland
+- figure:
+  - img
+- text: Luk Kowalski Open to travel, mileage billed separately
+- figure:
+  - img
+- text: Willa Xu
+- figure:
+  - img
+- text: Emory Walsh
+- link:
+  - /url: https://www.example.com/emorywalsh
+- figure:
+  - img
+- text: Aisha MacGregor Available weekends only
+- link:
+  - /url: https://www.example.com/aishamacgregor
+- figure:
+  - img
+- text: Priya Lawson Has own studio space downtown
+- figure:
+  - img
+- text: Emmett MacGregor Available weekends only
+- figure:
+  - img
+- text: Quinn Ortega Available weekends only
+- figure:
+  - img
+- text: Greta Escobar Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: QAauto Qatkvcqy
+- figure:
+  - img
+- text: Walter Donnelly Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: Peter Bennett Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/peterbennett
+- figure:
+  - img
+- text: Liam Jimenez
+- figure:
+  - img
+- text: Miles Duarte
+- link:
+  - /url: https://www.example.com/milesduarte
+- figure:
+  - img
+- text: Paige Brennan Open to travel, mileage billed separately
+- link:
+  - /url: https://www.example.com/paigebrennan
+- figure:
+  - img
+- text: Maria Ortega
+- figure:
+  - img
+- text: Maya Van Dyke Drone-certified (Part 107)
+- figure:
+  - img
+- text: Walter Pruitt
+- link:
+  - /url: https://www.example.com/walterpruitt
+- figure:
+  - img
+- text: Naomi Ellis Has own studio space downtown
+- link:
+  - /url: https://www.example.com/naomiellis
+- figure:
+  - img
+- text: Yara Keller Uses natural light only approach
+- link:
+  - /url: https://www.example.com/yarakeller
+- figure:
+  - img
+- text: Emory Xu
+- figure:
+  - img
+- text: Silas Novak Has own studio space downtown
+- link:
+  - /url: https://www.example.com/silasnovak
+- figure:
+  - img
+- text: Greta Dawson Booked through end of quarter
+- figure:
+  - img
+- text: Priya Griffith Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/priyagriffith
+- figure:
+  - img
+- text: Nria Nakamura Fast turnaround, 24-48 hours
+- figure:
+  - img
+- text: Jos Jordan Available weekends only
+- link:
+  - /url: https://www.example.com/josejordan
+- figure:
+  - img
+- text: Tessa Montoya
+- link:
+  - /url: https://www.example.com/tessamontoya
+- figure:
+  - img
+- text: Silas MacGregor Owns full lighting kit, travels regionally
+- figure:
+  - img
+- text: Andre Novak Drone-certified (Part 107)
+- link:
+  - /url: https://www.example.com/andrenovak
+- figure:
+  - img
+- text: Chloe Carter
+- link:
+  - /url: https://www.example.com/chloecarter
+- figure:
+  - img
+- text: Liam Sutton
+- link:
+  - /url: https://www.example.com/liamsutton
+- figure:
+  - img
+- text: "Trevor O'Brien Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/trevorobrien
+- figure:
+  - img
+- text: Bennett Underwood
+- link:
+  - /url: https://www.example.com/bennettunderwood
+- figure:
+  - img
+- text: Zo Zimmerman
+- figure:
+  - img
+- text: Colin Duarte Drone-certified (Part 107)
+- figure:
+  - img
+- text: Lila Thornton Prefers on-site shoots; no studio
+- link:
+  - /url: https://www.example.com/lilathornton
+- figure:
+  - img
+- text: Nina Donnelly Rush jobs OK, +25% surcharge
+- link:
+  - /url: https://www.example.com/ninadonnelly
+- figure:
+  - img
+- text: Brody MacGregor
+- link:
+  - /url: https://www.example.com/brodymacgregor
+- figure:
+  - img
+- text: Imani Zapata
+- link:
+  - /url: https://www.example.com/imanizapata
+- figure:
+  - img
+- text: Chloe Coleman
+- link:
+  - /url: https://www.example.com/chloecoleman
+- figure:
+  - img
+- text: "Simone Trujillo Bilingual: English, Spanish"
+- link:
+  - /url: https://www.example.com/simonetrujillo
+- figure:
+  - img
+- text: Ethan Quiroz Has own studio space downtown
+- link:
+  - /url: https://www.example.com/ethanquiroz
+- figure:
+  - img
+- text: Paras Joshi PJ
+- figure:
+  - img
+- text: net rate
+- button "View All Photographers"
+- heading "Client Reviews" [level=1]
+- region "Gallery":
+  - list:
+    - listitem:
+      - paragraph: Love Phlox! Tom and his team never disappoint with their awesome action shots of my son on the field. We've also done a couple of photoshoots, which came out beautifully. The new studio in Cypress is stocked with new tech lighting, dressing rooms with lighted makeup mirrors, and plenty of space! Highly recommend!!
+      - heading "Amber Fields" [level=3]
+    - listitem:
+      - paragraph: Jo Ann Nowak is a professional. She has always delivered my son's sports photos on time and with the utmost professionalism. Thank you Phlox for great service.
+      - heading "La Tasha" [level=3]
+    - listitem:
+      - paragraph: Phlox has done an amazing job of capturing my child during athletic games. They capture action shots and sideline/dugout shots that truly capture the moment. When purchasing, I knew that I was getting the standard resolution downloads, and I couldn’t be happier with the quality and timeliness of delivery. Jo Ann Nowak and Carmen Agnew are two of the photographers from Phlox that I highly recommend.
+      - heading "Shelby Burroughs" [level=3]
+  - button "Navigate to previous slide":
+    - img "arrowLeft"
+  - button "Navigate to next slide":
+    - img "arrowRight"
+- img
+- contentinfo:
+  - list:
+    - listitem:
+      - link "Events":
+        - /url: /events-bundles
+    - listitem:
+      - link "Spotlight Bundles":
+        - /url: /bundles
+    - listitem:
+      - link "Find Your Photos":
+        - /url: https://phloxphotos.com/sports
+    - listitem:
+      - link "Services":
+        - /url: https://phloxphoto.com/phlox-productions/
+    - listitem:
+      - link "About":
+        - /url: https://phloxphoto.com/about/
+  - list:
+    - listitem:
+      - link "Photographers":
+        - /url: https://phloxphoto.com/about/
+    - listitem:
+      - link "Contact us":
+        - /url: https://phloxphoto.com/contact-us/
+    - listitem: Terms & Conditions
+    - listitem:
+      - link "Policy":
+        - /url: https://phloxphoto.com/fulfillment-policy/
+  - link "Footer logo Logo":
+    - /url: "#"
+    - img "Footer logo"
+    - text: Logo
+  - paragraph: Vype Photography is a collective of talented sports, commercial and personal portrait photographers, many of whom are nationally credentialed.
+  - link "Facebook":
+    - /url: https://www.facebook.com/phlox.photos/
+  - link "Twitter":
+    - /url: https://twitter.com/phloxphotos
+  - link "Instagram":
+    - /url: https://www.instagram.com/phlox.photo
+  - img "copyright": ©
+  - text: 2026 VYPE Sideline Photography. All rights reserved.
+```
+
+# Test source
+
+```ts
+  1  | const { test, expect } = require('@playwright/test');
+  2  | 
+  3  | // The account dropdown (top-right, class .user-details) opens on click and
+  4  | // contains My Spotlights, My Orders, and Logout.
+  5  | test('Logout from the account menu', async ({ page }) => {
+  6  |   // Already logged in via saved session (see auth.setup.js).
+  7  |   await page.goto('https://uat-phlox-frontend.netlify.app/events-bundles');
+  8  |   const account = page.locator('.navbar-item.has-dropdown.user-details');
+  9  |   await expect(account).toBeVisible({ timeout: 20000 });
+  10 |   await page.waitForLoadState('networkidle').catch(() => {});
+  11 | 
+  12 |   // Open the account dropdown and click Logout.
+  13 |   await account.locator('a.navbar-link').click();
+  14 |   await account.getByText('Logout', { exact: true }).click();
+  15 | 
+  16 |   // After logout the account dropdown is gone and Login is offered again
+  17 |   // (target the visible Login — there's a hidden mobile-menu duplicate).
+  18 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toHaveCount(0);
+  19 |   await expect(page.getByText('Login').filter({ visible: true }).first()).toBeVisible({
+  20 |     timeout: 10000,
+  21 |   });
+  22 | });
+  23 | 
+  24 | test('My Orders lists placed orders', async ({ page }) => {
+  25 |   await page.goto('https://uat-phlox-frontend.netlify.app/orders');
+> 26 |   await expect(page.getByRole('heading', { name: 'My Orders' })).toBeVisible({ timeout: 20000 });
+     |                                                                  ^ Error: expect(locator).toBeVisible() failed
+  27 |   // At least one order row (order number + a Receipts action) is shown.
+  28 |   await expect(page.getByText(/#\d+/).first()).toBeVisible();
+  29 |   await expect(page.getByText(/Receipts/i).first()).toBeVisible();
+  30 | });
+  31 | 
+  32 | // Simulated session expiry: clearing the auth cookies logs the user out.
+  33 | test('Clearing the session logs the user out', async ({ page }) => {
+  34 |   await page.goto('https://uat-phlox-frontend.netlify.app/events-bundles');
+  35 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toBeVisible({ timeout: 20000 });
+  36 | 
+  37 |   await page.context().clearCookies();
+  38 |   await page.reload();
+  39 | 
+  40 |   // The account dropdown is gone and Login is shown again.
+  41 |   await expect(page.locator('.navbar-item.has-dropdown.user-details')).toHaveCount(0);
+  42 |   await expect(page.getByText('Login').filter({ visible: true }).first()).toBeVisible({
+  43 |     timeout: 15000,
+  44 |   });
+  45 | });
+  46 | 
+  47 | // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
+  48 | test.afterEach(async ({ page }) => {
+  49 |   const ms = Number(process.env.DEMO_PAUSE || 0);
+  50 |   if (ms) await page.waitForTimeout(ms);
+  51 | });
+  52 | 
+```
