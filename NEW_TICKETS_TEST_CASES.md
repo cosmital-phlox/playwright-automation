@@ -24,15 +24,16 @@
 
 ## 1 · Profile setup (PAS-696)
 Verified: the avatar dropdown now shows a real **Profile** item (previously "coming soon").
+**Automated:** `tests/admin/profile.spec.js` (runs under the `admin`/UAT project). Page lives at `/profile` with sections **Basic**, **Photographer's Details**, **Upload Cover Photo**, **Admin Account**; fields are read-only until **Edit**, then a single **Save** button appears (no separate Cancel — leaving the page discards). Email is locked even in edit mode. No change-password flow on this page.
 
-| ID | Title | Pri | Steps | Expected |
-|---|---|---|---|---|
-| PROF-01 | Profile opens from avatar | P1 | Click avatar → Profile | Navigates to a profile page (not "coming soon") |
-| PROF-02 | Profile shows current user | P1 | Open profile | Shows the logged-in user's details (name, email, role, etc.) |
-| PROF-03 | Edit + save profile | P1 | Change an editable field → Save | Change persists on reopen; success feedback |
-| PROF-04 | Field validation | P2 | Submit invalid values (email/phone format, empty required) | Inline errors; blocked |
-| PROF-05 | Change password (if present) | P2 | Use change-password flow | Old→new works; weak/mismatch rejected |
-| PROF-06 | Cancel/back | P3 | Cancel edits | Discards; returns without saving |
+| ID | Title | Pri | Steps | Expected | Status |
+|---|---|---|---|---|---|
+| PROF-01 | Profile opens from avatar | P1 | Click avatar → Profile | Navigates to `/profile` (not "coming soon") | ✅ automated |
+| PROF-02 | Profile shows current user | P1 | Open profile | Shows the logged-in user's details (name, email, phone, role, etc.) across the 4 sections | ✅ automated |
+| PROF-03 | Edit + save profile | P1 | Edit → change a field → Save | Change persists on reopen (spec edits Short Note, verifies, then restores) | ✅ automated |
+| PROF-04 | Field validation | P2 | Clear a required field (First Name) → Save | Inline error "Please enter a First Name"; save blocked | ✅ automated |
+| PROF-05 | Change password | P2 | — | **No change-password flow on the Profile page** — out of scope here | ⬜ skipped (N/A) |
+| PROF-06 | Email non-editable | P3 | Edit mode | Email field stays disabled (identity field) even while other fields are editable | ✅ automated |
 
 ## 2 · Zip code at user level (PAS-702)
 Verified: Add User has a **"ZIP / Postal code"** field.
