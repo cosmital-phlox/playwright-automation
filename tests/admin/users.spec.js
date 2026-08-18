@@ -291,6 +291,17 @@ test('Sorting by Name marks the column sorted', async ({ page }) => {
   await expect(nameHeader).toHaveClass(/ant-table-column-sort/, { timeout: 10000 });
 });
 
+// ---------------------------------------------------------------------------
+// Aug 2026 release ticket — zip code at user level
+// ---------------------------------------------------------------------------
+// PAS-702 — Add User form has a ZIP / Postal code field.
+test('PAS-702 Add User form has a ZIP / Postal code field', async ({ page }) => {
+  await page.goto('https://uat-phlox-admin.netlify.app/users/add-user', { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await expect(page.locator('label', { hasText: /ZIP \/ Postal code/i }).first()).toBeVisible({ timeout: 15000 });
+  await expect(page.locator('#zip')).toBeVisible();
+});
+
 // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
 test.afterEach(async ({ page }) => {
   const ms = Number(process.env.DEMO_PAUSE || 0);

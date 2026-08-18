@@ -191,6 +191,34 @@ test.fixme('Delete removes a Media Day (with confirmation)', async ({ page }) =>
   expect(resp.ok()).toBeTruthy();
 });
 
+// ---------------------------------------------------------------------------
+// Vype Media Days module — July 2026 release tickets
+// ---------------------------------------------------------------------------
+const MD_BASE = 'https://uat-phlox-admin.netlify.app';
+const MD_ROWS = '.ant-table-tbody tr:not(.ant-table-measure-row)';
+
+// PAS-719 — a VYPE Media Days row navigates to its dedicated edit page,
+// not a generic/wrong event edit page.
+test('PAS-719 Media Day row navigates to /events/edit-media-day/{id}', async ({ page }) => {
+  test.slow();
+  await page.goto(`${MD_BASE}/events/media-days`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  const row = page.locator(MD_ROWS).first();
+  await expect(row).toBeVisible({ timeout: 20000 });
+  await row.locator('td').last().locator('svg,a,button').last().click({ timeout: 6000 });
+  await expect(page).toHaveURL(/\/events\/edit-media-day\/\d+/, { timeout: 20000 });
+});
+
+// PAS-711 — the Media Day form surfaces auto-generated suggested titles.
+test('PAS-711 Media Day edit form shows suggested titles', async ({ page }) => {
+  test.slow();
+  await page.goto(`${MD_BASE}/events/media-days`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await page.locator(MD_ROWS).first().locator('td').last().locator('svg,a,button').last().click({ timeout: 6000 });
+  await expect(page).toHaveURL(/edit-media-day\/\d+/, { timeout: 20000 });
+  await expect(page.getByText(/suggest/i).first()).toBeVisible({ timeout: 12000 });
+});
+
 // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
 test.afterEach(async ({ page }) => {
   const ms = Number(process.env.DEMO_PAUSE || 0);

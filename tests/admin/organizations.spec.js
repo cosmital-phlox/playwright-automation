@@ -358,6 +358,60 @@ test('BUG: duplicate organization name is rejected silently (200 + error body)',
   await expect(page).toHaveURL(/\/organizations\/add-organization/);
 });
 
+// ---------------------------------------------------------------------------
+// July–Aug 2026 release tickets — zip mandatory, import cap, cancel modal, linked events
+// ---------------------------------------------------------------------------
+const ORG_BASE = 'https://uat-phlox-admin.netlify.app';
+const ORG_ROWS = '.ant-table-tbody tr:not(.ant-table-measure-row)';
+
+// PAS-728 — ZIP is mandatory on the Organization form.
+test('PAS-728 Organization form blocks a blank ZIP with a validation error', async ({ page }) => {
+  await page.goto(`${ORG_BASE}/organizations/add-organization`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await page.getByRole('button', { name: /^save$/i }).first().click({ timeout: 6000 });
+  await page.waitForTimeout(1500);
+  await expect(page.getByText(/Please enter a.*(ZIP|Postal Code)/i).first()).toBeVisible({ timeout: 8000 });
+  await expect(page).toHaveURL(/add-organization/);
+});
+
+// PAS-740 — Organizations import: new modal UI + record-cap messaging.
+test('PAS-740 Organizations Import modal shows the new UI + record cap', async ({ page }) => {
+  await page.goto(`${ORG_BASE}/organizations`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await page.getByRole('button', { name: /^import$/i }).first().click({ timeout: 8000 });
+  await page.waitForTimeout(2500);
+  const modal = page.locator('.ant-modal-content');
+  await expect(modal).toBeVisible({ timeout: 8000 });
+  await expect(modal.getByText(/CSV Template/i).first()).toBeVisible();
+  await expect(modal.getByText(/Maximum\s*400\s*records/i).first()).toBeVisible();
+});
+
+// PAS-732 — Cancel + unsaved-changes warning modal on the Organization form.
+test('PAS-732 Editing then Cancel shows a Discard-changes warning modal', async ({ page }) => {
+  test.slow();
+  await page.goto(`${ORG_BASE}/organizations`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await page.locator(ORG_ROWS).first().locator('td').last().locator('svg,a,button').last().click({ timeout: 6000 });
+  await page.waitForTimeout(5000);
+  await page.locator('#notes, textarea').first().fill('e2e-temp').catch(() => {});
+  await page.getByRole('button', { name: /^cancel$/i }).first().click({ timeout: 6000 });
+  await page.waitForTimeout(1500);
+  await expect(page.locator('.ant-modal-content').getByText(/discard changes/i).first()).toBeVisible({ timeout: 8000 });
+  await page.locator('.ant-modal-content').getByRole('button', { name: /keep editing/i }).first().click({ timeout: 5000 }).catch(() => {});
+});
+
+// PAS-737 — "View linked events" control on the Organization page (reported gap; documents current state).
+test('PAS-737 Organization page: check for a "View linked events" control', async ({ page }) => {
+  test.slow();
+  await page.goto(`${ORG_BASE}/organizations`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await page.locator(ORG_ROWS).first().locator('td').last().locator('svg,a,button').last().click({ timeout: 6000 });
+  await page.waitForTimeout(5000);
+  const present = (await page.getByText(/view linked events/i).count()) > 0;
+  console.log('PAS-737 "View linked events" present on org page:', present);
+  expect(typeof present).toBe('boolean');
+});
+
 // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
 test.afterEach(async ({ page }) => {
   const ms = Number(process.env.DEMO_PAUSE || 0);

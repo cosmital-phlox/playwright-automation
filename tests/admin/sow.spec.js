@@ -179,6 +179,33 @@ test('GAP: empty Save shows no validation and does not submit', async ({ page })
   await expect(page).toHaveURL(/\/events\/add-sow/);
 });
 
+// ---------------------------------------------------------------------------
+// July 2026 release tickets — SOW logs & linked Media Days
+// ---------------------------------------------------------------------------
+const SOW_BASE = 'https://uat-phlox-admin.netlify.app';
+const SOW_ROWS = '.ant-table-tbody tr:not(.ant-table-measure-row)';
+
+// PAS-734 — SOW has an audit-log timeline, mirroring Media Days.
+test('PAS-734 SOW detail shows an audit-log / history section', async ({ page }) => {
+  test.slow();
+  await page.goto(`${SOW_BASE}/events/statement-of-work`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await expect(page.locator(SOW_ROWS).first()).toBeVisible({ timeout: 20000 });
+  await page.locator(SOW_ROWS).first().locator('td').last().locator('svg,a,button').last().click({ timeout: 6000 });
+  await page.waitForTimeout(6000);
+  await expect(page.getByText(/Logs|History|Activity/i).first()).toBeVisible({ timeout: 15000 });
+});
+
+// PAS-710 — the SOW shows a live Linked Media Days table (values reflect without relink).
+test('PAS-710 SOW detail shows a Linked Media Days table', async ({ page }) => {
+  test.slow();
+  await page.goto(`${SOW_BASE}/events/statement-of-work`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await page.locator(SOW_ROWS).first().locator('td').last().locator('svg,a,button').last().click({ timeout: 6000 });
+  await page.waitForTimeout(6000);
+  await expect(page.getByText(/Linked Media Days/i).first()).toBeVisible({ timeout: 12000 });
+});
+
 // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
 test.afterEach(async ({ page }) => {
   const ms = Number(process.env.DEMO_PAUSE || 0);

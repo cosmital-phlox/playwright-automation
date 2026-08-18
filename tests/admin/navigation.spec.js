@@ -42,6 +42,16 @@ test('Sidebar links navigate to every admin module', async ({ page }) => {
   }
 });
 
+// ---------------------------------------------------------------------------
+// July 2026 release ticket — environment switcher
+// ---------------------------------------------------------------------------
+// PAS-542 — the admin header exposes an environment switcher (Staging/UAT/Live).
+test('PAS-542 Header shows an environment switcher', async ({ page }) => {
+  await page.goto('https://uat-phlox-admin.netlify.app/events/vype-sideline', { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await expect(page.getByText(/^(STAGING|UAT|Live)$/i).first()).toBeVisible({ timeout: 15000 });
+});
+
 // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
 test.afterEach(async ({ page }) => {
   const ms = Number(process.env.DEMO_PAUSE || 0);

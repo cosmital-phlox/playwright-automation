@@ -390,3 +390,38 @@ test.describe('H · Validation', () => {
     await expect(page).toHaveURL(/add-role/);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Aug 2026 release tickets — new permission UI & filter retention
+// ---------------------------------------------------------------------------
+const RA_BASE = 'https://uat-phlox-admin.netlify.app';
+const RA_ROWS = '.ant-table-tbody tr:not(.ant-table-measure-row)';
+
+// PAS-718 — the redesigned icon-based permission builder (grouped domains + grant counters).
+test('PAS-718 Role edit shows the icon-based permission builder', async ({ page }) => {
+  test.slow();
+  await page.goto(`${RA_BASE}/roles`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await page.locator(RA_ROWS).first().locator('td').last().locator('svg,a,button').last().click({ timeout: 6000 });
+  await page.waitForTimeout(5000);
+  await expect(page).toHaveURL(/roles\/(edit-role|view)/i);
+  await expect(page.getByText(/Sales & Operations|Catalog|Administration|Finance/i).first()).toBeVisible({ timeout: 15000 });
+  await expect(page.getByText(/\d\/\d/).first()).toBeVisible({ timeout: 10000 });
+});
+
+// PAS-736 — the list filter is applied/retained (mechanism behind edit-save->list-with-filters).
+test('PAS-736 Roles list filter applies and narrows the result set', async ({ page }) => {
+  test.slow();
+  await page.goto(`${RA_BASE}/roles`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  const unfiltered = await page.locator(RA_ROWS).count();
+  expect(unfiltered).toBeGreaterThan(0);
+  const search = page.getByPlaceholder(/search/i).first();
+  await search.fill('Photographer');
+  await search.press('Enter');
+  await page.waitForTimeout(3500);
+  const filtered = await page.locator(RA_ROWS).count();
+  expect(filtered).toBeGreaterThan(0);
+  expect(filtered).toBeLessThanOrEqual(unfiltered);
+  expect((await page.locator(RA_ROWS).allTextContents()).join(' ')).toMatch(/Photographer/i);
+});

@@ -238,6 +238,91 @@ test('Publishing a conflicting event shows the schedule-conflict modal', async (
   await expect(page).toHaveURL(/\/events\/add-event/);
 });
 
+// ---------------------------------------------------------------------------
+// July 2026 release tickets — Events list & org reassignment
+// ---------------------------------------------------------------------------
+const EV_BASE = 'https://uat-phlox-admin.netlify.app';
+const EV_ROWS = '.ant-table-tbody tr:not(.ant-table-measure-row)';
+
+// PAS-698 — Admin staff personalization: the list defaults to the logged-in user.
+test('PAS-698 Events list applies the logged-in user as the default Staff filter', async ({ page }) => {
+  await page.goto(`${EV_BASE}/events/vype-sideline`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  const staffChip = page.locator('.ant-select-selection-item').filter({ hasText: /[A-Za-z]+ [A-Za-z]+/ }).first();
+  expect(/staff=\d+/.test(page.url()) || (await staffChip.count()) > 0).toBeTruthy();
+});
+
+// PAS-717 — the Sideline list API is not fired twice when switching tabs.
+test('PAS-717 Each tab fires its list API exactly once (no double call)', async ({ page }) => {
+  test.slow();
+  let md = 0;
+  page.on('request', (r) => { if (/\/api\/media-days\/get-all/i.test(r.url())) md++; });
+  await page.goto(`${EV_BASE}/events/vype-sideline`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(5000);
+  md = 0;
+  await page.getByText('Vype Media Days', { exact: false }).first().click({ timeout: 8000 });
+  await page.waitForTimeout(4000);
+  expect(md, 'media-days list API should fire at most once per tab switch').toBeLessThanOrEqual(1);
+});
+
+// PAS-720 — pagination returns fresh next-page data (no stale page-1 rows).
+test('PAS-720 Pagination returns fresh next-page data', async ({ page }) => {
+  test.slow();
+  await page.goto(`${EV_BASE}/events/vype-sideline`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  const titlesOf = async () => (await page.locator(`${EV_ROWS} td:nth-child(2)`).allTextContents()).map((t) => t.trim()).filter(Boolean);
+  const page1 = await titlesOf();
+  expect(page1.length).toBeGreaterThan(0);
+  await page.locator('.ant-pagination-next').click({ timeout: 6000 });
+  await page.waitForTimeout(4000);
+  const page2 = await titlesOf();
+  expect(page2.length).toBeGreaterThan(0);
+  expect(page2.filter((t) => page1.includes(t)).length, 'page 2 must not repeat page 1 rows').toBe(0);
+});
+
+// PAS-760 — reassign an event's organization (Home Team), assert it persists, then revert.
+test('PAS-760 Reassign event 2753 Home Team, assert persist, then revert', async ({ page }) => {
+  test.slow();
+  test.setTimeout(120000);
+  let saveStatus = null;
+  page.on('response', (r) => {
+    if (/\/api\/events\/update-one/i.test(r.url()) && r.request().method() === 'POST') saveStatus = r.status();
+  });
+  const setHome = async (to) => {
+    const ht = page.locator('#homeTeam').locator('xpath=ancestor::div[contains(@class,"ant-select")][1]');
+    await ht.locator('.ant-select-selection-item-remove, .ant-select-clear').first().click({ timeout: 3000 }).catch(() => {});
+    await page.waitForTimeout(500); await ht.click({ timeout: 6000 }); await page.waitForTimeout(400);
+    await page.keyboard.type(to, { delay: 25 }); await page.waitForTimeout(1700);
+    const opt = page.locator('.ant-select-dropdown:not(.ant-select-dropdown-hidden) .ant-select-item-option', { hasText: new RegExp('^' + to + '$', 'i') }).first();
+    await opt.scrollIntoViewIfNeeded().catch(() => {});
+    await opt.click({ timeout: 4000, force: true }).catch(async () => { await page.keyboard.press('Enter'); });
+    await page.waitForTimeout(1000);
+  };
+  await page.goto(`${EV_BASE}/events/edit-event/2753`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(7000);
+  const anchor = page.locator('#homeTeam').locator('xpath=ancestor::div[contains(@class,"ant-select")][1]');
+  await expect(anchor).toContainText(/Lake Travis/i);
+
+  await setHome('Lake Travis HS');
+  saveStatus = null;
+  await page.getByRole('button', { name: /save and publish/i }).first().click({ timeout: 6000 });
+  await page.waitForTimeout(8000);
+  expect(saveStatus, 'update-one should return 200').toBe(200);
+  await expect(page).toHaveURL(/vype-sideline/);
+
+  await page.goto(`${EV_BASE}/events/edit-event/2753`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await expect(page.locator('#homeTeam').locator('xpath=ancestor::div[contains(@class,"ant-select")][1]')).toContainText(/Lake Travis HS/i);
+
+  // revert (cleanup)
+  await setHome('Lake Travis');
+  await page.getByRole('button', { name: /save and publish/i }).first().click({ timeout: 6000 });
+  await page.waitForTimeout(7000);
+  await page.goto(`${EV_BASE}/events/edit-event/2753`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(6000);
+  await expect(page.locator('#homeTeam').locator('xpath=ancestor::div[contains(@class,"ant-select")][1]')).toContainText(/^Lake Travis$/i);
+});
+
 // Demo pause between tests: set DEMO_PAUSE=3000 (ms). No-op otherwise.
 test.afterEach(async ({ page }) => {
   const ms = Number(process.env.DEMO_PAUSE || 0);
