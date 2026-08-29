@@ -1,0 +1,80 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: staff/staff.setup.js >> authenticate staff
+- Location: tests/staff/staff.setup.js:26:1
+
+# Error details
+
+```
+Error: No staff session and STAFF_PASSWORD not set. Run with STAFF_PASSWORD=... npx playwright test --project=staff-setup (see staff.setup.js).
+```
+
+# Test source
+
+```ts
+  1  | const { test: setup, expect } = require('@playwright/test');
+  2  | const fs = require('fs');
+  3  | 
+  4  | // One-time login for a NON-ADMIN staff user on UAT admin (uat-phlox-admin),
+  5  | // used to verify per-role enforcement / staff-scoped visibility (PAS-692) that
+  6  | // the admin account can't exercise. Saves the session to
+  7  | // playwright/.auth/staff.json (gitignored). The PASSWORD must come from env:
+  8  | //   STAFF_PASSWORD=... npx playwright test --project=staff-setup
+  9  | // Default account is a limited "staff / photographer"-role user (no wildcard,
+  10 | // no roles.manage). Override with STAFF_EMAIL if needed.
+  11 | const authFile = 'playwright/.auth/staff.json';
+  12 | const BASE = 'https://uat-phlox-admin.netlify.app';
+  13 | const EMAIL = process.env.STAFF_EMAIL || 'raj.pal@hnrtech.com';
+  14 | const PASSWORD = process.env.STAFF_PASSWORD;
+  15 | 
+  16 | function hasSavedSession() {
+  17 |   if (!fs.existsSync(authFile)) return false;
+  18 |   try {
+  19 |     const state = JSON.parse(fs.readFileSync(authFile, 'utf8'));
+  20 |     return (state.cookies || []).some((c) => c.name === 'token' && c.value);
+  21 |   } catch {
+  22 |     return false;
+  23 |   }
+  24 | }
+  25 | 
+  26 | setup('authenticate staff', async ({ browser }) => {
+  27 |   if (hasSavedSession()) {
+  28 |     setup.skip(true, 'Saved staff session present — skipping login.');
+  29 |     return;
+  30 |   }
+  31 |   if (!PASSWORD) {
+> 32 |     throw new Error(
+     |           ^ Error: No staff session and STAFF_PASSWORD not set. Run with STAFF_PASSWORD=... npx playwright test --project=staff-setup (see staff.setup.js).
+  33 |       'No staff session and STAFF_PASSWORD not set. Run with ' +
+  34 |         'STAFF_PASSWORD=... npx playwright test --project=staff-setup (see staff.setup.js).'
+  35 |     );
+  36 |   }
+  37 | 
+  38 |   const ctx = await browser.newContext();
+  39 |   const page = await ctx.newPage();
+  40 | 
+  41 |   await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  42 |   const email = page.getByPlaceholder('Enter Your Email');
+  43 |   await expect(email).toBeVisible({ timeout: 30000 });
+  44 |   await page.waitForTimeout(3000); // form re-renders after the verify-token check
+  45 | 
+  46 |   await email.fill(EMAIL);
+  47 |   const pwd = page.getByPlaceholder('Enter Your Password');
+  48 |   await pwd.fill(PASSWORD);
+  49 |   if ((await email.inputValue()) !== EMAIL) await email.fill(EMAIL);
+  50 |   if ((await pwd.inputValue()) !== PASSWORD) await pwd.fill(PASSWORD);
+  51 | 
+  52 |   await page.getByRole('button', { name: 'Login' }).click();
+  53 |   await expect(page).toHaveURL(/\/events/, { timeout: 30000 });
+  54 | 
+  55 |   await ctx.storageState({ path: authFile });
+  56 |   await ctx.close();
+  57 | });
+  58 | 
+```
